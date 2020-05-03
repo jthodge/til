@@ -7,10 +7,15 @@
 ### Areas
 
 * [Chrome](#chrome)
+* [GitHub](#github)
 
 ### Chrome
 
 - [Use Logpoints to log messages to the console](chrome/use-logpoints-to-log-messages-to-the-console.md)
+
+### GitHUb
+
+- [Use the Fuzzy File Finder to Navigate Repos](github/use-the-fuzzy-file-finder-to-navigate-repos.md)
 
 ## About
 
