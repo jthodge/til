@@ -17,6 +17,8 @@
 ### Git
 
 - [Push an Empty Commit](git/push-an-empty-commit.md)
+- [Use Exclamation Marks in Commit Messages](git/use-exclamation-marks-in-commit-messages.md)
+
 
 ### GitHub
 
