@@ -16,7 +16,7 @@
 
 ### Git
 
--[Push an Empty Commit](git/push-an-empty-commit.md)
+- [Push an Empty Commit](git/push-an-empty-commit.md)
 
 ### GitHub
 
