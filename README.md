@@ -7,13 +7,18 @@
 ### Areas
 
 * [Chrome](#chrome)
+* [Git](#git)
 * [GitHub](#github)
 
 ### Chrome
 
 - [Use Logpoints to log messages to the console](chrome/use-logpoints-to-log-messages-to-the-console.md)
 
-### GitHUb
+### Git
+
+-[Push an Empty Commit](git/push-an-empty-commit.md)
+
+### GitHub
 
 - [Use the Fuzzy File Finder to Navigate Repos](github/use-the-fuzzy-file-finder-to-navigate-repos.md)
 
