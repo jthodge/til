@@ -9,6 +9,7 @@
 * [Chrome](#chrome)
 * [Git](#git)
 * [GitHub](#github)
+* [VS Code](#vscode)
 
 ### Chrome
 
@@ -23,6 +24,10 @@
 ### GitHub
 
 - [Use the Fuzzy File Finder to Navigate Repos](github/use-the-fuzzy-file-finder-to-navigate-repos.md)
+
+### VS Code
+
+- [Navigate Your Cursor Position History](vscode/navigate-your-cursor-position-history.md)
 
 ## About
 
