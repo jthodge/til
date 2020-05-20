@@ -9,7 +9,7 @@
 * [Chrome](#chrome)
 * [Git](#git)
 * [GitHub](#github)
-* [VS Code](#vscode)
+* [VS Code](#vs-code)
 
 ### Chrome
 
