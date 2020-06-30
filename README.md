@@ -9,6 +9,7 @@
 * [Chrome](#chrome)
 * [Git](#git)
 * [GitHub](#github)
+* [HTTP](#http)
 * [VS Code](#vs-code)
 
 ### Chrome
@@ -24,6 +25,10 @@
 ### GitHub
 
 - [Use the Fuzzy File Finder to Navigate Repos](github/use-the-fuzzy-file-finder-to-navigate-repos.md)
+
+### HTTP
+
+- [CORS Preflight Requests Communicate Which Methods and Headers a Server Should Allow](http/cors-preflight-requests-communicate-which-methods-and-headers-a-server-should-allow.md)
 
 ### VS Code
 
