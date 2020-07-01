@@ -6,11 +6,16 @@
 
 ### Areas
 
+* [Character Encoding](#character-encoding)
 * [Chrome](#chrome)
 * [Git](#git)
 * [GitHub](#github)
 * [HTTP](#http)
 * [VS Code](#vs-code)
+
+### Character Encoding
+
+- [`=` Serves as Padding in Base64 Encoded Strings](character-encoding/equal-serves-as-padding-in-base64-encoded-strings.md)
 
 ### Chrome
 
