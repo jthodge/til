@@ -39,6 +39,7 @@
 
 - [Run `rbenv rehash` to Use Newly Installed Versions of Ruby or Gems](ruby/run-rbenv-rehash-to-use-newly-installed-versions-of-ruby-or-gems.md)
 - [Skip Installing Ruby Docs](ruby/skip-installing-ruby-docs.md)
+- [Specify a Gem Version Range](ruby/specify-a-gem-version-range.md)
 
 ### VS Code
 
