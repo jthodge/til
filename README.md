@@ -4,7 +4,7 @@
 
 ---
 
-### Areas
+## Areas
 
 - [Character Encoding](#character-encoding)
 - [Chrome](#chrome)
