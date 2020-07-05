@@ -10,6 +10,8 @@ Chrome DevTools has built-in screenshot functionality. You can capture screensho
 
 4. Capure the screenshot for your preferred view.
 
+<img width="1392" alt="Screen Shot 2020-07-05 at 3 49 51 PM" src="https://user-images.githubusercontent.com/17075617/86541163-afcecb00-bed8-11ea-939a-a575601cc364.png">
+
 There are four view options for capturing screenshots:
 
 - "_Capture area screenshot_" allows you to capture a given area using a height/width selection tool.
