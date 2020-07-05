@@ -21,6 +21,7 @@
 ### Chrome
 
 - [Use Logpoints to log messages to the console](chrome/use-logpoints-to-log-messages-to-the-console.md)
+- [Use DevTools to take screenshots](chrome/use-devtools-to-take-screenshots.md)
 
 ### Git
 
