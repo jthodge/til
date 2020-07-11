@@ -31,6 +31,7 @@
 ### GitHub
 
 - [Use the Fuzzy File Finder to Navigate Repos](github/use-the-fuzzy-file-finder-to-navigate-repos.md)
+- [Use Relative Paths to Link to Wiki Pages from README](github/use-relative-paths-to-link-to-wiki-pages-from-README.md)
 
 ### HTTP
 
