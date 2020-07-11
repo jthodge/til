@@ -1,4 +1,4 @@
-# Use Relative Paths to Link to Wiki Pages from README
+# Use Relative Paths to Link to Wiki Pages from README.md
 
 You can create a link from a repo's README.md to a repo's Wiki using relative paths.
 
@@ -12,4 +12,4 @@ And a repo's Wiki is located here:
 
 You can crawl up two levels from README.md to the Wiki:
 
-`[Article Title](../../wiki/article-title)
+`[Article Title](../../wiki/article-title)`
