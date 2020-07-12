@@ -27,6 +27,7 @@
 
 - [Push an Empty Commit](git/push-an-empty-commit.md)
 - [Use Exclamation Marks in Commit Messages](git/use-exclamation-marks-in-commit-messages.md)
+- [Use Multiple `git commit` Message Flags to Create Multiline Commits](git/use-multiple-git-commit-message-flags-to-create-multiline-commits.md)
 
 ### GitHub
 
