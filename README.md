@@ -48,6 +48,7 @@
 ### VS Code
 
 - [Navigate Your Cursor Position History](vscode/navigate-your-cursor-position-history.md)
+- [Disable Jest Test Runner Auto Run](vscode/disable-jest-test-runner-auto-run.md)
 
 ## About
 
