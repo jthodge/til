@@ -8,6 +8,7 @@
 
 - [Character Encoding](#character-encoding)
 - [Chrome](#chrome)
+- [Cloudflare](#cloudflare)
 - [Git](#git)
 - [GitHub](#github)
 - [HTTP](#http)
@@ -22,6 +23,10 @@
 
 - [Use Logpoints to Log Messages to the Console](chrome/use-logpoints-to-log-messages-to-the-console.md)
 - [Use DevTools to Take Screenshots](chrome/use-devtools-to-take-screenshots.md)
+
+### Cloudflare
+
+- [Implement GraphQL Servers in Cloudflare Workers](cloudflare/implement-graphql-servers-in-cloudflare-workers.md)
 
 ### Git
 
