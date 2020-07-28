@@ -42,6 +42,7 @@
 
 ### Go
 
+- [Concatenate Strings Efficiently with `bytes.Buffer` and `strings.Builder`](go/concatenate-strings-efficiently-with-bytesbuffer-and-stringsbuilder.md)
 - [Create Multiline Strings Using Backticks](go/create-multiline-strings-using-backticks.md)
 
 ### HTTP
