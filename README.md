@@ -52,6 +52,7 @@
 
 ### Postgres
 
+- [Export Text Without Headers and Formatting](postgres/export-text-without-headers-and-formatting.md)
 - [Write a Query Result to a File](postgres/write-a-query-result-to-a-file.md)
 
 ### Ruby
