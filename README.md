@@ -40,6 +40,10 @@
 - [Use the Fuzzy File Finder to Navigate Repos](github/use-the-fuzzy-file-finder-to-navigate-repos.md)
 - [Use Relative Paths to Link to Wiki Pages from README](github/use-relative-paths-to-link-to-wiki-pages-from-README.md)
 
+### Go
+
+- [Create Multiline Strings Using Backticks](go/create-multiline-strings-using-backticks.md)
+
 ### HTTP
 
 - [CORS Preflight Requests Communicate Which Methods and Headers a Server Should Allow](http/cors-preflight-requests-communicate-which-methods-and-headers-a-server-should-allow.md)
