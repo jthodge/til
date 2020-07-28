@@ -12,6 +12,7 @@
 - [Git](#git)
 - [GitHub](#github)
 - [HTTP](#http)
+- [Postgres](#postgres)
 - [Ruby](#ruby)
 - [VS Code](#vs-code)
 
@@ -48,6 +49,10 @@
 ### HTTP
 
 - [CORS Preflight Requests Communicate Which Methods and Headers a Server Should Allow](http/cors-preflight-requests-communicate-which-methods-and-headers-a-server-should-allow.md)
+
+### Postgres
+
+- [Write a Query Result to a File](postgres/write-a-query-result-to-a-file.md)
 
 ### Ruby
 
