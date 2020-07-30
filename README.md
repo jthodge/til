@@ -14,6 +14,7 @@
 - [HTTP](#http)
 - [Postgres](#postgres)
 - [Ruby](#ruby)
+- [Unix](#unix)
 - [VS Code](#vs-code)
 
 ### Character Encoding
@@ -60,6 +61,10 @@
 - [Run `rbenv rehash` to Use Newly Installed Versions of Ruby or Gems](ruby/run-rbenv-rehash-to-use-newly-installed-versions-of-ruby-or-gems.md)
 - [Skip Installing Ruby Docs](ruby/skip-installing-ruby-docs.md)
 - [Specify a Gem Version Range](ruby/specify-a-gem-version-range.md)
+
+### Unix
+
+- [Look Up DNS with `host`](unix/look-up-dns-with-host.md)
 
 ### VS Code
 
