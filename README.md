@@ -33,6 +33,7 @@
 ### Git
 
 - [Push an Empty Commit](git/push-an-empty-commit.md)
+- [The Differences Between `.git/info/exclude` and `.gitignore`](git/the-differences-between-git-info-exclude-and-gitignore.md)
 - [Use Exclamation Marks in Commit Messages](git/use-exclamation-marks-in-commit-messages.md)
 - [Use Multiple `git commit` Message Flags to Create Multiline Commits](git/use-multiple-git-commit-message-flags-to-create-multiline-commits.md)
 
