@@ -32,7 +32,7 @@
 
 ### Git
 
-- [Git Only Stores Timestamps and Author Information on Commits](git-only-stores-timestamp-and-author-information-on-commits.md)
+- [Git Only Stores Timestamps and Author Information on Commits](git/git-only-stores-timestamp-and-author-information-on-commits.md)
 - [Push an Empty Commit](git/push-an-empty-commit.md)
 - [The Differences Between `.git/info/exclude` and `.gitignore`](git/the-differences-between-git-info-exclude-and-gitignore.md)
 - [Use Exclamation Marks in Commit Messages](git/use-exclamation-marks-in-commit-messages.md)
