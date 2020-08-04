@@ -12,6 +12,7 @@
 - [Git](#git)
 - [GitHub](#github)
 - [HTTP](#http)
+- [JavaScript](#javascript)
 - [Postgres](#postgres)
 - [Ruby](#ruby)
 - [Unix](#unix)
