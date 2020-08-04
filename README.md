@@ -53,6 +53,10 @@
 
 - [CORS Preflight Requests Communicate Which Methods and Headers a Server Should Allow](http/cors-preflight-requests-communicate-which-methods-and-headers-a-server-should-allow.md)
 
+### JavaScript
+
+- [Inconsistencies in `Date`](javascript/inconsistencies-in-date.md)
+
 ### Postgres
 
 - [Export Text Without Headers and Formatting](postgres/export-text-without-headers-and-formatting.md)
