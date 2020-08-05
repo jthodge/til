@@ -74,6 +74,7 @@
 ### Unix
 
 - [Look Up DNS with `host`](unix/look-up-dns-with-host.md)
+- [Suppress File Names When Grepping Across Multiple Files](unix/suppress-file-names-when-grepping-across-multiple-files.md)
 
 ### VS Code
 
