@@ -13,6 +13,7 @@
 - [GitHub](#github)
 - [HTTP](#http)
 - [JavaScript](#javascript)
+- [MacOS](#macos)
 - [Postgres](#postgres)
 - [Ruby](#ruby)
 - [Unix](#unix)
@@ -57,6 +58,10 @@
 ### JavaScript
 
 - [Inconsistencies in `Date`](javascript/inconsistencies-in-date.md)
+
+### MacOS
+
+- [Perform Search Engine Queries from Spotlight](macos/perform-search-engine-queries-from-spotlight.md)
 
 ### Postgres
 
