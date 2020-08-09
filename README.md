@@ -58,6 +58,7 @@
 ### JavaScript
 
 - [Inconsistencies in `Date`](javascript/inconsistencies-in-date.md)
+- [Use Numeric Separators to Parse Large Numbers by Eye](javascript/use-numeric-separators-to-parse-large-numbers-by-eye.md)
 
 ### MacOS
 
