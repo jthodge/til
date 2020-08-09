@@ -44,7 +44,7 @@ And finally, delete the remote's original branch:
 git push origin --delete master
 ```
 
-👆_NB. Remote repo hosts like GitHub and GitLab don't allow deleting the `master` branch from the local repo. You'll receive an error like:
+👆*NB. Remote repo hosts like GitHub and GitLab don't allow deleting the `master` branch from the local repo. You'll receive an error*:
 
 ```terminal
 til on  main
@@ -54,4 +54,4 @@ To https://github.com/jthodge/til.git
 error: failed to push some refs to 'https://github.com/jthodge/til.git'
 ```
 
-To delete the `master` branch for each of these services, it's required to use their web applications.
+_To delete the `master` branch for each of these services, it's required to use their web applications._
