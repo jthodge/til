@@ -14,6 +14,7 @@
 - [HTTP](#http)
 - [JavaScript](#javascript)
 - [MacOS](#macos)
+- [Posix](#posix)
 - [Postgres](#postgres)
 - [Ruby](#ruby)
 - [Unix](#unix)
@@ -65,6 +66,10 @@
 
 - [Perform Search Engine Queries from Spotlight](macos/perform-search-engine-queries-from-spotlight.md)
 
+### Posix
+
+- [The Difference Between `Ctrl+c` and `Ctrl+\`](posix/the-difference-between-control-c-and-control-backslash.md)
+
 ### Postgres
 
 - [Export Text Without Headers and Formatting](postgres/export-text-without-headers-and-formatting.md)
@@ -81,6 +86,7 @@
 ### Unix
 
 - [Look Up DNS with `host`](unix/look-up-dns-with-host.md)
+- [Reset Terminal Password Prompt](unix/reset-terminal-password-prompt.md)
 - [Suppress File Names When Grepping Across Multiple Files](unix/suppress-file-names-when-grepping-across-multiple-files.md)
 - [`wc -l` is Faster than `wc` For Retrieving the Number of Lines in a Large File](unix/wc-l-is-faster-than-wc-for-retrieving-the-number-of-lines-in-a-large-file.md)
 
