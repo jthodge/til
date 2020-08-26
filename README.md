@@ -14,6 +14,7 @@
 - [HTTP](#http)
 - [JavaScript](#javascript)
 - [MacOS](#macos)
+- [Posix](#posix)
 - [Postgres](#postgres)
 - [Ruby](#ruby)
 - [Unix](#unix)
@@ -64,6 +65,10 @@
 ### MacOS
 
 - [Perform Search Engine Queries from Spotlight](macos/perform-search-engine-queries-from-spotlight.md)
+
+### Posix
+
+- [The Difference Between `Ctrl+c` and `Ctrl+\`](posix/the-difference-between-control-c-and-control-backslash.md)
 
 ### Postgres
 
