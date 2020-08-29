@@ -92,6 +92,7 @@
 
 ### VS Code
 
+- [Choose Folders to Ignore During Search](vscode/choose-folders-to-ignore-during-serach.md)
 - [Navigate Your Cursor Position History](vscode/navigate-your-cursor-position-history.md)
 - [Disable Jest Test Runner Auto Run](vscode/disable-jest-test-runner-auto-run.md)
 
