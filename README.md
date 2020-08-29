@@ -59,6 +59,7 @@
 
 ### JavaScript
 
+- [Disable Jest's Auto-generated Coverage Reports](javascript/disable-jests-auto-generated-coverage-reports.md)
 - [Inconsistencies in `Date`](javascript/inconsistencies-in-date.md)
 - [Use Numeric Separators to Parse Large Numbers by Eye](javascript/use-numeric-separators-to-parse-large-numbers-by-eye.md)
 
