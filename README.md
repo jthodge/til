@@ -104,6 +104,7 @@ I shamelessly stole this idea from [jbranchaud/til](https://github.com/jbranchau
 ## Other TIL Collections
 
 - [Today I Learned by Hashrocket](https://til.hashrocket.com)
+- [Stefan Judis](https://www.stefanjudis.com/today-i-learned/)
 - [jwworth/til](https://github.com/jwworth/til)
 - [thoughtbot/til](https://github.com/thoughtbot/til)
 - [jbranchaud/til](https://github.com/jbranchaud/til)
