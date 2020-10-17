@@ -56,10 +56,10 @@ jobs:
       run: |-
         cd main
         python build_db.py
-    - name: Soundness check
-      run: |-
-        cd main
-        datasette . --get / | grep "Taylor Hodge: TIL"
+#    - name: Soundness check
+#      run: |-
+#        cd main
+#        datasette . --get / | grep "Taylor Hodge: TIL"
     - name: Generate missing screenshots
       run: |-
         cd main
