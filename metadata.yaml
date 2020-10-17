@@ -27,7 +27,7 @@ databases:
         order by
           til_fts.rank limit 20
       feed:
-        title: Taylor Hodge: TIL
+        title: Taylor Hodge - TIL
         sql: |-
           SELECT
             'tag:til.taylorhodge.me,2020-04-20:' || path as atom_id,
