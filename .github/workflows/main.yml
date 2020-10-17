@@ -93,6 +93,7 @@ jobs:
         HEROKU_TOKEN: ${{ secrets.HEROKU_TOKEN }}
       run: |-
         cd main
+        heroku plugins:install heroku-builds
         datasette publish heroku til.db \
           --branch main \
           -n til-taylorhodge \
