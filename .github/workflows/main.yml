@@ -55,7 +55,7 @@ jobs:
         SCREENSHOT_KEY: ${{ secrets.SCREENSHOT_KEY }}
       run: |-
         cd main
-        python build_database.py
+        python build_db.py
     - name: Soundness check
       run: |-
         cd main
