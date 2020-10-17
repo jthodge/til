@@ -84,3 +84,28 @@ jobs:
         git add til.db
         git commit --amend --no-edit
         git push --force
+    - name: Setup Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - name: Deploy Datasette using Heroku
+      env:
+        HEROKU_TOKEN: ${{ secrets.HEROKU_TOKEN }}
+      run: |-
+        cd main
+        datasette publish heroku til.db \
+          --token $HEROKU_TOKEN \
+          --branch main \
+          -n til-taylorhodge \
+#          --metadata metadata.yaml \
+#          --static static:static \
+          --install datasette-template-sql \
+          --install "datasette-atom>=0.7" \
+          --install datasette-json-html \
+          --install beautifulsoup4 \
+          --install datasette-debug-asgi \
+          --install "datasette-graphql>=0.12" \
+          --install datasette-media \
+#          --plugins-dir plugins \
+#          --template-dir templates \
+#          --public
