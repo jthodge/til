@@ -97,8 +97,6 @@ jobs:
           --token $HEROKU_TOKEN \
           --branch main \
           -n til-taylorhodge \
-#          --metadata metadata.yaml \
-#          --static static:static \
           --install datasette-template-sql \
           --install "datasette-atom>=0.7" \
           --install datasette-json-html \
@@ -106,6 +104,3 @@ jobs:
           --install datasette-debug-asgi \
           --install "datasette-graphql>=0.12" \
           --install datasette-media \
-#          --plugins-dir plugins \
-#          --template-dir templates \
-#          --public
