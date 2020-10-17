@@ -1,0 +1,86 @@
+name: Build README
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repo
+      uses: actions/checkout@v2
+      # We need full history to introspect created/updated:
+      with:
+        fetch-depth: 0
+        path: main
+    - name: Checkout til-db
+      uses: actions/checkout@v2
+      with:
+        repository: jthodge/til-db
+        path: til-db
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN_FOR_PUSH }}
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    - uses: actions/cache@v2
+      name: Configure pip caching
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    - uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r main/requirements.txt
+    - name: Install npm dependencies
+      run: sudo npm install -g puppeteer-cli --unsafe-perm=true
+    - name: Download previous database unless REBUILD in commit message
+      if: |-
+        !contains(github.event.head_commit.message, 'REBUILD')
+      run: curl --fail -o main/til.db https://raw.githubusercontent.com/jthodge/til-db/main/til.db
+      continue-on-error: true
+    - name: Build database
+      env:
+        SCREENSHOT_HOST: ${{ secrets.SCREENSHOT_HOST }}
+        SCREENSHOT_KEY: ${{ secrets.SCREENSHOT_KEY }}
+      run: |-
+        cd main
+        python build_database.py
+    - name: Soundness check
+      run: |-
+        cd main
+        datasette . --get / | grep "Taylor Hodge: TIL"
+    - name: Generate missing screenshots
+      run: |-
+        cd main
+        python generate_screenshots.py
+    - name: Update README
+      run: |-
+        cd main
+        python update_readme.py --rewrite
+        cat README.md
+    - name: Commit and push if README changed
+      run: |-
+        cd main
+        git diff
+        git config --global user.email "j.taylor.hodge@gmail.com"
+        git config --global user.name "jthodge"
+        git diff --quiet || (git add README.md && git commit -m "Updated README")
+        git push
+    - name: Save til.db to jthodge/til-db
+      run: |-
+        cd til-db
+        cp ../main/til.db .
+        git add til.db
+        git commit --amend --no-edit
+        git push --force
