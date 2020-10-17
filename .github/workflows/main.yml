@@ -94,7 +94,6 @@ jobs:
       run: |-
         cd main
         datasette publish heroku til.db \
-          --token $HEROKU_TOKEN \
           --branch main \
           -n til-taylorhodge \
           --install datasette-template-sql \
