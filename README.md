@@ -39,6 +39,7 @@
 * [Use Multiple `git commit` Message Flags to Create Multiline Commits](https://github.com/jthodge/til/blob/main/git/use-multiple-git-commit-message-flags-to-create-multiline-commits.md) - 2020-07-12
 * [Git Only Stores Timestamps and Author Information on Commits](https://github.com/jthodge/til/blob/main/git/git-only-stores-timestamp-and-author-information-on-commits.md) - 2020-08-02
 * [Set Default for Initial Branch Name](https://github.com/jthodge/til/blob/main/git/set-default-for-initial-branch-name.md) - 2020-08-09
+* [The Differences Between `.git/info/exclude` and `.gitignore`](https://github.com/jthodge/til/blob/main/git/the-differences-between-git-info-exclude-and-gitignore.md) - 2020-10-17
 * [Test](https://github.com/jthodge/til/blob/main/git/test.md) - 2020-10-17
 
 ## vscode
