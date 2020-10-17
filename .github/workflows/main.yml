@@ -97,6 +97,7 @@ jobs:
         datasette publish heroku til.db \
           --branch main \
           --name til-taylorhodge \
+          --metadata metadata.json \
           --install datasette-template-sql \
           --install "datasette-atom>=0.7" \
           --install datasette-json-html \
