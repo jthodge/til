@@ -2,24 +2,6 @@
 
 > Today I Learned
 
----
-
-## Areas
-
-- [Character Encoding](#character-encoding)
-- [Chrome](#chrome)
-- [Cloudflare](#cloudflare)
-- [Git](#git)
-- [GitHub](#github)
-- [HTTP](#http)
-- [JavaScript](#javascript)
-- [MacOS](#macos)
-- [Posix](#posix)
-- [Postgres](#postgres)
-- [Ruby](#ruby)
-- [Unix](#unix)
-- [VS Code](#vs-code)
-
 <!-- index starts -->
 ### chrome
 
