@@ -20,6 +20,7 @@
 - [Unix](#unix)
 - [VS Code](#vs-code)
 
+<!-- index starts -->
 ### Character Encoding
 
 - [`=` Serves as Padding in Base64 Encoded Strings](character-encoding/equal-serves-as-padding-in-base64-encoded-strings.md)
@@ -97,6 +98,7 @@
 - [Choose Folders to Ignore During Search](vscode/choose-folders-to-ignore-during-serach.md)
 - [Navigate Your Cursor Position History](vscode/navigate-your-cursor-position-history.md)
 - [Disable Jest Test Runner Auto Run](vscode/disable-jest-test-runner-auto-run.md)
+<!-- index ends -->
 
 ## About
 
