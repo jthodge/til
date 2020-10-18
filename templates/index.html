@@ -90,10 +90,10 @@
 </p>
 
 <p>
-  <strong>Recently added:</strong> {% for row in sql("select * from til order by
-  created_utc desc limit 5") %}<a href="/til/til/{{ row.path }}"
+  <strong>Recently added:</strong> <ul>{% for row in sql("select * from til order by
+  created_utc desc limit 5") %}<li><a href="/til/til/{{ row.path }}"
     >{{ row.title }}</a
-  >{% if not loop.last %}, {% endif %}{% endfor %}
+  ></li>{% if not loop.last %}, {% endif %}{% endfor %}</ul>
 </p>
 
 <form action="/til/search">
