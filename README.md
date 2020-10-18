@@ -84,6 +84,7 @@
 ## emacs
 
 * [Remove All Newlines from a Selected Region](https://github.com/jthodge/til/blob/main/emacs/remove-all-newlines-from-a-selected-region.md) - 2020-10-17
+* [Remove All Whitespace from Beginning of All Lines](https://github.com/jthodge/til/blob/main/emacs/remove-all-whitespace-from-beginning-of-all-lines.md) - 2020-10-18
 <!-- index ends -->
 
 ## About
