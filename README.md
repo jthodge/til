@@ -67,6 +67,7 @@
 * [Suppress File Names When Grepping Across Multiple Files](https://github.com/jthodge/til/blob/main/unix/suppress-file-names-when-grepping-across-multiple-files.md) - 2020-08-05
 * [`wc -l` is Faster than `wc` For Retrieving the Number of Lines in a Large File](https://github.com/jthodge/til/blob/main/unix/wc-l-is-faster-than-wc-for-retrieving-the-number-of-lines-in-a-large-file.md) - 2020-08-06
 * [Reset Terminal Password Prompt](https://github.com/jthodge/til/blob/main/unix/reset-terminal-password-prompt.md) - 2020-08-13
+* [Use the `-i` flag to Confirm Before Overwriting an Existing File](https://github.com/jthodge/til/blob/main/unix/use-the-i-flag-to-confirm-before-overwriting-an-existing-file.md) - 2020-10-20
 
 ## javascript
 
