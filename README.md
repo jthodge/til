@@ -86,6 +86,10 @@
 
 * [Remove All Newlines from a Selected Region](https://github.com/jthodge/til/blob/main/emacs/remove-all-newlines-from-a-selected-region.md) - 2020-10-17
 * [Remove All Whitespace from Beginning of All Lines](https://github.com/jthodge/til/blob/main/emacs/remove-all-whitespace-from-beginning-of-all-lines.md) - 2020-10-18
+
+## bash
+
+* [Use the `DEBUG` Trap to Step Through a Script](https://github.com/jthodge/til/blob/main/bash/use-the-debug-trap-to-step-through-a-script.md) - 2020-10-19
 <!-- index ends -->
 
 ## About
