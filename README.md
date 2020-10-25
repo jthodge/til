@@ -105,6 +105,7 @@ I shamelessly stole this idea from [jbranchaud/til](https://github.com/jbranchau
 - [thoughtbot/til](https://github.com/thoughtbot/til)
 - [jbranchaud/til](https://github.com/jbranchaud/til)
 - [simonw/til](https://github.com/simonw/til)
+- [jessesquires/TIL](https://github.com/jessesquires/TIL)
 
 ## License
 
