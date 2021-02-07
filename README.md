@@ -75,6 +75,7 @@
 * [Inconsistencies in `Date`](https://github.com/jthodge/til/blob/main/javascript/inconsistencies-in-date.md) - 2020-08-03
 * [Use Numeric Separators to Parse Large Numbers by Eye](https://github.com/jthodge/til/blob/main/javascript/use-numeric-separators-to-parse-large-numbers-by-eye.md) - 2020-08-09
 * [Disable Jest's Auto-generated Coverage Reports](https://github.com/jthodge/til/blob/main/javascript/disable-jests-auto-generated-coverage-reports.md) - 2020-08-29
+* [Dates as Keys are not Equal](https://github.com/jthodge/til/blob/main/javascript/dates-as-keys-are-not-equal.md) - 2021-02-07
 
 ## macos
 
