@@ -22,6 +22,8 @@
 * [Git Only Stores Timestamps and Author Information on Commits](https://github.com/jthodge/til/blob/main/git/git-only-stores-timestamp-and-author-information-on-commits.md) - 2020-08-02
 * [Set Default for Initial Branch Name](https://github.com/jthodge/til/blob/main/git/set-default-for-initial-branch-name.md) - 2020-08-09
 * [The Differences Between `.git/info/exclude` and `.gitignore`](https://github.com/jthodge/til/blob/main/git/the-differences-between-git-info-exclude-and-gitignore.md) - 2020-10-17
+* [Move a Range of Commits Between Branches](https://github.com/jthodge/til/blob/main/git/move-a-range-of-commits-between-branches.md) - 2021-03-31
+* [Move Individual Commits Between Branches with `cherry-pick`](https://github.com/jthodge/til/blob/main/git/move-individual-commits-between-branches-with-cherry-pick.md) - 2021-03-31
 
 ## vscode
 
@@ -77,6 +79,9 @@
 * [Disable Jest's Auto-generated Coverage Reports](https://github.com/jthodge/til/blob/main/javascript/disable-jests-auto-generated-coverage-reports.md) - 2020-08-29
 * [Dates as Keys are not Equal](https://github.com/jthodge/til/blob/main/javascript/dates-as-keys-are-not-equal.md) - 2021-02-07
 * [Canceling Asynchronous Threads Can Be Tricky](https://github.com/jthodge/til/blob/main/javascript/canceling-asynchronous-threads-can-be-tricky.md) - 2021-02-07
+* [Every Readable Stream is Asynchronously Iterable](https://github.com/jthodge/til/blob/main/javascript/every-readable-stream-is-asynchronously-iterable.md) - 2021-03-31
+* [Lexicographical String Comparison](https://github.com/jthodge/til/blob/main/javascript/lexicographical-string-comparison.md) - 2021-03-31
+* [Pump Large (> 2^53) Numbers Through Your Data Pipeline to Check for Leaks](https://github.com/jthodge/til/blob/main/javascript/pump-large-numbers-through-your-data-pipeline-to-check-for-leaks.md) - 2021-03-31
 
 ## macos
 
@@ -90,10 +95,15 @@
 
 * [Remove All Newlines from a Selected Region](https://github.com/jthodge/til/blob/main/emacs/remove-all-newlines-from-a-selected-region.md) - 2020-10-17
 * [Remove All Whitespace from Beginning of All Lines](https://github.com/jthodge/til/blob/main/emacs/remove-all-whitespace-from-beginning-of-all-lines.md) - 2020-10-18
+* [Update Feature Branch to Latest `main`](https://github.com/jthodge/til/blob/main/emacs/update-feature-branch-to-latest-main.md) - 2021-03-31
 
 ## bash
 
 * [Use the `DEBUG` Trap to Step Through a Script](https://github.com/jthodge/til/blob/main/bash/use-the-debug-trap-to-step-through-a-script.md) - 2020-10-19
+
+## node
+
+* [`libuv` Implements a Reactor Pattern](https://github.com/jthodge/til/blob/main/node/libuv-implements-a-reactor-pattern.md) - 2021-03-31
 <!-- index ends -->
 
 ## About
