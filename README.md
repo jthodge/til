@@ -71,6 +71,7 @@
 * [Reset Terminal Password Prompt](https://github.com/jthodge/til/blob/main/unix/reset-terminal-password-prompt.md) - 2020-08-13
 * [Use the `-i` flag to Confirm Before Overwriting an Existing File](https://github.com/jthodge/til/blob/main/unix/use-the-i-flag-to-confirm-before-overwriting-an-existing-file.md) - 2020-10-20
 * [Use `column` to View Pretty CSVs](https://github.com/jthodge/til/blob/main/unix/use-column-to-view-pretty-csvs.md) - 2020-10-31
+* [`kill` Works on Any Process](https://github.com/jthodge/til/blob/main/unix/kill-works-on-any-process.md) - 2021-06-27
 
 ## javascript
 
