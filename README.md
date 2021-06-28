@@ -105,6 +105,10 @@
 ## node
 
 * [`libuv` Implements a Reactor Pattern](https://github.com/jthodge/til/blob/main/node/libuv-implements-a-reactor-pattern.md) - 2021-03-31
+
+## graphical-control-elements
+
+* [Throbber](https://github.com/jthodge/til/blob/main/graphical-control-elements/throbber.md) - 2021-06-28
 <!-- index ends -->
 
 ## About
