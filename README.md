@@ -109,6 +109,10 @@
 ## graphical-control-elements
 
 * [Throbber](https://github.com/jthodge/til/blob/main/graphical-control-elements/throbber.md) - 2021-06-28
+
+## curl
+
+* [Useful HTTP Flags](https://github.com/jthodge/til/blob/main/curl/useful-http-flags.md) - 2021-06-28
 <!-- index ends -->
 
 ## About
