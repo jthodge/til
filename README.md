@@ -114,6 +114,10 @@
 ## curl
 
 * [Useful HTTP Flags](https://github.com/jthodge/til/blob/main/curl/useful-http-flags.md) - 2021-06-28
+
+## language-features
+
+* [Avoiding Nil](https://github.com/jthodge/til/blob/main/language-features/avoiding-nil.md) - 2021-07-19
 <!-- index ends -->
 
 ## About
