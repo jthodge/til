@@ -118,6 +118,10 @@
 ## language-features
 
 * [Avoiding Nil](https://github.com/jthodge/til/blob/main/language-features/avoiding-nil.md) - 2021-07-19
+
+## clis-and-terminals
+
+* [Use Commonly Available Characters for Progress Indicators](https://github.com/jthodge/til/blob/main/clis-and-terminals/use-commonly-available-characters-for-progress-indicators.md) - 2022-01-09
 <!-- index ends -->
 
 ## About
