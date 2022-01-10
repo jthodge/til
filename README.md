@@ -122,6 +122,10 @@
 ## clis-and-terminals
 
 * [Use Commonly Available Characters for Progress Indicators](https://github.com/jthodge/til/blob/main/clis-and-terminals/use-commonly-available-characters-for-progress-indicators.md) - 2022-01-09
+
+## regex
+
+* [Use Quine Quotes to Delimit Regular Expressions](https://github.com/jthodge/til/blob/main/regex/use-quine-quotes-to-delimit-regular-expressions.md) - 2022-01-10
 <!-- index ends -->
 
 ## About
