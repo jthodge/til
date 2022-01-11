@@ -106,6 +106,7 @@
 ## node
 
 * [`libuv` Implements a Reactor Pattern](https://github.com/jthodge/til/blob/main/node/libuv-implements-a-reactor-pattern.md) - 2021-03-31
+* [Basic Node Test Runner](https://github.com/jthodge/til/blob/main/node/basic-node-test-runner.md) - 2022-01-11
 
 ## graphical-control-elements
 
