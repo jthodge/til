@@ -110,6 +110,6 @@ jobs:
       - name: Post Slack Notification
         uses: rtCamp/action-slack-notify@master
         env:
-          SLACK_ICON: https://github.com/jthodge.png?size=48
+          SLACK_ICON: https://user-images.githubusercontent.com/17075617/149437305-53baad9e-9800-4fe4-a3bf-13bd28d98f8b.png
           SLACK_USERNAME: taylor
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
