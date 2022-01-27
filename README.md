@@ -129,6 +129,10 @@
 ## regex
 
 * [Use Quine Quotes to Delimit Regular Expressions](https://github.com/jthodge/til/blob/main/regex/use-quine-quotes-to-delimit-regular-expressions.md) - 2022-01-10
+
+## django
+
+* [Django Drops the SQL `DEFAULT` Constraint When Creating New Columns](https://github.com/jthodge/til/blob/main/django/django-drops-the-sql-default-constraint-when-creating-new-columns.md) - 2022-01-27
 <!-- index ends -->
 
 ## About
