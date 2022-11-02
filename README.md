@@ -133,6 +133,10 @@
 ## django
 
 * [Django Drops the SQL `DEFAULT` Constraint When Creating New Columns](https://github.com/jthodge/til/blob/main/django/django-drops-the-sql-default-constraint-when-creating-new-columns.md) - 2022-01-27
+
+## docker
+
+* [Enable Long-Lived Container Logs](https://github.com/jthodge/til/blob/main/docker/enable-long-lived-container-logs.md) - 2022-11-02
 <!-- index ends -->
 
 ## About
