@@ -138,6 +138,10 @@
 ## docker
 
 * [Enable Long-Lived Container Logs](https://github.com/jthodge/til/blob/main/docker/enable-long-lived-container-logs.md) - 2022-11-02
+
+## python
+
+* [Descriptor Protocol](https://github.com/jthodge/til/blob/main/python/descriptor-protocol.md) - 2023-03-02
 <!-- index ends -->
 
 ## About
