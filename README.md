@@ -85,6 +85,7 @@
 * [Pump Large (> 2^53) Numbers Through Your Data Pipeline to Check for Leaks](https://github.com/jthodge/til/blob/main/javascript/pump-large-numbers-through-your-data-pipeline-to-check-for-leaks.md) - 2021-03-31
 * [JavaScript `RegExp` Objects are Stateful](https://github.com/jthodge/til/blob/main/javascript/javascript-regexp-objects-are-stateful.md) - 2022-01-12
 * [`Object.is` is Different From `===` and `!==`](https://github.com/jthodge/til/blob/main/javascript/object-dot-is-is-different-from-strict-value-comparison.md) - 2022-01-13
+* [`in` Operator Patterns are Rare](https://github.com/jthodge/til/blob/main/javascript/in-operator-patterns-are-rare.md) - 2023-03-02
 
 ## macos
 
