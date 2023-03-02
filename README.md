@@ -19,9 +19,9 @@
 * [Push an Empty Commit](https://github.com/jthodge/til/blob/main/git/push-an-empty-commit.md) - 2020-05-05
 * [Use Exclamation Marks in Commit Messages](https://github.com/jthodge/til/blob/main/git/use-exclamation-marks-in-commit-messages.md) - 2020-05-05
 * [Use Multiple `git commit` Message Flags to Create Multiline Commits](https://github.com/jthodge/til/blob/main/git/use-multiple-git-commit-message-flags-to-create-multiline-commits.md) - 2020-07-12
+* [The Differences Between `.git/info/exclude` and `.gitignore`](https://github.com/jthodge/til/blob/main/git/the-differences-between-git-info-exclude-and-gitignore.md) - 2020-08-02
 * [Git Only Stores Timestamps and Author Information on Commits](https://github.com/jthodge/til/blob/main/git/git-only-stores-timestamp-and-author-information-on-commits.md) - 2020-08-02
 * [Set Default for Initial Branch Name](https://github.com/jthodge/til/blob/main/git/set-default-for-initial-branch-name.md) - 2020-08-09
-* [The Differences Between `.git/info/exclude` and `.gitignore`](https://github.com/jthodge/til/blob/main/git/the-differences-between-git-info-exclude-and-gitignore.md) - 2020-10-17
 * [Move a Range of Commits Between Branches](https://github.com/jthodge/til/blob/main/git/move-a-range-of-commits-between-branches.md) - 2021-03-31
 * [Move Individual Commits Between Branches with `cherry-pick`](https://github.com/jthodge/til/blob/main/git/move-individual-commits-between-branches-with-cherry-pick.md) - 2021-03-31
 
