@@ -1,12 +1,12 @@
 title: Today I Learned
 about: jthodge/til
 about_url: https://github.com/jthodge/til
-plugins:
-  datasette-atom:
-    allow_unsafe_html_in_canned_queries: true
-  datasette-media:
-    screenshot:
-      "sql": "select shot as content, 'image/png' as content_type from til where path=:key"
+# plugins:
+#   datasette-atom:
+#     allow_unsafe_html_in_canned_queries: true
+#   datasette-media:
+#     screenshot:
+#       "sql": "select shot as content, 'image/png' as content_type from til where path=:key"
 databases:
   til:
     queries:
@@ -47,4 +47,4 @@ databases:
       til:
         sort_desc: updated_utc
         facets:
-        - topic
+          - topic
