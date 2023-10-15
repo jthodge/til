@@ -96,7 +96,7 @@
 
 <p>
   <strong>Recently added:</strong> <ul>{% for row in sql("select * from til order by
-  created_utc desc limit 5") %}<li><a href="/til/til/{{ row.path }}"
+  created_utc desc limit 5") %}<li><a href="/til/til/{{ row.path }}~2Emd"
     >{{ row.title }}</a
   ></li>{% if not loop.last %} {% endif %}{% endfor %}</ul>
 </p>
@@ -116,7 +116,7 @@ max(created_utc) desc") %}
   {% for til in sql("select * from til where topic = :topic order by created_utc
   desc", {"topic": row.topic}) %}
   <li>
-    <a href="/til/til/{{ til.path }}">{{ til.title }}</a> - {{ til.created[:10]
+    <a href="/til/til/{{ til.path }}~2Emd">{{ til.title }}</a> - {{ til.created[:10]
     }}
   </li>
   {% endfor %}
