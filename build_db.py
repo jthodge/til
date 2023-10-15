@@ -45,9 +45,7 @@ def build_database(repo_path):
         path = str(filepath.relative_to(root))
         url = "https://github.com/jthodge/til/blob/main/{}".format(path)
         # Do we need to render the markdown?
-        path_slug = path.replace("/", "_")
-        print("$$$$$$$$$$$$$$")
-        print(path_slug)
+        path_slug = path.replace("/", "_").replace(".md", "")
         try:
             row = table.get(path_slug)
             previous_body = row["body"]
@@ -56,7 +54,7 @@ def build_database(repo_path):
             previous_body = None
             previous_html = None
         record = {
-            "path": tilde_encode(path_slug),
+            "path": path_slug,
             "topic": path.split("/")[0],
             "title": title,
             "url": url,
