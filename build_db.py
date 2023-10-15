@@ -7,7 +7,7 @@ from urllib.parse import urlencode
 import sqlite_utils
 from sqlite_utils.db import NotFoundError
 import time
-from datasette.utils import tilde_decode
+from datasette.utils import tilde_encode
 
 root = pathlib.Path(__file__).parent.resolve()
 
@@ -54,7 +54,7 @@ def build_database(repo_path):
             previous_body = None
             previous_html = None
         record = {
-            "path": tilde_decode(path_slug),
+            "path": tilde_encode(path_slug),
             "topic": path.split("/")[0],
             "title": title,
             "url": url,
