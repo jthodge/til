@@ -46,6 +46,8 @@ def build_database(repo_path):
         url = "https://github.com/jthodge/til/blob/main/{}".format(path)
         # Do we need to render the markdown?
         path_slug = path.replace("/", "_")
+        print("$$$$$$$$$$$$$$")
+        print(path_slug)
         try:
             row = table.get(path_slug)
             previous_body = row["body"]
