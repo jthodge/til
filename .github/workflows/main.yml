@@ -22,17 +22,17 @@ jobs:
           path: til-db
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN_FOR_PUSH }}
       - name: Set up Python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v4
         with:
-          python-version: 3.8
-      - uses: actions/cache@v2
+          python-version: 3.11
+      - uses: actions/cache@v3
         name: Configure pip caching
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-
@@ -85,9 +85,9 @@ jobs:
           git commit --amend --no-edit
           git push --force
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: "12.x"
+          node-version: 18
       - name: Deploy Datasette using Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
