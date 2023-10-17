@@ -105,9 +105,12 @@ def build_database(repo_path):
                     time.sleep(60)
                     retries += 1
             else:
-                assert False, "Could not render {} - last response was {}".format(
+                print("Could not render {} - last response was {}".format(
                     path, response.headers
-                )
+                ))
+                # assert False, "Could not render {} - last response was {}".format(
+                #     path, response.headers
+                # )
 
         record.update(all_times[path])
         with db.conn:
