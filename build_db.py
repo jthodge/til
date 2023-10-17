@@ -70,15 +70,12 @@ def build_database(repo_path):
             retries = 0
             response = None
 
-            while retries < 10:
+            while retries < 3:
                 headers = {}
                 if os.environ.get("GITHUB_TOKEN"):
                     headers = {
                         "authorization": "Bearer {}".format(os.environ["GITHUB_TOKEN"])
                     }
-
-                print("!" * 80)
-                print(headers)
 
                 response = httpx.post(
                     "https://api.github.com/markdown",
@@ -91,15 +88,14 @@ def build_database(repo_path):
 
                 if response.status_code == 200:
                     record["html"] = response.text
-                    time.sleep(10)
                     print("Rendered HTML for {}".format(path))
                     break
                 elif response.status_code == 401:
                     assert False, "401 Unauthorized returned from GitHub API when rendering markdown"
                 else:
                     print(response.status_code, response.headers)
-                    print("  sleeping 90s")
-                    time.sleep(90)
+                    print("  sleeping 60s")
+                    time.sleep(60)
                     retries += 1
             else:
                 assert False, "Could not render {} - last response was {}".format(
