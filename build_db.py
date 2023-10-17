@@ -6,7 +6,7 @@ import sqlite_utils
 import time
 
 from datetime import timezone
-from datasette.utils import tilde_decode, tilde_encode
+from datasette.utils import tilde_encode
 from sqlite_utils.db import NotFoundError
 
 root = pathlib.Path(__file__).parent.resolve()
@@ -46,23 +46,8 @@ def build_database(repo_path):
         path = str(filepath.relative_to(root))
         slug = filepath.stem
         url = "https://github.com/jthodge/til/blob/main/{}".format(path)
-        path_slug = path.replace("/", "_")
+        path_slug = tilde_encode(path.replace("/", "_"))
         topic = path.split("/")[0]
-
-        # Log out all of the filepath values above for debugging
-        print("$" * 80)
-        print(filepath)
-        print(fp)
-        print(title)
-        print(body)
-        print(path)
-        print(slug)
-        print(url)
-        print(path_slug)
-        print("@@" * 40)
-        print(tilde_encode(path_slug))
-        print(tilde_decode(path_slug))
-        print(topic)
 
         try:
             row = table.get(path_slug)
