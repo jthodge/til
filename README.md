@@ -53,6 +53,7 @@
 * [CORS Preflight Requests Communicate Which Methods and Headers a Server Should Allow](https://github.com/jthodge/til/blob/main/http/cors-preflight-requests-communicate-which-methods-and-headers-a-server-should-allow.md) - 2020-06-30
 * [Trigger Opt-in File Downloads with the `Content-Disposition` Response Header](https://github.com/jthodge/til/blob/main/http/trigger-opt-in-file-downloads-with-the-content-disposition-response-header.md) - 2020-10-18
 * [Trigger Opt-in File Downloads with the `Content-Disposition` Response Header](https://github.com/jthodge/til/blob/main/http/trigger-opt-in-file-downloads-with-the-content-disposition-response-header.md) - 2020-10-18
+* [Test](https://github.com/jthodge/til/blob/main/http/test.md) - 2023-10-16
 
 ## character-encoding
 
