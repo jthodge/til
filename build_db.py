@@ -87,6 +87,7 @@ def build_database(repo_path):
 
                 if response.status_code == 200:
                     record["html"] = response.text
+                    time.sleep(10)
                     print("Rendered HTML for {}".format(path))
                     break
                 elif response.status_code == 401:
