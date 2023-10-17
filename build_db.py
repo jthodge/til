@@ -95,7 +95,10 @@ def build_database(repo_path):
                     assert False, "401 Unauthorized returned from GitHub API when rendering markdown"
                 elif response.status_code == 403:
                     print(path, response.status_code, response.headers)
-                    assert False, "403 Forbidden returned from GitHub API when rendering markdown"
+                    print("  sleeping 90s")
+                    time.sleep(90)
+                    retries += 1
+                    # assert False, "403 Forbidden returned from GitHub API when rendering markdown"
                 else:
                     print(response.status_code, response.headers)
                     print("  sleeping 60s")
