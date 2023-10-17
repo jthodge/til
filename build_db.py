@@ -58,6 +58,9 @@ def build_database(repo_path):
         print(slug)
         print(url)
         print(path_slug)
+        print("@@" * 40)
+        print(datasette.utils.tilde_encode(path_slug))
+        print(datasette.utils.tilde_decode(path_slug))
         print(topic)
 
         try:
