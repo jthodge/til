@@ -77,6 +77,9 @@ def build_database(repo_path):
                         "authorization": "Bearer {}".format(os.environ["GITHUB_TOKEN"])
                     }
 
+                print("!" * 80)
+                print(headers)
+
                 response = httpx.post(
                     "https://api.github.com/markdown",
                     json={
