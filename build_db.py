@@ -46,7 +46,8 @@ def build_database(repo_path):
         path = str(filepath.relative_to(root))
         slug = filepath.stem
         url = "https://github.com/jthodge/til/blob/main/{}".format(path)
-        path_slug = tilde_encode(path.replace("/", "_"))
+        # path_slug = tilde_encode(path.replace("/", "_"))
+        path_slug = path.replace("/", "_")
         topic = path.split("/")[0]
 
         try:
