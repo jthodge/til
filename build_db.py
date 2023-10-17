@@ -69,7 +69,7 @@ def build_database(repo_path):
             retries = 0
             response = None
 
-            while retries < 3:
+            while retries < 10:
                 headers = {}
                 if os.environ.get("GITHUB_TOKEN"):
                     headers = {
