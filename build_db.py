@@ -6,6 +6,7 @@ import sqlite_utils
 import time
 
 from datetime import timezone
+from datasette.utils import tilde_decode, tilde_encode
 from sqlite_utils.db import NotFoundError
 
 root = pathlib.Path(__file__).parent.resolve()
@@ -59,8 +60,8 @@ def build_database(repo_path):
         print(url)
         print(path_slug)
         print("@@" * 40)
-        print(datasette.utils.tilde_encode(path_slug))
-        print(datasette.utils.tilde_decode(path_slug))
+        print(tilde_encode(path_slug))
+        print(tilde_decode(path_slug))
         print(topic)
 
         try:
