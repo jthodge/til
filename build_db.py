@@ -48,6 +48,18 @@ def build_database(repo_path):
         path_slug = path.replace("/", "_")
         topic = path.split("/")[0]
 
+        # Log out all of the filepath values above for debugging
+        print("$" * 80)
+        print(filepath)
+        print(fp)
+        print(title)
+        print(body)
+        print(path)
+        print(slug)
+        print(url)
+        print(path_slug)
+        print(topic)
+
         try:
             row = table.get(path_slug)
             previous_body = row["body"]
