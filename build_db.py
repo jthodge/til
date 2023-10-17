@@ -94,8 +94,8 @@ def build_database(repo_path):
                     assert False, "401 Unauthorized returned from GitHub API when rendering markdown"
                 else:
                     print(response.status_code, response.headers)
-                    print("  sleeping 60s")
-                    time.sleep(60)
+                    print("  sleeping 90s")
+                    time.sleep(90)
                     retries += 1
             else:
                 assert False, "Could not render {} - last response was {}".format(
