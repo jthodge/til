@@ -32,12 +32,6 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
-      - uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-
-          restore-keys: |
-            ${{ runner.os }}-node-
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
@@ -84,10 +78,6 @@ jobs:
           git add til.db
           git commit --amend --no-edit
           git push --force
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
       - name: Deploy Datasette using Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
