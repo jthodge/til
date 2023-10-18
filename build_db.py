@@ -88,7 +88,6 @@ def build_database(repo_path):
 
                 if response.status_code == 200:
                     record["html"] = response.text
-                    record["path"] = tilde_encode(path_slug)
                     print("Rendered HTML for {}".format(path))
                     break
                 elif response.status_code == 401:
