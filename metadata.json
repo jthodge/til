@@ -1,0 +1,24 @@
+{
+  "title": "Today I Learned",
+  "about": "jthodge/til",
+  "about_url": "https://github.com/jthodge/til",
+  "databases": {
+    "til": {
+      "queries": {
+        "search": "select\n  til_fts.rank,\n  til.*,\n  snippet(til_fts, -1, 'b4de2a49c8', '8c94a2ed4b', '...', 60) as snippet\nfrom\n  til\n  join til_fts on til.rowid = til_fts.rowid\nwhere\n  til_fts match case\n    :q\n    when '' then 'nomatchforthisterm'\n    else escape_fts(:q)\n  end\norder by\n  til_fts.rank limit 40",
+        "feed": {
+          "title": "Taylor Hodge - TIL",
+          "sql": "SELECT\n  'tag:til.taylorhodge.me,2020-04-20:' || path as atom_id,\n  title as atom_title,\n  'https://til.taylorhodge.me/' || topic || '/' || slug as atom_link,\n  created_utc as atom_updated,\n  html as atom_content_html,\n  'Taylor Hodge' as atom_author_name,\n  'https://taylorhodge.me/' as atom_author_uri\nFROM\n  til\norder by\n  created_utc desc\nlimit\n  15"
+        }
+      },
+      "tables": {
+        "til": {
+          "sort_desc": "updated_utc",
+          "facets": [
+            "topic"
+          ]
+        }
+      }
+    }
+  }
+}
