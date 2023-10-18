@@ -47,7 +47,7 @@ jobs:
       - name: Perform soundness check
         run: |-
           cd main
-          datasette . --get / | grep "Taylor Hodge"
+          datasette . --get / | grep "Taylor Hodge - TIL"
       - name: Update README
         run: |-
           cd main
