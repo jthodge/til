@@ -38,6 +38,8 @@
   }
 </style>
 {% endblock %} {% block body %}
+{% set til_count = sql("select count(*) from TIL", database="til")[0][0] %}
+
 <h1>
   Today I learned
   <a style="text-decoration: none" href="/til/feed.atom" title="Atom feed"
@@ -103,8 +105,7 @@
 
 <form action="/til/search">
   <p>
-    <input type="search" name="q" placeholder="Search {{ sql("select count(*)
-    from TIL")[0][0] }} TILs">
+    <input type="search" name="q" placeholder="Search {{ til_count }} TILs">
     <input type="submit" value="Search" />
   </p>
 </form>
