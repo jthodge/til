@@ -38,7 +38,7 @@ databases:
           SELECT
             'tag:til.taylorhodge.me,2020-04-20:' || path as atom_id,
             title as atom_title,
-            'https://til.taylorhodge.me/til/til/' || path as atom_link,
+            'https://til.taylorhodge.me/' || topic || '/' || slug as atom_link,
             created_utc as atom_updated,
             html as atom_content_html,
             'Taylor Hodge' as atom_author_name,
