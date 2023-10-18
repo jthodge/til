@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Render Markdown</title>
@@ -17,10 +18,10 @@
       }
 
       /*!
- * GitHub Light v0.5.0
- * Copyright (c) 2012 - 2017 GitHub, Inc.
- * Licensed under MIT (https://github.com/primer/github-syntax-theme-generator/blob/master/LICENSE)
- */
+        * GitHub Light v0.5.0
+        * Copyright (c) 2012 - 2017 GitHub, Inc.
+        * Licensed under MIT (https://github.com/primer/github-syntax-theme-generator/blob/master/LICENSE)
+        */
 
       .pl-c /* comment, punctuation.definition.comment, string.comment */ {
         color: #6a737d;
@@ -179,9 +180,9 @@
           Array.from(preview.querySelectorAll("[aria-hidden]")).forEach((el) =>
             el.parentNode.removeChild(el)
           );
-          Array.from(
-            preview.querySelectorAll('[rel="nofollow"]')
-          ).forEach((el) => el.removeAttribute("rel"));
+          Array.from(preview.querySelectorAll('[rel="nofollow"]')).forEach(
+            (el) => el.removeAttribute("rel")
+          );
           // <div class="highlight highlight-source-python">
           Array.from(
             preview.querySelectorAll("div.highlight-source-python")

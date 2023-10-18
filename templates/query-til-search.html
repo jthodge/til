@@ -1,5 +1,6 @@
 {% extends "til_base.html" %} {% block title %}TIL search: {{ q }}{% endblock %}
 {% block extra_head %}
+
 <style>
   input[type="search"] {
     padding: 0.25em;
@@ -38,7 +39,9 @@
     background-color: yellow;
   }
 </style>
+
 {% endblock %} {% block body %}
+
 <h1>TIL search: {{ q }}</h1>
 
 <form action="/til/search">
@@ -51,10 +54,12 @@
 {% if q and not rows %}
 <p><em>No results for "{{ q }}"</em></p>
 {% endif %} {% for row in rows %}
+
 <p>
   <span class="topic">{{ row.topic }}</span>
   <a href="/{{ row.topic }}/{{ row.slug }}">{{ row.title }}</a> - {{
   row.created[:10] }}
 </p>
+
 <pre>{{ highlight(row.snippet)|safe }}</pre>
 {% endfor %} {% endblock %}
