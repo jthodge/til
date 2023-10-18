@@ -6,7 +6,6 @@ import sqlite_utils
 import time
 
 from datetime import timezone
-from datasette.utils import tilde_encode
 from sqlite_utils.db import NotFoundError
 
 root = pathlib.Path(__file__).parent.resolve()
@@ -75,6 +74,10 @@ def build_database(repo_path):
                 if os.environ.get("GITHUB_TOKEN"):
                     headers = {
                         "authorization": "Bearer {}".format(os.environ["GITHUB_TOKEN"])
+                    }
+                else:
+                    headers = {
+                        "authorization": "Bearer {}".format(os.environ["PERSONAL_ACCESS_TOKEN_FOR_PUSH"])
                     }
 
                 response = httpx.post(
