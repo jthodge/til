@@ -1,5 +1,4 @@
-from datasette import hookimpl
-from datasette.utils.asgi import Response
+from datasette import hookimpl, Response
 
 
 @hookimpl

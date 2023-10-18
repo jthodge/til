@@ -77,7 +77,7 @@ jobs:
           datasette publish heroku til.db \
             --branch main \
             --name til-taylorhodge \
-            --metadata metadata.json \
+            --metadata metadata.yaml \
             --static static:static \
             --install datasette-template-sql \
             --install "datasette-sitemap>=1.0" \
