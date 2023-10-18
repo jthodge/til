@@ -11,10 +11,11 @@ from sqlite_utils.db import NotFoundError
 root = pathlib.Path(__file__).parent.resolve()
 
 
-def created_changed_times(repo_path, ref="main"):
+def get_created_changed_times(repo_path, ref="main"):
     created_changed_times = {}
     repo = git.Repo(repo_path, odbt=git.GitDB)
     commits = reversed(list(repo.iter_commits(ref)))
+
     for commit in commits:
         dt = commit.committed_datetime
         affected_files = list(commit.stats.files.keys())
@@ -30,11 +31,12 @@ def created_changed_times(repo_path, ref="main"):
                     "updated_utc": dt.astimezone(timezone.utc).isoformat(),
                 }
             )
+
     return created_changed_times
 
 
 def build_database(repo_path):
-    all_times = created_changed_times(repo_path)
+    all_times = get_created_changed_times(repo_path)
     db = sqlite_utils.Database(repo_path / "til.db")
     table = db.table("til", pk="path")
 
