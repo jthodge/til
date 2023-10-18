@@ -86,7 +86,6 @@
 * [JavaScript `RegExp` Objects are Stateful](https://github.com/jthodge/til/blob/main/javascript/javascript-regexp-objects-are-stateful.md) - 2022-01-12
 * [`Object.is` is Different From `===` and `!==`](https://github.com/jthodge/til/blob/main/javascript/object-dot-is-is-different-from-strict-value-comparison.md) - 2022-01-13
 * [`in` Operator Patterns are Rare](https://github.com/jthodge/til/blob/main/javascript/in-operator-patterns-are-rare.md) - 2023-03-02
-* [Test](https://github.com/jthodge/til/blob/main/javascript/test.md) - 2023-10-16
 
 ## macos
 
