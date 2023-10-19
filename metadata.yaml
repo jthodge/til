@@ -1,6 +1,7 @@
 title: Today I Learned
 about: jthodge/til
 about_url: https://github.com/jthodge/til
+# TODO: migrate plugins to stable datasetta config best practices
 # plugins:
 #   datasette-graphql:
 #     path: /-/graphql
