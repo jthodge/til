@@ -98,7 +98,7 @@
 
 <p>
   <strong>Recently added:</strong> <ul>{% for row in sql("select * from til order by
-  created_utc desc limit 5") %}<li><a href="/til/til/{{ row.path }}"
+  created_utc desc limit 5") %}<li><a href="/{{ row.topic }}/{{ row.slug }}"
     >{{ row.title }}</a
   ></li>{% if not loop.last %} {% endif %}{% endfor %}</ul>
 </p>
