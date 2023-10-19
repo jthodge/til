@@ -142,6 +142,7 @@
 ## python
 
 * [Descriptor Protocol](https://github.com/jthodge/til/blob/main/python/descriptor-protocol.md) - 2023-03-02
+* [Test](https://github.com/jthodge/til/blob/main/python/test.md) - 2023-10-19
 <!-- index ends -->
 
 ## About
