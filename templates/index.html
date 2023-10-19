@@ -98,7 +98,7 @@
 
 <p>
   <strong>Recently added:</strong> <ul>{% for row in sql("select * from til order by
-  created_utc desc limit 5") %}<li><a href="/{{ row.topic }}/{{ row.slug }}"
+  created_utc desc limit 5", database="til") %}<li><a href="/{{ row.topic }}/{{ row.slug }}"
     >{{ row.title }}</a
   ></li>{% if not loop.last %} {% endif %}{% endfor %}</ul>
 </p>
@@ -111,11 +111,11 @@
 </form>
 
 {% for row in sql("select topic from til group by topic order by
-max(created_utc) desc") %}
+max(created_utc) desc", database="til") %}
 <h2>{{ row.topic }}</h2>
 <ul>
   {% for til in sql("select * from til where topic = :topic order by created_utc
-  desc", {"topic": row.topic}) %}
+  desc", {"topic": row.topic}, database="til") %}
   <li>
     <a href="/{{ til.topic }}/{{ til.slug }}">{{ til.title }}</a> - {{ til.created[:10]
     }}
