@@ -28,7 +28,7 @@ databases:
         where
           til_fts match case
             :q
-            when '' then 'nomatchforthisterm'
+            when '' then '*'
             else escape_fts(:q)
           end
         order by
