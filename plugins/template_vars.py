@@ -1,5 +1,6 @@
-from datasette import hookimpl
 import html
+
+from datasette import hookimpl
 
 
 def highlight(s):
