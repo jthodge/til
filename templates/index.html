@@ -96,19 +96,28 @@
   <a href="https://github.com/jthodge/til">jthodge/til</a>.
 </p>
 
-<p>
-  <strong>Recently added:</strong> <ul>{% for row in sql("select * from til order by
-  created_utc desc limit 5", database="til") %}<li><a href="/{{ row.topic }}/{{ row.slug }}"
-    >{{ row.title }}</a
-  ></li>{% if not loop.last %} {% endif %}{% endfor %}</ul>
-</p>
-
 <form action="/til/search">
   <p>
     <input type="search" name="q" placeholder="Search {{ til_count }} TILs">
     <input type="submit" value="Search" />
   </p>
 </form>
+
+<p><a href="/all">Browse all {{ til_count }} TILs</a></p>
+
+<p>
+  <strong>Browse by topic:</strong>
+  {% for row in sql("select topic, count(*) as num_tils from til group by topic order by topic", database="til") %}
+    <a title="{{ row.num_tils }} TIL{{ "s" if row.num_tils > 1 else "" }}" href="/{{ row.topic }}">{{ row.topic }}</a> {{ row.num_tils }}{% if not loop.last %} &middot;{% endif %}
+  {% endfor %}
+</p>
+
+<p>
+  <strong>Recently added:</strong> <ul>{% for row in sql("select * from til order by
+  created_utc desc limit 5", database="til") %}<li><a href="/{{ row.topic }}/{{ row.slug }}"
+    >{{ row.title }}</a
+  ></li>{% if not loop.last %} {% endif %}{% endfor %}</ul>
+</p>
 
 {% for row in sql("select topic from til group by topic order by
 max(created_utc) desc", database="til") %}
@@ -124,6 +133,5 @@ max(created_utc) desc", database="til") %}
 </ul>
 {% endfor %}
 
-<p><a href="/all">Browse all {{ til_count }} TILs</a></p>
 
 {% endblock %}
