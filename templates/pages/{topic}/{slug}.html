@@ -1,0 +1,20 @@
+{% extends "til_base.html" %} {% set tils = sql(""" select * from til where path
+= :topic || '_' || :slug || '.md' """, {"topic": topic, "slug": slug},
+database="til") %} {% set til = tils[0] %} {% if not tils %} {% set raised =
+raise_404("TIL not found") %} {% endif %} {% block title %}{{ til.title }} |
+Taylor Hodge TILs{% endblock %} {% block extra_head %}
+<link
+  rel="stylesheet"
+  href="https://til.taylorhodge.md/static/github-light.css"
+/>
+<meta
+  property="og:url"
+  content="https://til.taylorhodge.me/{{ til.topic }}/{{ til.slug }}"
+/>
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{{ til.title }}" />
+<meta property="og:description" content="{{ til.summary }}" />
+{% endblock %} {% block body %}
+<h1>{{ til.title }}</h1>
+
+{{ til.html|safe }} {% endblock %}
