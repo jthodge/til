@@ -9,12 +9,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repo
+      - name: Check out jthodge/til
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
           path: main
-      - name: Checkout til-db
+      - name: Check out jthodge/til-db
         uses: actions/checkout@v3
         with:
           repository: jthodge/til-db
