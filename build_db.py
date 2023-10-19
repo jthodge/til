@@ -93,24 +93,16 @@ def build_database(repo_path):
                     break
                 elif response.status_code == 401:
                     assert False, "401 Unauthorized returned from GitHub API when rendering markdown"
-                elif response.status_code == 403:
-                    print(path, response.status_code, response.headers)
-                    print("  sleeping 90s")
-                    time.sleep(90)
-                    retries += 1
-                    # assert False, "403 Forbidden returned from GitHub API when rendering markdown"
                 else:
                     print(response.status_code, response.headers)
-                    print("  sleeping 60s")
+                    print("Sleeping for 60 seconds and then trying again...")
                     time.sleep(60)
+                    print("Retrying...")
                     retries += 1
             else:
-                print("Could not render {} - last response was {}".format(
+                assert False, "Could not render {} - last response was {}".format(
                     path, response.headers
-                ))
-                # assert False, "Could not render {} - last response was {}".format(
-                #     path, response.headers
-                # )
+                )
 
         record.update(all_times[path])
         with db.conn:
@@ -123,4 +115,3 @@ def build_database(repo_path):
 
 if __name__ == "__main__":
     build_database(root)
-
