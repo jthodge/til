@@ -41,6 +41,8 @@ jobs:
         run: curl --fail -o main/til.db https://raw.githubusercontent.com/jthodge/til-db/main/til.db
         continue-on-error: true
       - name: Build database
+        env:
+          MARKDOWN_GITHUB_TOKEN: ${{ secrets.MARKDOWN_GITHUB_TOKEN }}
         run: |-
           cd main
           python build_db.py
