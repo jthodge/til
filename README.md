@@ -138,6 +138,10 @@
 ## docker
 
 * [Enable Long-Lived Container Logs](https://github.com/jthodge/til/blob/main/docker/enable-long-lived-container-logs.md) - 2022-11-02
+
+## python
+
+* [Creating Deep Copies of Collections](https://github.com/jthodge/til/blob/main/python/creating-collection-deepcopies.md) - 2023-11-10
 <!-- index ends -->
 
 ## About
