@@ -126,6 +126,7 @@
 ## clis-and-terminals
 
 * [Use Commonly Available Characters for Progress Indicators](https://github.com/jthodge/til/blob/main/clis-and-terminals/use-commonly-available-characters-for-progress-indicators.md) - 2022-01-09
+* [`-`](https://github.com/jthodge/til/blob/main/clis-and-terminals/dash.md) - 2024-05-11
 
 ## regex
 
@@ -142,6 +143,8 @@
 ## python
 
 * [Creating Deep Copies of Collections](https://github.com/jthodge/til/blob/main/python/creating-collection-deepcopies.md) - 2023-11-10
+* [Python `dict.update` method returns `None`](https://github.com/jthodge/til/blob/main/python/dict-update-return-values.md) - 2024-02-23
+* [JSON Encoding and Decoding I/O Conversions](https://github.com/jthodge/til/blob/main/python/json-encoding-decoding-io.md) - 2024-02-23
 <!-- index ends -->
 
 ## About
