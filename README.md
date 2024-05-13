@@ -100,6 +100,7 @@
 * [Remove All Newlines from a Selected Region](https://github.com/jthodge/til/blob/main/emacs/remove-all-newlines-from-a-selected-region.md) - 2020-10-17
 * [Remove All Whitespace from Beginning of All Lines](https://github.com/jthodge/til/blob/main/emacs/remove-all-whitespace-from-beginning-of-all-lines.md) - 2020-10-18
 * [Update Feature Branch to Latest `main`](https://github.com/jthodge/til/blob/main/emacs/update-feature-branch-to-latest-main.md) - 2021-03-31
+* [Insert Detailed Timestamps](https://github.com/jthodge/til/blob/main/emacs/insert-detailed-timestamps.md) - 2024-05-13
 
 ## bash
 
