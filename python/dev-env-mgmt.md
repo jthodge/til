@@ -9,12 +9,14 @@ Allows us to upgrade default Python version without breaking projects that rely 
 `pyenv-virtualenv`
 Used to create and manage virtual environments — most commonly for isolating project-level dependencies.
 
-## Installation
+## Package Installation
+
 ```bash
 brew update && brew install pyenv pyenv-virtualenv
 ```
 
 ## Shell Configuration
+
 ```bash
 # pyenv
 ## Assign variable to pyenv location
@@ -29,7 +31,8 @@ fi
 
 ## Version Management
 
-### Installation
+### Version Installation
+
 ```bash
 # Install latest Python 3.11 version
 pyenv install 3.11:latest
@@ -47,13 +50,15 @@ pyenv latest 3.12
 pyenv global 3.11.$PATCH 3.12.$PATCH
 ```
 
-### Upgrading
+### Upgrading Versions
+
 ```bash
 # Upgrade to latest version of Python 3.11 and 3.12
 pyenv install --skip-existing 3.11:latest 3.12:latest
 ```
 
 ### Navigation
+
 ```bash
 # List all versions available for installation
 pyenv install --list
