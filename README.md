@@ -147,6 +147,10 @@
 * [Python `dict.update` method returns `None`](https://github.com/jthodge/til/blob/main/python/dict-update-return-values.md) - 2024-02-23
 * [JSON Encoding and Decoding I/O Conversions](https://github.com/jthodge/til/blob/main/python/json-encoding-decoding-io.md) - 2024-02-23
 * [Python Development Environment Management (macOS)](https://github.com/jthodge/til/blob/main/python/dev-env-mgmt.md) - 2024-08-11
+
+## haskell
+
+* [String Concatenation Operators](https://github.com/jthodge/til/blob/main/haskell/string-concatenation-operators.md) - 2024-08-12
 <!-- index ends -->
 
 ## About
