@@ -62,6 +62,7 @@
 * [Write a Query Result to a File](https://github.com/jthodge/til/blob/main/postgres/write-a-query-result-to-a-file.md) - 2020-07-28
 * [Export Text Without Headers and Formatting](https://github.com/jthodge/til/blob/main/postgres/export-text-without-headers-and-formatting.md) - 2020-07-28
 * [Drop a Database Even When Clients are Connected](https://github.com/jthodge/til/blob/main/postgres/drop-a-database-even-when-clients-are-connected.md) - 2020-10-17
+* [`psql` notes](https://github.com/jthodge/til/blob/main/postgres/psql-notes.md) - 2024-08-17
 
 ## unix
 
