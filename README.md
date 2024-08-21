@@ -108,6 +108,7 @@
 
 * [Use the `DEBUG` Trap to Step Through a Script](https://github.com/jthodge/til/blob/main/bash/use-the-debug-trap-to-step-through-a-script.md) - 2020-10-19
 * [Always Enclose Variable Names in Double Quotes](https://github.com/jthodge/til/blob/main/bash/always-enclose-variable-names-in-double-quotes.md) - 2021-07-19
+* [Shell Script Template](https://github.com/jthodge/til/blob/main/bash/shell-script-template.md) - 2024-08-21
 
 ## node
 
