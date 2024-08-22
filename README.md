@@ -157,7 +157,7 @@
 
 ## patterns
 
-* [Lazy-Iteration Over Multiple Sorted Enumerables, Preserving Order](https://github.com/jthodge/til/blob/main/patterns/x.md) - 2024-08-21
+* [Lazy-Iteration Over Multiple Sorted Enumerables, Preserving Order](https://github.com/jthodge/til/blob/main/patterns/lazy-iteration-over-multiple-sorted-enumerables-preserving-order.md) - 2024-08-21
 <!-- index ends -->
 
 ## About
