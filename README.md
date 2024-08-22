@@ -158,6 +158,7 @@
 ## patterns
 
 * [Lazy-Iteration Over Multiple Sorted Enumerables, Preserving Order](https://github.com/jthodge/til/blob/main/patterns/lazy-iteration-over-multiple-sorted-enumerables-preserving-order.md) - 2024-08-21
+* [`uv run` in the Shebang Line](https://github.com/jthodge/til/blob/main/patterns/uv-run-in-the-shebang-line.md) - 2024-08-21
 <!-- index ends -->
 
 ## About
