@@ -154,6 +154,10 @@
 ## haskell
 
 * [String Concatenation Operators](https://github.com/jthodge/til/blob/main/haskell/string-concatenation-operators.md) - 2024-08-12
+
+## patterns
+
+* [Lazy-Iteration Over Multiple Sorted Enumerables, Preserving Order](https://github.com/jthodge/til/blob/main/patterns/x.md) - 2024-08-21
 <!-- index ends -->
 
 ## About
