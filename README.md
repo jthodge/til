@@ -93,6 +93,7 @@
 
 * [Perform Search Engine Queries from Spotlight](https://github.com/jthodge/til/blob/main/macos/perform-search-engine-queries-from-spotlight.md) - 2020-08-08
 * [Reveal `.` Files in Finder](https://github.com/jthodge/til/blob/main/macos/reveal-hidden-files-in-finder.md) - 2024-08-24
+* [Modifier Keys in Menu Bar](https://github.com/jthodge/til/blob/main/macos/modifier-keys-in-menu-bar.md) - 2024-08-24
 
 ## posix
 
