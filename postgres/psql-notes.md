@@ -77,3 +77,10 @@ We can also echo all queries that `psql` runs to stdout:
 
 Alternatively, invoking `\!` without a command will open an interactive shell.
 After leaving this shell, you're returned to the previous `psql` session.
+
+## `crosstabview`
+
+Executed a pivoted representation of a resultset.
+
+- [Current postgresql docs](https://www.postgresql.org/docs/current/app-psql.html#APP-PSQL-META-COMMANDS-CROSSTABVIEW)
+- [postgresl Wiki entry](https://wiki.postgresql.org/wiki/Crosstabview)
