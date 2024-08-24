@@ -68,3 +68,12 @@ We can also echo all queries that `psql` runs to stdout:
 # or, short name:
 # -e
 ```
+
+## Run Shell Scripts from Within `psql`
+
+```bash
+\! pwd
+```
+
+Alternatively, invoking `\!` without a command will open an interactive shell.
+After leaving this shell, you're returned to the previous `psql` session.
