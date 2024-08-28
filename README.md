@@ -164,6 +164,10 @@
 
 * [Lazy-Iteration Over Multiple Sorted Enumerables, Preserving Order](https://github.com/jthodge/til/blob/main/patterns/lazy-iteration-over-multiple-sorted-enumerables-preserving-order.md) - 2024-08-21
 * [`uv run` in the Shebang Line](https://github.com/jthodge/til/blob/main/patterns/uv-run-in-the-shebang-line.md) - 2024-08-21
+
+## css
+
+* [Upside Down Table Trick](https://github.com/jthodge/til/blob/main/css/upside-down-table-trick.md) - 2024-08-28
 <!-- index ends -->
 
 ## About
