@@ -65,6 +65,7 @@
 * [Drop a Database Even When Clients are Connected](https://github.com/jthodge/til/blob/main/postgres/drop-a-database-even-when-clients-are-connected.md) - 2020-10-17
 * [`psql` Notes](https://github.com/jthodge/til/blob/main/postgres/psql-notes.md) - 2024-08-17
 * [`DiskFull` Error](https://github.com/jthodge/til/blob/main/postgres/diskfull-error.md) - 2024-08-17
+* [Idenfity `NULL` JSON Values](https://github.com/jthodge/til/blob/main/postgres/identify-null-json-values.md) - 2024-08-27
 
 ## unix
 
