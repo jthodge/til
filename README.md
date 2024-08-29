@@ -66,6 +66,7 @@
 * [`psql` Notes](https://github.com/jthodge/til/blob/main/postgres/psql-notes.md) - 2024-08-17
 * [`DiskFull` Error](https://github.com/jthodge/til/blob/main/postgres/diskfull-error.md) - 2024-08-17
 * [Idenfity `NULL` JSON Values](https://github.com/jthodge/til/blob/main/postgres/identify-null-json-values.md) - 2024-08-27
+* [Cross-Table Row Deletions](https://github.com/jthodge/til/blob/main/postgres/cross-table-row-deletions.md) - 2024-08-29
 
 ## unix
 
