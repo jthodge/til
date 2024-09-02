@@ -158,6 +158,7 @@
 * [JSON Encoding and Decoding I/O Conversions](https://github.com/jthodge/til/blob/main/python/json-encoding-decoding-io.md) - 2024-02-23
 * [Python Development Environment Management (macOS)](https://github.com/jthodge/til/blob/main/python/dev-env-mgmt.md) - 2024-08-11
 * [Eager and Lazy Evaluation](https://github.com/jthodge/til/blob/main/python/eager-and-lazy-evaluation.md) - 2024-08-30
+* [`uvtrick`: Run Python Code from `venv` in Current Environment](https://github.com/jthodge/til/blob/main/python/uvtrick.md) - 2024-09-02
 
 ## haskell
 
