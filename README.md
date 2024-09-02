@@ -171,6 +171,7 @@
 ## css
 
 * [Upside Down Table Trick](https://github.com/jthodge/til/blob/main/css/upside-down-table-trick.md) - 2024-08-28
+* [`grid-area`](https://github.com/jthodge/til/blob/main/css/grid-areas.md) - 2024-09-02
 <!-- index ends -->
 
 ## About
