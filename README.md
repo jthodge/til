@@ -146,6 +146,7 @@
 ## django
 
 * [Django Drops the SQL `DEFAULT` Constraint When Creating New Columns](https://github.com/jthodge/til/blob/main/django/django-drops-the-sql-default-constraint-when-creating-new-columns.md) - 2022-01-27
+* [`{% querystring %}` Template Tag](https://github.com/jthodge/til/blob/main/django/querystring-template-tag.md) - 2024-09-02
 
 ## docker
 
