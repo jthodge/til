@@ -51,6 +51,7 @@ SubscriptionsController.new.create(3)
 ```
 
 Checking out the trace:
+
 1. L30 is where we kick off our call
 2. L17 is within our controller
 3. L23 is in our `Subription` model, where the model is getting a `nil` from L16, passing that `nil` to the `Subscription`, and then the `Subscription` is accessing an attribute (`name`) on the `nil` that (understandably) does not exist. This is throwing the exception.
