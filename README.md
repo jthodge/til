@@ -142,6 +142,7 @@
 ## regex
 
 * [Use Quine Quotes to Delimit Regular Expressions](https://github.com/jthodge/til/blob/main/regex/use-quine-quotes-to-delimit-regular-expressions.md) - 2022-01-10
+* [Character Classes Are a Sub-language of Regex](https://github.com/jthodge/til/blob/main/regex/character-classes-are-a-sublanguage-of-regex.md) - 2024-09-05
 
 ## django
 
