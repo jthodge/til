@@ -11,6 +11,7 @@ readme = "README.md"
 license = {file = "LICENSE"}
 requires-python = ">=3.9"
 dependencies = [
+    "click>=8.0",
     "GitPython",
     "sqlite-utils>=3.2",
     "beautifulsoup4",
@@ -35,6 +36,7 @@ dev = [
 ]
 
 [project.scripts]
+til = "til.cli:cli"
 til-build = "til.build_db:main"
 til-update-readme = "til.update_readme:main"
 
