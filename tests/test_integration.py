@@ -10,9 +10,9 @@ import sqlite_utils
 from git import Repo
 from til.build_db import build_database
 from til.config import TILConfig
-from til.update_readme import main as update_readme_main
 from til.database import TILDatabase
 from til.readme_generator import ReadmeGenerator
+from til.update_readme import main as update_readme_main
 
 
 class TestFullPipeline:

@@ -4,10 +4,10 @@ import pathlib
 from datetime import timezone
 from pathlib import Path
 
-import git
 import pytest
-from git import Repo
 
+import git
+from git import Repo
 from til.repository import GitRepository
 
 
