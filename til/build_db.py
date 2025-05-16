@@ -4,12 +4,13 @@ import logging
 import pathlib
 import time
 from datetime import timezone
-from typing import Dict, Optional, Any
+from typing import Any, Dict, Optional
 
-import git
 import httpx
 import sqlite_utils
 from sqlite_utils.db import NotFoundError, Table
+
+import git
 
 from .config import TILConfig
 
