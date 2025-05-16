@@ -9,7 +9,9 @@ import sqlite_utils
 from git import Repo
 from til.build_db import build_database
 from til.config import TILConfig
-from til.update_readme import build_index, update_readme_file
+from til.update_readme import main as update_readme_main
+from til.database import TILDatabase
+from til.readme_generator import ReadmeGenerator
 
 
 class TestFullPipeline:
@@ -78,9 +80,10 @@ class TestFullPipeline:
                 },
             )
 
-        # Build and update README
-        index = build_index(db)
-        update_readme_file(readme, index, db["til"].count)
+        # Build and update README using new classes
+        til_db = TILDatabase(config.database_path)
+        generator = ReadmeGenerator(til_db)
+        generator.update_readme(readme)
 
         # Verify README was updated
         readme_content = readme.read_text()
