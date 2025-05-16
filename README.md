@@ -2,6 +2,9 @@
 
 > Today I Learned
 
+[![Test](https://github.com/jthodge/til/actions/workflows/test.yml/badge.svg)](https://github.com/jthodge/til/actions/workflows/test.yml)
+[![Build](https://github.com/jthodge/til/actions/workflows/main.yml/badge.svg)](https://github.com/jthodge/til/actions/workflows/main.yml)
+
 <!-- index starts -->
 ## chrome
 

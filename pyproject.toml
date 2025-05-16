@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "til"
+version = "0.1.0"
+description = "Today I Learned - A static site generator for TIL entries"
+authors = [{name = "Taylor Hodge", email = ""}]
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.9"
+dependencies = [
+    "GitPython",
+    "sqlite-utils>=3.2",
+    "beautifulsoup4",
+    "datasette>=0.57",
+    "datasette-atom>=0.7",
+    "datasette-template-sql>=1.0.2",
+    "datasette-graphql",
+    "datasette-block-robots",
+    "datasette-sitemap>=1.0",
+    "httpx",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "black",
+    "isort",
+    "flake8",
+    "mypy",
+    "types-requests",
+]
+
+[project.scripts]
+til-build = "til.build_db:main"
+til-update-readme = "til.update_readme:main"
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = false
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+follow_imports = "normal"
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
