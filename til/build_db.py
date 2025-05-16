@@ -4,12 +4,12 @@ import logging
 import pathlib
 import time
 from datetime import timezone
-from typing import Dict, Optional, Any
+from typing import Dict, Optional, Any, cast
 
 import git
 import httpx
 import sqlite_utils
-from sqlite_utils.db import NotFoundError
+from sqlite_utils.db import NotFoundError, Table
 
 from .config import TILConfig
 
@@ -33,11 +33,11 @@ def get_created_changed_times(
         Dictionary mapping file paths to created/updated times
     """
     created_changed_times: Dict[str, Dict[str, str]] = {}
-    repo = git.Repo(repo_path, odbt=git.GitDB)  # type: ignore
+    repo = git.Repo(repo_path, odbt=git.GitDB)  # type: ignore[attr-defined]
 
     try:
         commits = reversed(list(repo.iter_commits(ref)))
-    except git.GitCommandError as e:  # type: ignore
+    except git.GitCommandError as e:  # type: ignore[attr-defined]
         logger.error(f"Failed to get commits for ref {ref}: {e}")
         return created_changed_times
 
@@ -46,12 +46,14 @@ def get_created_changed_times(
         affected_files = list(commit.stats.files.keys())
 
         for filepath in affected_files:
-            if filepath not in created_changed_times:
-                created_changed_times[filepath] = {
+            # Ensure filepath is a string for dict key
+            filepath_str = str(filepath)
+            if filepath_str not in created_changed_times:
+                created_changed_times[filepath_str] = {
                     "created": dt.isoformat(),
                     "created_utc": dt.astimezone(timezone.utc).isoformat(),
                 }
-            created_changed_times[filepath].update(
+            created_changed_times[filepath_str].update(
                 {
                     "updated": dt.isoformat(),
                     "updated_utc": dt.astimezone(timezone.utc).isoformat(),
