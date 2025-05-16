@@ -38,6 +38,10 @@ dev = [
 til-build = "til.build_db:main"
 til-update-readme = "til.update_readme:main"
 
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["til*"]
+
 [tool.black]
 line-length = 88
 target-version = ['py39']
