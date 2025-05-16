@@ -2,7 +2,6 @@
 
 import subprocess
 from pathlib import Path
-from typing import Any
 
 import pytest
 import sqlite_utils
@@ -18,9 +17,7 @@ from til.update_readme import main as update_readme_main
 class TestFullPipeline:
     """Test the complete TIL pipeline from files to database to README."""
 
-    def test_complete_workflow(
-        self, temp_dir: Path, mock_github_api: Any
-    ) -> None:  # TODO: Replace Any with specific type
+    def test_complete_workflow(self, temp_dir: Path, mock_github_api: None) -> None:
         """Test the complete workflow from markdown files to updated README."""
         # Initialize git repo with TIL files
         repo = Repo.init(temp_dir)
@@ -99,9 +96,7 @@ class TestFullPipeline:
         assert "[Python Decorators]" in readme_content
         assert "[Bash Loops]" in readme_content
 
-    def test_incremental_update(
-        self, temp_dir: Path, mock_github_api: Any
-    ) -> None:  # TODO: Replace Any with specific type
+    def test_incremental_update(self, temp_dir: Path, mock_github_api: None) -> None:
         """Test updating existing database with new TIL."""
         # Set up initial state
         repo = Repo.init(temp_dir)
@@ -144,8 +139,8 @@ class TestFullPipeline:
         assert titles == {"First TIL", "Second TIL"}
 
     def test_cli_commands(
-        self, temp_dir: Path, monkeypatch: pytest.MonkeyPatch, mock_github_api: Any
-    ) -> None:  # TODO: Replace Any with specific type
+        self, temp_dir: Path, monkeypatch: pytest.MonkeyPatch, mock_github_api: None
+    ) -> None:
         """Test CLI commands work correctly."""
         # Set up test environment
         monkeypatch.chdir(temp_dir)
@@ -224,9 +219,7 @@ class TestFullPipeline:
             or result2.returncode == 0
         )
 
-    def test_error_recovery(
-        self, temp_dir: Path, mock_github_api: Any
-    ) -> None:  # TODO: Replace Any with specific type
+    def test_error_recovery(self, temp_dir: Path, mock_github_api: None) -> None:
         """Test system handles errors gracefully."""
         # Initialize git repo
         repo = Repo.init(temp_dir)
@@ -255,9 +248,7 @@ class TestFullPipeline:
 class TestDatasetteIntegration:
     """Test Datasette-specific functionality."""
 
-    def test_full_text_search(
-        self, temp_git_repo: Repo, mock_github_api: Any
-    ) -> None:  # TODO: Replace Any with specific type
+    def test_full_text_search(self, temp_git_repo: Repo, mock_github_api: None) -> None:
         """Test full-text search functionality."""
         config = TILConfig(
             root_path=Path(temp_git_repo.working_dir), database_name="test.db"

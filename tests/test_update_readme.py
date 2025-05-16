@@ -1,7 +1,6 @@
 """Test README update functionality."""
 
 from pathlib import Path
-from typing import Any
 from unittest.mock import Mock, patch
 
 import pytest
@@ -151,9 +150,7 @@ class TestUpdateReadme:
             mock_exit.assert_called_once_with(1)
 
     @patch("til.update_readme.main")
-    def test_module_execution(
-        self, mock_main: Any
-    ) -> None:  # TODO: Replace Any with specific type
+    def test_module_execution(self, mock_main: Mock) -> None:
         """Test that main is called when module is executed."""
         # Import the module
         import til.update_readme

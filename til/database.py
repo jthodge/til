@@ -176,6 +176,6 @@ class TILDatabase:
     def close(self) -> None:
         """Close the database connection."""
         try:
-            self.db.close()
+            self.db.close()  # type: ignore[no-untyped-call]
         except Exception as e:
             logger.warning(f"Error closing database: {e}")

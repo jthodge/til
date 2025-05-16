@@ -2,7 +2,7 @@
 
 import tempfile
 from pathlib import Path
-from typing import Any, Generator
+from typing import Generator, Dict, Optional
 
 import pytest
 import sqlite_utils
@@ -71,7 +71,7 @@ def temp_db(temp_dir: Path) -> sqlite_utils.Database:
 
 
 @pytest.fixture
-def sample_til_record() -> dict:
+def sample_til_record() -> Dict[str, str]:
     """Sample TIL record for testing."""
     return {
         "path": "python_test-til.md",
@@ -99,11 +99,15 @@ def mock_github_api(monkeypatch: pytest.MonkeyPatch) -> None:
             self.status_code = status_code
 
     def mock_post(
-        url: str, **kwargs: Any
-    ) -> MockResponse:  # TODO: Replace Any with specific type
-        if url == "https://api.github.com/markdown":
+        url: str,
+        *,
+        json: Optional[Dict[str, str]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        timeout: Optional[float] = None,
+    ) -> MockResponse:
+        if url == "https://api.github.com/markdown" and json is not None:
             # Simple markdown to HTML conversion
-            text = kwargs["json"]["text"]
+            text = json["text"]
             html = text.replace("# ", "<h1>").replace("\n", "</h1>\n<p>", 1) + "</p>"
             html = html.replace("**", "<strong>").replace("**", "</strong>")
             return MockResponse(html)

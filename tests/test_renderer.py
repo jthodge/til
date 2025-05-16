@@ -1,11 +1,11 @@
 """Tests for MarkdownRenderer class."""
 
 import time
-from typing import Any
 from unittest.mock import Mock, patch
 
 import httpx
 import pytest
+from pytest import LogCaptureFixture
 
 from til.config import TILConfig
 from til.exceptions import APIError, RenderingError
@@ -22,8 +22,8 @@ def test_markdown_renderer_initialization() -> None:
 
 
 def test_render_successful(
-    mock_github_api: Any,
-) -> None:  # TODO: Replace Any with specific type
+    mock_github_api: None,
+) -> None:
     """Test successful markdown rendering."""
     config = TILConfig(github_token="test_token")
     renderer = MarkdownRenderer(config)
@@ -44,8 +44,8 @@ def test_render_empty_markdown() -> None:
 
 
 def test_render_no_token_warning(
-    caplog: Any,
-) -> None:  # TODO: Replace Any with specific type
+    caplog: LogCaptureFixture,
+) -> None:
     """Test warning when no token is configured."""
     config = TILConfig()
     renderer = MarkdownRenderer(config)
@@ -63,8 +63,8 @@ def test_render_no_token_warning(
 
 @patch("httpx.post")
 def test_render_unauthorized(
-    mock_post: Any,
-) -> None:  # TODO: Replace Any with specific type
+    mock_post: Mock,
+) -> None:
     """Test handling of 401 unauthorized response."""
     # Mock 401 response
     mock_response = Mock()
@@ -83,8 +83,8 @@ def test_render_unauthorized(
 
 @patch("httpx.post")
 def test_render_with_retry(
-    mock_post: Any,
-) -> None:  # TODO: Replace Any with specific type
+    mock_post: Mock,
+) -> None:
     """Test retry logic for failed requests."""
     # Mock responses: first two fail, third succeeds
     mock_response_fail = Mock()
@@ -112,8 +112,8 @@ def test_render_with_retry(
 
 @patch("httpx.post")
 def test_render_max_retries_exceeded(
-    mock_post: Any,
-) -> None:  # TODO: Replace Any with specific type
+    mock_post: Mock,
+) -> None:
     """Test failure when max retries exceeded."""
     # Mock all responses to fail
     mock_response = Mock()
@@ -134,11 +134,11 @@ def test_render_max_retries_exceeded(
 
 @patch("httpx.post")
 def test_render_request_error(
-    mock_post: Any,
-) -> None:  # TODO: Replace Any with specific type
+    mock_post: Mock,
+) -> None:
     """Test handling of request errors."""
-    # Mock request error
-    mock_post.side_effect = httpx.RequestError("Connection error")
+    # Mock HTTPError
+    mock_post.side_effect = httpx.HTTPError("Network error")
 
     config = TILConfig(github_token="test_token", max_retries=2, retry_delay=0)
     renderer = MarkdownRenderer(config)
@@ -151,8 +151,8 @@ def test_render_request_error(
 
 @patch("httpx.post")
 def test_render_request_error_then_success(
-    mock_post: Any,
-) -> None:  # TODO: Replace Any with specific type
+    mock_post: Mock,
+) -> None:
     """Test recovery from request error."""
     # First call raises error, second succeeds
     mock_response = Mock()
@@ -175,8 +175,8 @@ def test_render_request_error_then_success(
 
 @patch("httpx.post")
 def test_render_rate_limit(
-    mock_post: Any,
-) -> None:  # TODO: Replace Any with specific type
+    mock_post: Mock,
+) -> None:
     """Test handling of rate limit response."""
     # Mock 403 rate limit response
     mock_response = Mock()
@@ -195,8 +195,8 @@ def test_render_rate_limit(
 
 @patch("httpx.post")
 def test_render_422_invalid_content(
-    mock_post: Any,
-) -> None:  # TODO: Replace Any with specific type
+    mock_post: Mock,
+) -> None:
     """Test handling of 422 invalid content response."""
     # Mock 422 response
     mock_response = Mock()
@@ -215,9 +215,9 @@ def test_render_422_invalid_content(
 
 @patch("httpx.post")
 def test_render_empty_html_warning(
-    mock_post: Any,
-    caplog: Any,
-) -> None:  # TODO: Replace Any with specific types
+    mock_post: Mock,
+    caplog: LogCaptureFixture,
+) -> None:
     """Test warning when GitHub returns empty HTML."""
     # Mock empty response
     mock_response = Mock()
