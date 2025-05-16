@@ -37,8 +37,6 @@ dev = [
 
 [project.scripts]
 til = "til.cli:cli"
-til-build = "til.build_db:main"
-til-update-readme = "til.update_readme:main"
 
 [tool.setuptools.packages.find]
 where = ["."]

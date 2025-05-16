@@ -173,7 +173,7 @@ class TestFullPipeline:
 """
         )
 
-        # Test til-build with real output
+        # Test til build with real output
         import os
         import sys
         from pathlib import Path
@@ -189,7 +189,7 @@ class TestFullPipeline:
         env["PYTHONPATH"] = str(project_root) + os.pathsep + env.get("PYTHONPATH", "")
 
         result = subprocess.run(
-            [sys.executable, "-m", "til.build_db"],
+            [sys.executable, "-m", "til.cli", "build"],
             capture_output=True,
             text=True,
             env=env,
@@ -205,7 +205,7 @@ class TestFullPipeline:
 
         # Try to run update-readme without a database - it will fail but that's OK for this test
         result2 = subprocess.run(
-            [sys.executable, "-m", "til.update_readme"],
+            [sys.executable, "-m", "til.cli", "update-readme"],
             capture_output=True,
             text=True,
             env=env,
