@@ -4,7 +4,7 @@ import logging
 import pathlib
 import time
 from datetime import timezone
-from typing import Dict, Optional, Any, cast
+from typing import Dict, Optional, Any
 
 import git
 import httpx
@@ -163,7 +163,10 @@ def build_database(config: TILConfig) -> None:
 
     all_times = get_created_changed_times(config.root_path)
     db = sqlite_utils.Database(config.database_path)
+    # Get table as Table instance, not View
     table = db.table("til", pk="path")
+    # Ensure it's a Table instance for mypy
+    assert isinstance(table, Table), "Expected Table instance"
 
     markdown_files = list(config.root_path.glob("*/*.md"))
     logger.info(f"Found {len(markdown_files)} markdown files")
@@ -179,6 +182,8 @@ def build_database(config: TILConfig) -> None:
 
         # Check if HTML needs to be updated
         try:
+            # Type assertion for mypy - we know this is a Table
+            assert isinstance(table, Table)
             row = table.get(record["path"])
             previous_body = row["body"]
             previous_html = row.get("html")
@@ -202,10 +207,13 @@ def build_database(config: TILConfig) -> None:
 
         # Update database
         with db.conn:
+            # Type assertion for mypy - we know this is a Table
+            assert isinstance(table, Table)
             table.upsert(record, alter=True)
 
     # Enable full-text search
     logger.info("Enabling full-text search...")
+    assert isinstance(table, Table)
     table.enable_fts(
         ["title", "body"], tokenize="porter", create_triggers=True, replace=True
     )
