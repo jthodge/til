@@ -35,6 +35,7 @@
 
 * [Upside Down Table Trick](https://github.com/jthodge/til/blob/main/css/upside-down-table-trick.md) - 2024-08-28
 * [`grid-area`](https://github.com/jthodge/til/blob/main/css/grid-areas.md) - 2024-09-02
+* [Blurry Image Placeholders](https://github.com/jthodge/til/blob/main/css/blurry-image-placeholders.md) - 2025-05-15
 
 ## curl
 
