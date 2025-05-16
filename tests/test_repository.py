@@ -8,6 +8,7 @@ import pytest
 
 import git
 from git import Repo
+from til.exceptions import RepositoryError
 from til.repository import GitRepository
 
 
@@ -22,8 +23,14 @@ def test_git_repository_initialization(temp_git_repo: Repo) -> None:
 
 def test_git_repository_initialization_invalid_path(temp_dir: Path) -> None:
     """Test GitRepository initialization with non-git directory."""
-    with pytest.raises(git.InvalidGitRepositoryError):
+    with pytest.raises(RepositoryError, match="Not a valid git repository"):
         GitRepository(temp_dir)
+
+
+def test_git_repository_initialization_nonexistent_path() -> None:
+    """Test GitRepository initialization with nonexistent path."""
+    with pytest.raises(RepositoryError, match="Path does not exist"):
+        GitRepository(Path("/nonexistent/path"))
 
 
 def test_get_current_branch(temp_git_repo: Repo) -> None:
@@ -90,9 +97,9 @@ def test_get_file_history_invalid_ref(temp_git_repo: Repo) -> None:
     repo_path = temp_git_repo.working_dir
     git_repo = GitRepository(pathlib.Path(repo_path))
 
-    # Should return empty dict on error
-    history = git_repo.get_file_history(ref="nonexistent-branch")
-    assert history == {}
+    # Should raise RepositoryError for invalid ref
+    with pytest.raises(RepositoryError, match="bad revision"):
+        git_repo.get_file_history(ref="nonexistent-branch")
 
 
 def test_get_file_history_multiple_commits(temp_git_repo: Repo, temp_dir: Path) -> None:
