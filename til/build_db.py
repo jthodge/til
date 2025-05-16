@@ -22,13 +22,13 @@ logger = logging.getLogger(__name__)
 
 
 def get_created_changed_times(
-    repo_path: pathlib.Path, ref: str = "main"
+    repo_path: pathlib.Path, ref: Optional[str] = None
 ) -> Dict[str, Dict[str, str]]:
     """Extract created and updated times from git history.
 
     Args:
         repo_path: Path to git repository
-        ref: Git reference to use (default: main)
+        ref: Git reference to use (default: None to use current branch)
 
     Returns:
         Dictionary mapping file paths to created/updated times
@@ -36,6 +36,14 @@ def get_created_changed_times(
     created_changed_times: Dict[str, Dict[str, str]] = {}
     repo = git.Repo(repo_path, odbt=git.GitDB)  # type: ignore[attr-defined]
 
+    # Get the current branch name if ref is not specified
+    if ref is None:
+        try:
+            ref = repo.active_branch.name
+        except TypeError:
+            # If no active branch (detached HEAD), use HEAD
+            ref = "HEAD"
+    
     try:
         commits = reversed(list(repo.iter_commits(ref)))
     except git.GitCommandError as e:  # type: ignore[attr-defined]
@@ -162,7 +170,14 @@ def build_database(config: TILConfig) -> None:
     """
     logger.info(f"Building database from {config.root_path}")
 
-    all_times = get_created_changed_times(config.root_path)
+    # Try to detect the current git branch, default to "main" if not in a repo
+    try:
+        repo = git.Repo(config.root_path)
+        current_branch = repo.active_branch.name
+    except (git.InvalidGitRepositoryError, TypeError):
+        current_branch = "main"
+    
+    all_times = get_created_changed_times(config.root_path, ref=current_branch)
     db = sqlite_utils.Database(config.database_path)
     # Get table as Table instance, not View
     table = db.table("til", pk="path")
@@ -212,12 +227,15 @@ def build_database(config: TILConfig) -> None:
             assert isinstance(table, Table)
             table.upsert(record, alter=True)
 
-    # Enable full-text search
-    logger.info("Enabling full-text search...")
-    assert isinstance(table, Table)
-    table.enable_fts(
-        ["title", "body"], tokenize="porter", create_triggers=True, replace=True
-    )
+    # Enable full-text search only if the table has been created and has records
+    if "til" in db.table_names() and table.count > 0:
+        logger.info("Enabling full-text search...")
+        assert isinstance(table, Table)
+        table.enable_fts(
+            ["title", "body"], tokenize="porter", create_triggers=True, replace=True
+        )
+    else:
+        logger.warning("No records in database, skipping FTS setup")
 
     logger.info("Database build complete")
 

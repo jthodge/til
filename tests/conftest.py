@@ -37,7 +37,11 @@ def temp_git_repo(temp_dir: Path) -> Generator[Repo, None, None]:
     
     # Create initial commit
     repo.index.add(["python/test-til-1.md", "python/test-til-2.md"])
-    repo.index.commit("Initial commit")
+    commit = repo.index.commit("Initial commit")
+    
+    # Ensure we have a branch reference
+    if not repo.active_branch.name:
+        repo.create_head('main', commit)
     
     # Create another TIL in a different topic
     bash_dir = temp_dir / "bash"
@@ -48,6 +52,12 @@ def temp_git_repo(temp_dir: Path) -> Generator[Repo, None, None]:
     
     repo.index.add(["bash/bash-test.md"])
     repo.index.commit("Add bash TIL")
+    
+    # Create a main branch if the default is different (e.g., master)
+    if repo.active_branch.name != "main":
+        repo.create_head("main", force=True)
+        repo.head.reference = repo.heads.main
+        repo.head.reset(index=True, working_tree=True)
     
     yield repo
 
