@@ -35,10 +35,8 @@ def test_repository_error_not_git_repo(temp_dir: Path) -> None:
 
 def test_processor_configuration_error() -> None:
     """Test ConfigurationError when root path doesn't exist."""
-    config = TILConfig(root_path=Path("/nonexistent/path"))
-
     with pytest.raises(ConfigurationError, match="Root path does not exist"):
-        TILProcessor(config)
+        config = TILConfig(root_path=Path("/nonexistent/path"))
 
 
 def test_file_processing_error_empty_file(temp_dir: Path) -> None:
@@ -90,7 +88,7 @@ def test_file_processing_error_invalid_structure(temp_dir: Path) -> None:
 
 def test_rendering_error_api_failure() -> None:
     """Test RenderingError when GitHub API fails."""
-    config = TILConfig(github_token="test_token", max_retries=1, retry_delay=0)
+    config = TILConfig(github_token="test_token", max_retries=1, retry_delay=1)
     renderer = MarkdownRenderer(config)
 
     with patch("httpx.post", side_effect=Exception("Network error")):
@@ -114,7 +112,7 @@ def test_api_error_unauthorized() -> None:
 
 def test_api_error_rate_limit() -> None:
     """Test APIError for rate limiting."""
-    config = TILConfig(max_retries=1, retry_delay=0)
+    config = TILConfig(max_retries=1, retry_delay=1)
     renderer = MarkdownRenderer(config)
 
     mock_response = Mock()

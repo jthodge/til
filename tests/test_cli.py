@@ -51,16 +51,16 @@ class TestCLI:
         assert "--output" in result.output
 
     @patch.object(cli_module, "TILProcessor")
-    @patch.object(cli_module, "TILConfig")
+    @patch.object(cli_module, "ConfigLoader")
     def test_build_command(
-        self, mock_config_class: Mock, mock_processor_class: Mock
+        self, mock_loader_class: Mock, mock_processor_class: Mock
     ) -> None:
         """Test build command execution."""
         runner = click.testing.CliRunner()
 
         # Set up mock instances
         mock_config = Mock()
-        mock_config_class.return_value = mock_config
+        mock_loader_class.load_config.return_value = mock_config
 
         mock_processor = Mock()
         mock_processor_class.return_value = mock_processor
@@ -70,9 +70,12 @@ class TestCLI:
         assert result.exit_code == 0
         assert "Database built successfully!" in result.output
 
-        # Verify TILConfig was called with defaults
-        mock_config_class.assert_called_once_with(
-            github_token=None, github_repo="jthodge/til", database_name="til.db"
+        # Verify ConfigLoader was called with defaults
+        mock_loader_class.load_config.assert_called_once_with(
+            config_file=None,
+            github_token=None,
+            github_repo="jthodge/til",
+            database_name="til.db",
         )
 
         # Verify processor was used
@@ -80,16 +83,16 @@ class TestCLI:
         mock_processor.build_database.assert_called_once()
 
     @patch.object(cli_module, "TILProcessor")
-    @patch.object(cli_module, "TILConfig")
+    @patch.object(cli_module, "ConfigLoader")
     def test_build_command_with_options(
-        self, mock_config_class: Mock, mock_processor_class: Mock
+        self, mock_loader_class: Mock, mock_processor_class: Mock
     ) -> None:
         """Test build command with custom options."""
         runner = click.testing.CliRunner()
 
         # Set up mock instances
         mock_config = Mock()
-        mock_config_class.return_value = mock_config
+        mock_loader_class.load_config.return_value = mock_config
 
         mock_processor = Mock()
         mock_processor_class.return_value = mock_processor
@@ -109,17 +112,18 @@ class TestCLI:
 
         assert result.exit_code == 0
 
-        # Verify TILConfig was called with custom options
-        mock_config_class.assert_called_once_with(
+        # Verify ConfigLoader was called with custom options
+        mock_loader_class.load_config.assert_called_once_with(
+            config_file=None,
             github_token="token123",
             github_repo="user/repo",
             database_name="custom.db",
         )
 
     @patch.object(cli_module, "TILProcessor")
-    @patch.object(cli_module, "TILConfig")
+    @patch.object(cli_module, "ConfigLoader")
     def test_build_command_verbose(
-        self, mock_config_class: Mock, mock_processor_class: Mock
+        self, mock_loader_class: Mock, mock_processor_class: Mock
     ) -> None:
         """Test build command with verbose output."""
         runner = click.testing.CliRunner()
@@ -128,7 +132,7 @@ class TestCLI:
         mock_config = Mock()
         mock_config.database_path = Path("/tmp/til.db")
         mock_config.github_repo = "user/repo"
-        mock_config_class.return_value = mock_config
+        mock_loader_class.load_config.return_value = mock_config
 
         mock_processor = Mock()
         mock_processor_class.return_value = mock_processor
@@ -140,16 +144,16 @@ class TestCLI:
         assert "Repository: user/repo" in result.output
 
     @patch.object(cli_module, "TILProcessor")
-    @patch.object(cli_module, "TILConfig")
+    @patch.object(cli_module, "ConfigLoader")
     def test_build_command_quiet(
-        self, mock_config_class: Mock, mock_processor_class: Mock
+        self, mock_loader_class: Mock, mock_processor_class: Mock
     ) -> None:
         """Test build command with quiet output."""
         runner = click.testing.CliRunner()
 
         # Set up mock instances
         mock_config = Mock()
-        mock_config_class.return_value = mock_config
+        mock_loader_class.load_config.return_value = mock_config
 
         mock_processor = Mock()
         mock_processor_class.return_value = mock_processor
@@ -160,16 +164,16 @@ class TestCLI:
         assert "Database built successfully!" not in result.output
 
     @patch.object(cli_module, "TILProcessor")
-    @patch.object(cli_module, "TILConfig")
+    @patch.object(cli_module, "ConfigLoader")
     def test_build_command_error_handling(
-        self, mock_config_class: Mock, mock_processor_class: Mock
+        self, mock_loader_class: Mock, mock_processor_class: Mock
     ) -> None:
         """Test build command error handling."""
         runner = click.testing.CliRunner()
 
         # Set up mock instances
         mock_config = Mock()
-        mock_config_class.return_value = mock_config
+        mock_loader_class.load_config.return_value = mock_config
 
         mock_processor = Mock()
         mock_processor.build_database.side_effect = Exception("Test error")
@@ -182,9 +186,9 @@ class TestCLI:
 
     @patch.object(cli_module, "ReadmeGenerator")
     @patch.object(cli_module, "TILDatabase")
-    @patch.object(cli_module, "TILConfig")
+    @patch.object(cli_module, "ConfigLoader")
     def test_update_readme_command(
-        self, mock_config_class: Mock, mock_db_class: Mock, mock_generator_class: Mock
+        self, mock_loader_class: Mock, mock_db_class: Mock, mock_generator_class: Mock
     ) -> None:
         """Test update-readme command execution."""
         runner = click.testing.CliRunner()
@@ -193,7 +197,7 @@ class TestCLI:
         mock_config = Mock()
         mock_config.database_path = Mock(exists=Mock(return_value=True))
         mock_config.root_path = Path("/tmp")
-        mock_config_class.return_value = mock_config
+        mock_loader_class.load_config.return_value = mock_config
 
         mock_db = Mock()
         mock_db.count.return_value = 5
@@ -210,9 +214,9 @@ class TestCLI:
 
     @patch.object(cli_module, "ReadmeGenerator")
     @patch.object(cli_module, "TILDatabase")
-    @patch.object(cli_module, "TILConfig")
+    @patch.object(cli_module, "ConfigLoader")
     def test_update_readme_with_rewrite(
-        self, mock_config_class: Mock, mock_db_class: Mock, mock_generator_class: Mock
+        self, mock_loader_class: Mock, mock_db_class: Mock, mock_generator_class: Mock
     ) -> None:
         """Test update-readme command with --rewrite flag."""
         runner = click.testing.CliRunner()
@@ -222,7 +226,7 @@ class TestCLI:
         mock_config = Mock()
         mock_config.database_path = Mock(exists=Mock(return_value=True))
         mock_config.root_path = Mock(__truediv__=Mock(return_value=readme_path))
-        mock_config_class.return_value = mock_config
+        mock_loader_class.load_config.return_value = mock_config
 
         mock_db = Mock()
         mock_db_class.return_value = mock_db
@@ -238,9 +242,9 @@ class TestCLI:
 
     @patch.object(cli_module, "ReadmeGenerator")
     @patch.object(cli_module, "TILDatabase")
-    @patch.object(cli_module, "TILConfig")
+    @patch.object(cli_module, "ConfigLoader")
     def test_update_readme_with_output(
-        self, mock_config_class: Mock, mock_db_class: Mock, mock_generator_class: Mock
+        self, mock_loader_class: Mock, mock_db_class: Mock, mock_generator_class: Mock
     ) -> None:
         """Test update-readme command with output file."""
         runner = click.testing.CliRunner()
@@ -249,7 +253,7 @@ class TestCLI:
             # Set up mock instances
             mock_config = Mock()
             mock_config.database_path = Mock(exists=Mock(return_value=True))
-            mock_config_class.return_value = mock_config
+            mock_loader_class.load_config.return_value = mock_config
 
             mock_db = Mock()
             mock_db_class.return_value = mock_db
@@ -265,15 +269,15 @@ class TestCLI:
             assert Path("output.md").exists()
             assert Path("output.md").read_text() == "# Index\ncontent"
 
-    @patch.object(cli_module, "TILConfig")
-    def test_update_readme_no_database(self, mock_config_class: Mock) -> None:
+    @patch.object(cli_module, "ConfigLoader")
+    def test_update_readme_no_database(self, mock_loader_class: Mock) -> None:
         """Test update-readme command when database doesn't exist."""
         runner = click.testing.CliRunner()
 
         # Set up mock instance
         mock_config = Mock()
         mock_config.database_path = Mock(exists=Mock(return_value=False))
-        mock_config_class.return_value = mock_config
+        mock_loader_class.load_config.return_value = mock_config
 
         result = runner.invoke(cli, ["update-readme"])
 

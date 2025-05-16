@@ -7,6 +7,7 @@ from typing import Optional
 import click
 
 from .config import TILConfig
+from .config_loader import ConfigLoader
 from .database import TILDatabase
 from .exceptions import ConfigurationError, DatabaseError, TILError
 from .processor import TILProcessor
@@ -42,8 +43,19 @@ def cli(ctx: click.Context, verbose: bool, quiet: bool) -> None:
     help="GitHub repository (owner/name)",
 )
 @click.option("--db", default="til.db", help="Database file name")
+@click.option(
+    "--config",
+    type=click.Path(exists=True, path_type=Path),
+    help="Path to configuration file",
+)
 @click.pass_context
-def build(ctx: click.Context, github_token: Optional[str], repo: str, db: str) -> None:
+def build(
+    ctx: click.Context,
+    github_token: Optional[str],
+    repo: str,
+    db: str,
+    config: Optional[Path],
+) -> None:
     """Build TIL database from markdown files.
 
     Scans the repository for markdown files organized by topic directories,
@@ -66,15 +78,18 @@ def build(ctx: click.Context, github_token: Optional[str], repo: str, db: str) -
     logger = logging.getLogger(__name__)
 
     try:
-        config = TILConfig(
-            github_token=github_token, github_repo=repo, database_name=db
+        til_config = ConfigLoader.load_config(
+            config_file=config,
+            github_token=github_token,
+            github_repo=repo,
+            database_name=db,
         )
 
         if verbose:
-            click.echo(f"Building database: {config.database_path}")
-            click.echo(f"Repository: {config.github_repo}")
+            click.echo(f"Building database: {til_config.database_path}")
+            click.echo(f"Repository: {til_config.github_repo}")
 
-        processor = TILProcessor(config)
+        processor = TILProcessor(til_config)
         processor.build_database()
 
         if not quiet:
@@ -104,9 +119,18 @@ def build(ctx: click.Context, github_token: Optional[str], repo: str, db: str) -
     type=click.Path(),
     help="Output file (default: stdout or README.md with --rewrite)",
 )
+@click.option(
+    "--config",
+    type=click.Path(exists=True, path_type=Path),
+    help="Path to configuration file",
+)
 @click.pass_context
 def update_readme(
-    ctx: click.Context, rewrite: bool, db: str, output: Optional[str]
+    ctx: click.Context,
+    rewrite: bool,
+    db: str,
+    output: Optional[str],
+    config: Optional[Path],
 ) -> None:
     """Update README with latest TIL entries.
 
@@ -129,13 +153,16 @@ def update_readme(
     logger = logging.getLogger(__name__)
 
     try:
-        config = TILConfig(database_name=db)
+        til_config = ConfigLoader.load_config(
+            config_file=config,
+            database_name=db,
+        )
 
         # Check if database exists
-        if not config.database_path.exists():
+        if not til_config.database_path.exists():
             click.echo(
                 click.style(
-                    f"Database not found at {config.database_path}\n"
+                    f"Database not found at {til_config.database_path}\n"
                     + "Run 'til build' to create the database first",
                     fg="red",
                 ),
@@ -143,7 +170,7 @@ def update_readme(
             )
             sys.exit(1)
 
-        til_db = TILDatabase(config.database_path)
+        til_db = TILDatabase(til_config.database_path)
         generator = ReadmeGenerator(til_db)
 
         # Build index
@@ -162,7 +189,7 @@ def update_readme(
 
         # Handle output
         if rewrite:
-            readme_path = config.root_path / "README.md"
+            readme_path = til_config.root_path / "README.md"
             if not readme_path.exists():
                 click.echo(
                     click.style(f"README.md not found at {readme_path}", fg="red"),

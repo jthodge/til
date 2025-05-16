@@ -101,7 +101,7 @@ def test_render_with_retry(
         mock_response_success,
     ]
 
-    config = TILConfig(github_token="test_token", max_retries=3, retry_delay=0)
+    config = TILConfig(github_token="test_token", max_retries=3, retry_delay=1)
     renderer = MarkdownRenderer(config)
 
     html = renderer.render("# Test")
@@ -121,7 +121,7 @@ def test_render_max_retries_exceeded(
     mock_response.text = "Server error"
     mock_post.return_value = mock_response
 
-    config = TILConfig(github_token="test_token", max_retries=3, retry_delay=0)
+    config = TILConfig(github_token="test_token", max_retries=3, retry_delay=1)
     renderer = MarkdownRenderer(config)
 
     with pytest.raises(
@@ -140,7 +140,7 @@ def test_render_request_error(
     # Mock HTTPError
     mock_post.side_effect = httpx.HTTPError("Network error")
 
-    config = TILConfig(github_token="test_token", max_retries=2, retry_delay=0)
+    config = TILConfig(github_token="test_token", max_retries=2, retry_delay=1)
     renderer = MarkdownRenderer(config)
 
     with pytest.raises(RenderingError, match="Network error"):
@@ -164,7 +164,7 @@ def test_render_request_error_then_success(
         mock_response,
     ]
 
-    config = TILConfig(github_token="test_token", max_retries=2, retry_delay=0)
+    config = TILConfig(github_token="test_token", max_retries=2, retry_delay=1)
     renderer = MarkdownRenderer(config)
 
     html = renderer.render("# Test")
@@ -184,7 +184,7 @@ def test_render_rate_limit(
     mock_response.text = "API rate limit exceeded"
     mock_post.return_value = mock_response
 
-    config = TILConfig(github_token="test_token", max_retries=2, retry_delay=0)
+    config = TILConfig(github_token="test_token", max_retries=2, retry_delay=1)
     renderer = MarkdownRenderer(config)
 
     with pytest.raises(RenderingError, match="rate limit"):

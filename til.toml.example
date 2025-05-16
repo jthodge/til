@@ -1,0 +1,18 @@
+# TIL Configuration File Example (TOML)
+# Copy this to til.toml or .til.toml to use
+
+[til]
+# GitHub configuration
+github-token = "${MARKDOWN_GITHUB_TOKEN}"  # Can use environment variable
+github-repo = "owner/repo"
+markdown-api-url = "https://api.github.com/markdown"
+
+# Database configuration
+database-name = "til.db"
+
+# Retry configuration
+max-retries = 3
+retry-delay = 60
+
+# Paths (optional - defaults to current directory)
+# root-path = "/path/to/your/project"
