@@ -20,45 +20,45 @@ def temp_dir() -> Generator[Path, None, None]:
 def temp_git_repo(temp_dir: Path) -> Generator[Repo, None, None]:
     """Create a temporary git repository with sample TIL files."""
     repo = Repo.init(temp_dir)
-    
+
     # Create sample TIL files
     python_dir = temp_dir / "python"
     python_dir.mkdir()
-    
+
     til1 = python_dir / "test-til-1.md"
     til1.write_text("# Test TIL 1\n\nThis is a test TIL about Python.")
-    
+
     til2 = python_dir / "test-til-2.md"
     til2.write_text("# Test TIL 2\n\nAnother test TIL with **bold** text.")
-    
+
     # Configure git user for commits
     repo.config_writer().set_value("user", "name", "Test User").release()
     repo.config_writer().set_value("user", "email", "test@example.com").release()
-    
+
     # Create initial commit
     repo.index.add(["python/test-til-1.md", "python/test-til-2.md"])
     commit = repo.index.commit("Initial commit")
-    
+
     # Ensure we have a branch reference
     if not repo.active_branch.name:
-        repo.create_head('main', commit)
-    
+        repo.create_head("main", commit)
+
     # Create another TIL in a different topic
     bash_dir = temp_dir / "bash"
     bash_dir.mkdir()
-    
+
     til3 = bash_dir / "bash-test.md"
     til3.write_text("# Bash Test\n\nA test TIL about bash scripting.")
-    
+
     repo.index.add(["bash/bash-test.md"])
     repo.index.commit("Add bash TIL")
-    
+
     # Create a main branch if the default is different (e.g., master)
     if repo.active_branch.name != "main":
         repo.create_head("main", force=True)
         repo.head.reference = repo.heads.main
         repo.head.reset(index=True, working_tree=True)
-    
+
     yield repo
 
 
@@ -83,7 +83,7 @@ def sample_til_record() -> dict:
         "created": "2023-01-01T00:00:00",
         "created_utc": "2023-01-01T00:00:00+00:00",
         "updated": "2023-01-02T00:00:00",
-        "updated_utc": "2023-01-02T00:00:00+00:00"
+        "updated_utc": "2023-01-02T00:00:00+00:00",
     }
 
 
@@ -91,12 +91,12 @@ def sample_til_record() -> dict:
 def mock_github_api(monkeypatch):
     """Mock GitHub API responses."""
     import httpx
-    
+
     class MockResponse:
         def __init__(self, text, status_code=200):
             self.text = text
             self.status_code = status_code
-    
+
     def mock_post(url, **kwargs):
         if url == "https://api.github.com/markdown":
             # Simple markdown to HTML conversion
@@ -105,5 +105,5 @@ def mock_github_api(monkeypatch):
             html = html.replace("**", "<strong>").replace("**", "</strong>")
             return MockResponse(html)
         return MockResponse("", 404)
-    
+
     monkeypatch.setattr(httpx, "post", mock_post)

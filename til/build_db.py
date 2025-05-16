@@ -43,7 +43,7 @@ def get_created_changed_times(
         except TypeError:
             # If no active branch (detached HEAD), use HEAD
             ref = "HEAD"
-    
+
     try:
         commits = reversed(list(repo.iter_commits(ref)))
     except git.GitCommandError as e:  # type: ignore[attr-defined]
@@ -176,7 +176,7 @@ def build_database(config: TILConfig) -> None:
         current_branch = repo.active_branch.name
     except (git.InvalidGitRepositoryError, TypeError):
         current_branch = "main"
-    
+
     all_times = get_created_changed_times(config.root_path, ref=current_branch)
     db = sqlite_utils.Database(config.database_path)
     # Get table as Table instance, not View
