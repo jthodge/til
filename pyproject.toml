@@ -67,3 +67,21 @@ ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+addopts = [
+    "--cov=til",
+    "--cov-report=html",
+    "--cov-report=term-missing"
+]
+
+[tool.coverage.run]
+source = ["til"]
+omit = ["tests/*", "*/conftest.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]

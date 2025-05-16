@@ -1,0 +1,99 @@
+"""Pytest configuration and shared fixtures."""
+
+import tempfile
+from pathlib import Path
+from typing import Generator
+
+import pytest
+import sqlite_utils
+from git import Repo
+
+
+@pytest.fixture
+def temp_dir() -> Generator[Path, None, None]:
+    """Create a temporary directory for testing."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        yield Path(tmpdir)
+
+
+@pytest.fixture
+def temp_git_repo(temp_dir: Path) -> Generator[Repo, None, None]:
+    """Create a temporary git repository with sample TIL files."""
+    repo = Repo.init(temp_dir)
+    
+    # Create sample TIL files
+    python_dir = temp_dir / "python"
+    python_dir.mkdir()
+    
+    til1 = python_dir / "test-til-1.md"
+    til1.write_text("# Test TIL 1\n\nThis is a test TIL about Python.")
+    
+    til2 = python_dir / "test-til-2.md"
+    til2.write_text("# Test TIL 2\n\nAnother test TIL with **bold** text.")
+    
+    # Configure git user for commits
+    repo.config_writer().set_value("user", "name", "Test User").release()
+    repo.config_writer().set_value("user", "email", "test@example.com").release()
+    
+    # Create initial commit
+    repo.index.add(["python/test-til-1.md", "python/test-til-2.md"])
+    repo.index.commit("Initial commit")
+    
+    # Create another TIL in a different topic
+    bash_dir = temp_dir / "bash"
+    bash_dir.mkdir()
+    
+    til3 = bash_dir / "bash-test.md"
+    til3.write_text("# Bash Test\n\nA test TIL about bash scripting.")
+    
+    repo.index.add(["bash/bash-test.md"])
+    repo.index.commit("Add bash TIL")
+    
+    yield repo
+
+
+@pytest.fixture
+def temp_db(temp_dir: Path) -> sqlite_utils.Database:
+    """Create a temporary SQLite database."""
+    db_path = temp_dir / "test.db"
+    return sqlite_utils.Database(db_path)
+
+
+@pytest.fixture
+def sample_til_record() -> dict:
+    """Sample TIL record for testing."""
+    return {
+        "path": "python_test-til.md",
+        "slug": "test-til",
+        "topic": "python",
+        "title": "Test TIL",
+        "url": "https://github.com/jthodge/til/blob/main/python/test-til.md",
+        "body": "# Test TIL\n\nThis is a test.",
+        "html": "<h1>Test TIL</h1>\n<p>This is a test.</p>",
+        "created": "2023-01-01T00:00:00",
+        "created_utc": "2023-01-01T00:00:00+00:00",
+        "updated": "2023-01-02T00:00:00",
+        "updated_utc": "2023-01-02T00:00:00+00:00"
+    }
+
+
+@pytest.fixture
+def mock_github_api(monkeypatch):
+    """Mock GitHub API responses."""
+    import httpx
+    
+    class MockResponse:
+        def __init__(self, text, status_code=200):
+            self.text = text
+            self.status_code = status_code
+    
+    def mock_post(url, **kwargs):
+        if url == "https://api.github.com/markdown":
+            # Simple markdown to HTML conversion
+            text = kwargs["json"]["text"]
+            html = text.replace("# ", "<h1>").replace("\n", "</h1>\n<p>", 1) + "</p>"
+            html = html.replace("**", "<strong>").replace("**", "</strong>")
+            return MockResponse(html)
+        return MockResponse("", 404)
+    
+    monkeypatch.setattr(httpx, "post", mock_post)
