@@ -2,7 +2,7 @@
 
 import tempfile
 from pathlib import Path
-from typing import Generator, Dict, Optional
+from typing import Dict, Generator, Optional
 
 import pytest
 import sqlite_utils
