@@ -5,8 +5,8 @@ from pathlib import Path
 
 import pytest
 import sqlite_utils
-from git import Repo
 
+from git import Repo
 from til.build_db import build_database
 from til.config import TILConfig
 from til.update_readme import build_index, update_readme_file
@@ -167,8 +167,8 @@ class TestFullPipeline:
         )
 
         # Test til-build with real output
-        import sys
         import os
+        import sys
         from pathlib import Path
 
         # Find the project root (where til package is located)

@@ -7,8 +7,8 @@ from unittest.mock import Mock, patch
 
 import pytest
 import sqlite_utils
-from git import Repo
 
+from git import Repo
 from til.build_db import (
     build_database,
     get_created_changed_times,

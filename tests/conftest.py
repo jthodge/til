@@ -6,6 +6,7 @@ from typing import Generator
 
 import pytest
 import sqlite_utils
+
 from git import Repo
 
 
