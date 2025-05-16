@@ -2,7 +2,7 @@
 
 import tempfile
 from pathlib import Path
-from typing import Generator
+from typing import Any, Generator
 
 import pytest
 import sqlite_utils
@@ -57,7 +57,7 @@ def temp_git_repo(temp_dir: Path) -> Generator[Repo, None, None]:
     # Create a main branch if the default is different (e.g., master)
     if repo.active_branch.name != "main":
         repo.create_head("main", force=True)
-        repo.head.reference = repo.heads.main
+        repo.head.set_reference(repo.heads.main)
         repo.head.reset(index=True, working_tree=True)
 
     yield repo
@@ -89,16 +89,18 @@ def sample_til_record() -> dict:
 
 
 @pytest.fixture
-def mock_github_api(monkeypatch):
+def mock_github_api(monkeypatch: pytest.MonkeyPatch) -> None:
     """Mock GitHub API responses."""
     import httpx
 
     class MockResponse:
-        def __init__(self, text, status_code=200):
+        def __init__(self, text: str, status_code: int = 200) -> None:
             self.text = text
             self.status_code = status_code
 
-    def mock_post(url, **kwargs):
+    def mock_post(
+        url: str, **kwargs: Any
+    ) -> MockResponse:  # TODO: Replace Any with specific type
         if url == "https://api.github.com/markdown":
             # Simple markdown to HTML conversion
             text = kwargs["json"]["text"]

@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 
-def test_til_package_imports():
+def test_til_package_imports() -> None:
     """Test that the til package can be imported."""
     # Add parent directory to path
     sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -21,7 +21,7 @@ def test_til_package_imports():
     assert config.database_name == "til.db"
 
 
-def test_cli_entry_points_exist():
+def test_cli_entry_points_exist() -> None:
     """Test that CLI entry points are properly configured."""
     root = Path(__file__).parent.parent
 

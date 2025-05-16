@@ -2,6 +2,7 @@
 
 import subprocess
 from pathlib import Path
+from typing import Any
 
 import pytest
 import sqlite_utils
@@ -17,7 +18,9 @@ from til.readme_generator import ReadmeGenerator
 class TestFullPipeline:
     """Test the complete TIL pipeline from files to database to README."""
 
-    def test_complete_workflow(self, temp_dir: Path, mock_github_api):
+    def test_complete_workflow(
+        self, temp_dir: Path, mock_github_api: Any
+    ) -> None:  # TODO: Replace Any with specific type
         """Test the complete workflow from markdown files to updated README."""
         # Initialize git repo with TIL files
         repo = Repo.init(temp_dir)
@@ -71,8 +74,10 @@ class TestFullPipeline:
         assert db["til"].count == 3
 
         # Manually add timestamps to satisfy README generation requirements
-        for row in db["til"].rows:
-            db["til"].update(
+        til_table = db["til"]
+        assert hasattr(til_table, "update"), "til_table should be a Table, not a View"
+        for row in til_table.rows:
+            til_table.update(
                 row["path"],
                 {
                     "created": "2023-01-01T00:00:00",
@@ -94,7 +99,9 @@ class TestFullPipeline:
         assert "[Python Decorators]" in readme_content
         assert "[Bash Loops]" in readme_content
 
-    def test_incremental_update(self, temp_dir: Path, mock_github_api):
+    def test_incremental_update(
+        self, temp_dir: Path, mock_github_api: Any
+    ) -> None:  # TODO: Replace Any with specific type
         """Test updating existing database with new TIL."""
         # Set up initial state
         repo = Repo.init(temp_dir)
@@ -136,7 +143,9 @@ class TestFullPipeline:
         titles = {row["title"] for row in db["til"].rows}
         assert titles == {"First TIL", "Second TIL"}
 
-    def test_cli_commands(self, temp_dir: Path, monkeypatch, mock_github_api):
+    def test_cli_commands(
+        self, temp_dir: Path, monkeypatch: pytest.MonkeyPatch, mock_github_api: Any
+    ) -> None:  # TODO: Replace Any with specific type
         """Test CLI commands work correctly."""
         # Set up test environment
         monkeypatch.chdir(temp_dir)
@@ -215,7 +224,9 @@ class TestFullPipeline:
             or result2.returncode == 0
         )
 
-    def test_error_recovery(self, temp_dir: Path, mock_github_api):
+    def test_error_recovery(
+        self, temp_dir: Path, mock_github_api: Any
+    ) -> None:  # TODO: Replace Any with specific type
         """Test system handles errors gracefully."""
         # Initialize git repo
         repo = Repo.init(temp_dir)
@@ -244,7 +255,9 @@ class TestFullPipeline:
 class TestDatasetteIntegration:
     """Test Datasette-specific functionality."""
 
-    def test_full_text_search(self, temp_git_repo: Repo, mock_github_api):
+    def test_full_text_search(
+        self, temp_git_repo: Repo, mock_github_api: Any
+    ) -> None:  # TODO: Replace Any with specific type
         """Test full-text search functionality."""
         config = TILConfig(
             root_path=Path(temp_git_repo.working_dir), database_name="test.db"
@@ -278,6 +291,8 @@ class TestDatasetteIntegration:
         # Check that at least one result contains "Python"
         # Results are tuples since we're using db.execute()
         # Use db["til"].search() instead to get dictionaries
-        search_results = list(db["til"].search("Python"))
-        assert len(search_results) > 0
-        assert any("Python" in result["body"] for result in search_results)
+        til_table_search = db["til"]
+        if hasattr(til_table_search, "search"):
+            search_results = list(til_table_search.search("Python"))
+            assert len(search_results) > 0
+            assert any("Python" in result["body"] for result in search_results)

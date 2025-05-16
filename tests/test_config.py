@@ -11,7 +11,7 @@ from til.config import TILConfig
 class TestTILConfig:
     """Test TILConfig class."""
 
-    def test_default_config(self):
+    def test_default_config(self) -> None:
         """Test default configuration values."""
         config = TILConfig()
 
@@ -22,7 +22,7 @@ class TestTILConfig:
         assert config.github_token is None
         assert config.markdown_api_url == "https://api.github.com/markdown"
 
-    def test_config_from_environment(self, monkeypatch):
+    def test_config_from_environment(self, monkeypatch: pytest.MonkeyPatch) -> None:
         """Test configuration from environment variables."""
         # Set test environment variables
         monkeypatch.setenv("MARKDOWN_GITHUB_TOKEN", "test_token")
@@ -33,7 +33,7 @@ class TestTILConfig:
         assert config.github_token == "test_token"
         assert config.github_repo == "test/repo"
 
-    def test_derived_properties(self):
+    def test_derived_properties(self) -> None:
         """Test derived configuration properties."""
         config = TILConfig()
 
@@ -41,7 +41,7 @@ class TestTILConfig:
         assert config.database_path.name == "til.db"
         assert config.github_url_base == "https://github.com/jthodge/til"
 
-    def test_custom_config_values(self):
+    def test_custom_config_values(self) -> None:
         """Test creating config with custom values."""
         config = TILConfig(
             github_token="custom_token",
@@ -59,12 +59,12 @@ class TestTILConfig:
         assert config.database_path.name == "custom.db"
         assert config.github_url_base == "https://github.com/custom/repo"
 
-    def test_root_path_is_absolute(self):
+    def test_root_path_is_absolute(self) -> None:
         """Test that root_path is always absolute."""
         config = TILConfig()
         assert config.root_path.is_absolute()
 
-    def test_github_url_base_format(self):
+    def test_github_url_base_format(self) -> None:
         """Test GitHub URL base formatting."""
         config = TILConfig(github_repo="user/repo")
         assert config.github_url_base == "https://github.com/user/repo"

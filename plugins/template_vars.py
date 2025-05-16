@@ -3,15 +3,15 @@ import html
 from datasette import hookimpl
 
 
-def highlight(s):
+def highlight(s: str) -> str:
     s = html.escape(s)
     s = s.replace("b4de2a49c8", "<strong>").replace("8c94a2ed4b", "</strong>")
     return s
 
 
 @hookimpl
-def extra_template_vars(request):
+def extra_template_vars(request: object) -> dict:
     return {
-        "q": request.args.get("q", ""),
+        "q": getattr(request, "args", {}).get("q", ""),
         "highlight": highlight,
     }

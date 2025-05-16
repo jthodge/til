@@ -22,64 +22,64 @@ class ReadmeGenerator:
 
     def __init__(self, database: TILDatabase):
         """Initialize ReadmeGenerator with database.
-        
+
         Args:
             database: TIL database instance
         """
         self.database = database
-    
+
     def generate_index(self) -> List[str]:
         """Generate index lines for README.
-        
+
         Returns:
             List of index lines to be inserted into README
         """
         by_topic = self.database.get_all_by_topic()
-        
+
         # Build index lines
         index = ["<!-- index starts -->"]
-        
+
         for topic, rows in sorted(by_topic.items()):
             index.append(f"## {topic}\n")
-            
+
             for row in rows:
                 date = row["created"].split("T")[0]
                 index.append(f"* [{row['title']}]({row['url']}) - {date}")
             index.append("")
-        
+
         # Remove trailing empty line if present
         if index[-1] == "":
             index.pop()
-        
+
         index.append("<!-- index ends -->")
-        
+
         return index
-    
+
     def update_readme(self, readme_path: pathlib.Path) -> None:
         """Update README file with new index.
-        
+
         Args:
             readme_path: Path to README.md file
         """
         index_lines = self.generate_index()
         total_count = self.database.count()
-        
+
         try:
             with readme_path.open() as f:
                 readme_contents = f.read()
         except IOError as e:
             logger.error(f"Failed to read README: {e}")
             return
-        
+
         # Replace index section
         index_txt = "\n".join(index_lines).strip()
         updated_contents = INDEX_RE.sub(index_txt, readme_contents)
-        
+
         # Replace count section
         updated_contents = COUNT_RE.sub(
             COUNT_TEMPLATE.format(total_count), updated_contents
         )
-        
+
         # Write updated contents
         try:
             with readme_path.open("w") as f:

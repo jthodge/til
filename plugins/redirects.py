@@ -2,7 +2,7 @@ from datasette import hookimpl, Response
 
 
 @hookimpl
-def register_routes():
+def register_routes() -> tuple:
     return (
         (
             r"^/til/til/(?P<topic>[^_]+)_(?P<slug>[^\.]+)\.md$",
