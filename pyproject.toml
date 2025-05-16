@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "til"
 version = "0.1.0"
 description = "Today I Learned - A static site generator for TIL entries"
-authors = [{name = "Taylor Hodge", email = ""}]
+authors = [{name = "Taylor Hodge", email = "j.taylor.hodge@gmail.com"}]
 readme = "README.md"
 license = {file = "LICENSE"}
 requires-python = ">=3.9"
