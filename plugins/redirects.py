@@ -1,4 +1,4 @@
-from datasette import hookimpl, Response
+from datasette import Response, hookimpl
 
 
 @hookimpl
