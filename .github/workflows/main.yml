@@ -49,7 +49,7 @@ jobs:
           MARKDOWN_GITHUB_TOKEN: ${{ secrets.MARKDOWN_GITHUB_TOKEN }}
         run: |-
           cd main
-          python build_db.py
+          til-build
       - name: Perform soundness check
         run: |-
           cd main
@@ -57,7 +57,7 @@ jobs:
       - name: Update README
         run: |-
           cd main
-          python update_readme.py --rewrite
+          til-update-readme --rewrite
           cat README.md
       - name: Commit and push if README changed
         run: |-

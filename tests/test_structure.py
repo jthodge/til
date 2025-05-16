@@ -21,15 +21,25 @@ def test_til_package_imports():
     assert config.database_name == "til.db"
 
 
-def test_wrapper_scripts_exist():
-    """Test that wrapper scripts exist."""
+def test_cli_entry_points_exist():
+    """Test that CLI entry points are properly configured."""
     root = Path(__file__).parent.parent
-
-    assert (root / "build_db.py").exists()
-    assert (root / "update_readme.py").exists()
-
-    # Check they're executable scripts
-    with open(root / "build_db.py") as f:
+    
+    # Check that pyproject.toml exists and contains the entry points
+    pyproject_path = root / "pyproject.toml"
+    assert pyproject_path.exists()
+    
+    with open(pyproject_path) as f:
         content = f.read()
-        assert "#!/usr/bin/env python3" in content
-        assert "from til.build_db import main" in content
+        assert '[project.scripts]' in content
+        assert 'til-build = "til.build_db:main"' in content
+        assert 'til-update-readme = "til.update_readme:main"' in content
+    
+    # Verify the modules and functions exist
+    sys.path.insert(0, str(root))
+    from til.build_db import main as build_main
+    from til.update_readme import main as update_main
+    
+    # Check they're callable
+    assert callable(build_main)
+    assert callable(update_main)
