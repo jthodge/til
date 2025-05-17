@@ -9,6 +9,7 @@ import click
 from .config_loader import ConfigLoader
 from .database import TILDatabase
 from .exceptions import ConfigurationError, DatabaseError, TILError
+from .logging_config import LogLevel, setup_logging
 from .processor import TILProcessor
 from .readme_generator import ReadmeGenerator
 
@@ -64,18 +65,6 @@ def build(
     verbose = ctx.obj.get("verbose", False)
     quiet = ctx.obj.get("quiet", False)
 
-    # Configure logging based on flags
-    import logging
-
-    if quiet:
-        logging.basicConfig(level=logging.ERROR)
-    elif verbose:
-        logging.basicConfig(level=logging.DEBUG)
-    else:
-        logging.basicConfig(level=logging.INFO)
-
-    logger = logging.getLogger(__name__)
-
     try:
         til_config = ConfigLoader.load_config(
             config_file=config,
@@ -83,6 +72,19 @@ def build(
             github_repo=repo,
             database_name=db,
         )
+
+        # Configure logging based on flags and config
+        log_config = til_config.log_config
+        if quiet:
+            log_config.level = LogLevel.ERROR
+        elif verbose:
+            log_config.level = LogLevel.DEBUG
+
+        setup_logging(log_config)
+
+        import logging
+
+        logger = logging.getLogger(__name__)
 
         if verbose:
             click.echo(f"Building database: {til_config.database_path}")
@@ -139,23 +141,24 @@ def update_readme(
     verbose = ctx.obj.get("verbose", False)
     quiet = ctx.obj.get("quiet", False)
 
-    # Configure logging based on flags
-    import logging
-
-    if quiet:
-        logging.basicConfig(level=logging.ERROR)
-    elif verbose:
-        logging.basicConfig(level=logging.DEBUG)
-    else:
-        logging.basicConfig(level=logging.INFO)
-
-    logger = logging.getLogger(__name__)
-
     try:
         til_config = ConfigLoader.load_config(
             config_file=config,
             database_name=db,
         )
+
+        # Configure logging based on flags and config
+        log_config = til_config.log_config
+        if quiet:
+            log_config.level = LogLevel.ERROR
+        elif verbose:
+            log_config.level = LogLevel.DEBUG
+
+        setup_logging(log_config)
+
+        import logging
+
+        logger = logging.getLogger(__name__)
 
         # Check if database exists
         if not til_config.database_path.exists():

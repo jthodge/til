@@ -6,6 +6,7 @@ from typing import Any, Optional
 
 from .config import TILConfig
 from .exceptions import ConfigurationError
+from .logging_config import LogConfig, LogFormat, LogLevel
 
 
 class ConfigLoader:
@@ -78,6 +79,14 @@ class ConfigLoader:
             config_dict["database_name"] = database_name
         if root_path is not None:
             config_dict["root_path"] = root_path
+
+        # Extract logging configuration
+        log_config = cls._load_log_config(config_dict)
+        if log_config:
+            config_dict["log_config"] = log_config
+        else:
+            # Use environment-based config if no file config
+            config_dict["log_config"] = LogConfig.from_environment()
 
         # Set default root_path if not provided
         if "root_path" not in config_dict or config_dict["root_path"] is None:
@@ -160,6 +169,51 @@ class ConfigLoader:
                 return cls._normalize_config(config_data)
         except Exception as e:
             raise ConfigurationError(f"Failed to read TOML configuration: {e}")
+
+    @classmethod
+    def _load_log_config(cls, data: dict[str, Any]) -> Optional[LogConfig]:
+        """Extract and parse logging configuration from config data.
+
+        Args:
+            data: Configuration dictionary
+
+        Returns:
+            LogConfig instance or None if no logging config found
+        """
+        log_data = data.get("logging", {})
+        if not log_data:
+            return None
+
+        # Parse log level
+        level = LogLevel.INFO
+        if "level" in log_data:
+            try:
+                level = LogLevel(log_data["level"].upper())
+            except (ValueError, AttributeError):
+                pass
+
+        # Parse log format
+        format = LogFormat.TEXT
+        if "format" in log_data:
+            try:
+                format = LogFormat(log_data["format"].lower())
+            except (ValueError, AttributeError):
+                pass
+
+        # Parse log file
+        log_file = None
+        if "file" in log_data and log_data["file"]:
+            log_file = Path(log_data["file"])
+
+        return LogConfig(
+            level=level,
+            format=format,
+            log_file=log_file,
+            max_bytes=log_data.get("max_bytes", 10 * 1024 * 1024),
+            backup_count=log_data.get("backup_count", 5),
+            console_enabled=log_data.get("console_enabled", True),
+            add_context=log_data.get("add_context", True),
+        )
 
     @classmethod
     def _normalize_config(cls, data: dict[str, Any]) -> dict[str, Any]:

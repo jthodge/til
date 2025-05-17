@@ -5,13 +5,10 @@ import sys
 
 from .config import TILConfig
 from .exceptions import ConfigurationError, FileProcessingError, TILError
+from .logging_config import setup_logging
 from .processor import TILProcessor
 
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-)
 logger = logging.getLogger(__name__)
 
 
@@ -43,6 +40,7 @@ def main() -> None:
     """Main entry point."""
     try:
         config = TILConfig.from_environment()
+        setup_logging(config.log_config)
         build_database(config)
         logger.info("Database build completed successfully")
     except TILError as e:

@@ -6,13 +6,10 @@ import sys
 from .config import TILConfig
 from .database import TILDatabase
 from .exceptions import ConfigurationError, DatabaseError, TILError
+from .logging_config import setup_logging
 from .readme_generator import ReadmeGenerator
 
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-)
 logger = logging.getLogger(__name__)
 
 
@@ -20,6 +17,7 @@ def main() -> None:
     """Main entry point."""
     try:
         config = TILConfig.from_environment()
+        setup_logging(config.log_config)
 
         # Check if database exists
         if not config.database_path.exists():

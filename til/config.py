@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Optional
 
 from .exceptions import ConfigurationError
+from .logging_config import LogConfig, LogFormat, LogLevel
 
 
 @dataclass
@@ -28,6 +29,9 @@ class TILConfig:
     root_path: Path = field(
         default_factory=lambda: Path(__file__).parent.parent.resolve()
     )
+
+    # Logging configuration
+    log_config: LogConfig = field(default_factory=LogConfig)
 
     def __post_init__(self) -> None:
         """Validate configuration after initialization."""
@@ -83,6 +87,7 @@ class TILConfig:
         return cls(
             github_token=os.environ.get("MARKDOWN_GITHUB_TOKEN"),
             github_repo=os.environ.get("TIL_GITHUB_REPO", "jthodge/til"),
+            log_config=LogConfig.from_environment(),
         )
 
     @property
