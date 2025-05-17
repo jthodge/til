@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "til"
@@ -41,9 +41,8 @@ dev = [
 [project.scripts]
 til = "til.cli:cli"
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["til*"]
+[tool.hatch.build.targets.wheel]
+packages = ["til"]
 
 [tool.black]
 line-length = 88

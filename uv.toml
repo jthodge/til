@@ -1,0 +1,11 @@
+# UV Configuration for TIL Project
+
+# Python version preference
+python-preference = "managed"
+python-downloads = "automatic"
+
+# Cache settings  
+cache-dir = ".uv-cache"
+
+# Compile Python files
+compile-bytecode = true
