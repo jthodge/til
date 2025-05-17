@@ -1,5 +1,6 @@
 """Configuration file loader for TIL application."""
 
+import contextlib
 import os
 from pathlib import Path
 from typing import Any, Optional
@@ -179,6 +180,7 @@ class ConfigLoader:
 
         Returns:
             LogConfig instance or None if no logging config found
+
         """
         log_data = data.get("logging", {})
         if not log_data:
@@ -187,22 +189,18 @@ class ConfigLoader:
         # Parse log level
         level = LogLevel.INFO
         if "level" in log_data:
-            try:
+            with contextlib.suppress(ValueError, AttributeError):
                 level = LogLevel(log_data["level"].upper())
-            except (ValueError, AttributeError):
-                pass
 
         # Parse log format
         format = LogFormat.TEXT
         if "format" in log_data:
-            try:
+            with contextlib.suppress(ValueError, AttributeError):
                 format = LogFormat(log_data["format"].lower())
-            except (ValueError, AttributeError):
-                pass
 
         # Parse log file
         log_file = None
-        if "file" in log_data and log_data["file"]:
+        if log_data.get("file"):
             log_file = Path(log_data["file"])
 
         return LogConfig(

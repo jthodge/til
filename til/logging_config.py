@@ -6,7 +6,7 @@ import logging.handlers
 import os
 import sys
 import uuid
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
 from typing import Any, Optional
@@ -71,6 +71,7 @@ class LogConfig:
 
         Returns:
             LogConfig instance
+
         """
         level = LogLevel(os.environ.get("TIL_LOG_LEVEL", "INFO").upper())
         format = LogFormat(os.environ.get("TIL_LOG_FORMAT", "text").lower())
@@ -96,6 +97,7 @@ class JSONFormatter(logging.Formatter):
 
         Args:
             include_timestamp: Whether to include timestamp in logs
+
         """
         super().__init__()
         self.include_timestamp = include_timestamp
@@ -108,6 +110,7 @@ class JSONFormatter(logging.Formatter):
 
         Returns:
             JSON formatted log string
+
         """
         log_data: dict[str, Any] = {
             "level": record.levelname,
@@ -160,6 +163,7 @@ class ContextFilter(logging.Filter):
 
         Args:
             request_id: Request ID to add to logs
+
         """
         super().__init__()
         self.request_id = request_id or str(uuid.uuid4())
@@ -172,6 +176,7 @@ class ContextFilter(logging.Filter):
 
         Returns:
             True to allow the record through
+
         """
         if not hasattr(record, "request_id"):
             record.request_id = self.request_id
@@ -183,6 +188,7 @@ def setup_logging(config: LogConfig) -> None:
 
     Args:
         config: Logging configuration
+
     """
     # Get root logger
     root_logger = logging.getLogger()
@@ -244,5 +250,6 @@ def get_logger(name: str) -> logging.Logger:
 
     Returns:
         Logger instance
+
     """
     return logging.getLogger(name)

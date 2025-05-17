@@ -12,11 +12,11 @@ import pytest
 from til.exceptions import ConfigurationError
 from til.logging_config import (
     ContextFilter,
+    get_logger,
     JSONFormatter,
     LogConfig,
     LogFormat,
     LogLevel,
-    get_logger,
     setup_logging,
 )
 
