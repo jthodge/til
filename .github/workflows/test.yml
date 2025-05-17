@@ -42,7 +42,7 @@ jobs:
     - name: Install dependencies
       run: |
         uv venv
-        uv sync --all-extras
+        uv sync --extra dev
     
     - name: Run full tests with coverage
       if: matrix.test-depth == 'full'
@@ -86,7 +86,7 @@ jobs:
     - name: Install dependencies
       run: |
         uv venv
-        uv sync --all-extras
+        uv sync --extra dev
     
     - name: Run type checks
       run: |
@@ -114,7 +114,7 @@ jobs:
     - name: Install dependencies
       run: |
         uv venv
-        uv sync
+        uv sync --extra dev
     
     - name: Check code formatting
       run: |
