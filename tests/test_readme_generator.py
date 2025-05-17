@@ -1,10 +1,7 @@
 """Tests for ReadmeGenerator class."""
 
-import logging
 from pathlib import Path
 from unittest.mock import Mock, patch
-
-import pytest
 
 from til.database import TILDatabase
 from til.readme_generator import ReadmeGenerator

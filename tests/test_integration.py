@@ -11,7 +11,6 @@ from til.build_db import build_database
 from til.config import TILConfig
 from til.database import TILDatabase
 from til.readme_generator import ReadmeGenerator
-from til.update_readme import main as update_readme_main
 
 
 class TestFullPipeline:
@@ -194,6 +193,7 @@ class TestFullPipeline:
             text=True,
             env=env,
             cwd=temp_dir,
+            check=False,
         )
 
         # It might fail with the real CLI due to auth, but we can verify it at least runs
@@ -210,6 +210,7 @@ class TestFullPipeline:
             text=True,
             env=env,
             cwd=temp_dir,
+            check=False,
         )
 
         # The command exists and can be run, even if it fails due to missing DB
@@ -272,9 +273,9 @@ class TestDatasetteIntegration:
 
         # Test joining to get full records
         search_query = """
-        SELECT til.* 
-        FROM til 
-        JOIN til_fts ON til.rowid = til_fts.rowid 
+        SELECT til.*
+        FROM til
+        JOIN til_fts ON til.rowid = til_fts.rowid
         WHERE til_fts MATCH ?
         """
         til_results = db.execute(search_query, ["Python"]).fetchall()

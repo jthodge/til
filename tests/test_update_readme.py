@@ -5,7 +5,6 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from til.config import TILConfig
 from til.update_readme import main
 
 
@@ -119,7 +118,7 @@ class TestUpdateReadme:
             patch("til.update_readme.sys.argv", ["update_readme.py", "--rewrite"]),
             patch("til.update_readme.TILConfig") as mock_config,
             patch("til.update_readme.TILDatabase") as mock_db,
-            patch("til.update_readme.ReadmeGenerator") as mock_generator,
+            patch("til.update_readme.ReadmeGenerator"),
             patch("til.update_readme.sys.exit") as mock_exit,
         ):
             # Setup mocks

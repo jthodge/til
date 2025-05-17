@@ -1,6 +1,5 @@
 """Tests for MarkdownRenderer class."""
 
-import time
 from unittest.mock import Mock, patch
 
 import httpx

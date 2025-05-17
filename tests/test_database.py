@@ -1,8 +1,7 @@
 """Tests for TILDatabase class."""
 
-import sqlite3
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 import pytest
 import sqlite_utils
@@ -22,7 +21,7 @@ def test_til_database_initialization(temp_dir: Path) -> None:
 
 
 # Helper function to create a complete record
-def create_test_record(path: str = "test.md") -> Dict[str, Any]:
+def create_test_record(path: str = "test.md") -> dict[str, Any]:
     """Create a complete test record with all required fields."""
     return {
         "path": path,

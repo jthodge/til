@@ -36,7 +36,7 @@ def test_repository_error_not_git_repo(temp_dir: Path) -> None:
 def test_processor_configuration_error() -> None:
     """Test ConfigurationError when root path doesn't exist."""
     with pytest.raises(ConfigurationError, match="Root path does not exist"):
-        config = TILConfig(root_path=Path("/nonexistent/path"))
+        TILConfig(root_path=Path("/nonexistent/path"))
 
 
 def test_file_processing_error_empty_file(temp_dir: Path) -> None:

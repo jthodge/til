@@ -145,7 +145,7 @@ class ConfigLoader:
             import tomllib
         except ImportError:
             try:
-                import tomli as tomllib  # type: ignore
+                import tomli as tomllib  # type: ignore[import-not-found]
             except ImportError:
                 raise ConfigurationError(
                     "TOML support requires Python 3.11+ or tomli package. "

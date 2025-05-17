@@ -5,10 +5,10 @@ from pathlib import Path
 from unittest.mock import Mock, patch
 
 import click.testing
-import pytest
 
 # Import the module and cli separately to fix CI issues
 from til.cli import cli
+
 
 # Get the actual module for patching
 cli_module = sys.modules["til.cli"]

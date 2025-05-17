@@ -1,13 +1,12 @@
 """Tests for TILProcessor class."""
 
-import logging
 from pathlib import Path
 from unittest.mock import Mock, patch
 
 import pytest
 
 from til.config import TILConfig
-from til.exceptions import ConfigurationError, FileProcessingError, RepositoryError
+from til.exceptions import FileProcessingError, RepositoryError
 from til.processor import TILProcessor
 
 

@@ -1,7 +1,6 @@
 """Tests for GitRepository class."""
 
 import pathlib
-from datetime import timezone
 from pathlib import Path
 
 import pytest
@@ -68,7 +67,7 @@ def test_get_file_history(temp_git_repo: Repo) -> None:
     assert "bash/bash-test.md" in history
 
     # Check structure of history entries
-    for filepath, times in history.items():
+    for _, times in history.items():
         assert "created" in times
         assert "created_utc" in times
         assert "updated" in times

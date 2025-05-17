@@ -16,7 +16,7 @@ class TestConfigLoader:
         """Test loading configuration from YAML file."""
         # Skip test if PyYAML is not installed
         try:
-            import yaml
+            import yaml  # noqa: F401
         except ImportError:
             pytest.skip("PyYAML not available")
 

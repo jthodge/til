@@ -1,8 +1,9 @@
 """Pytest configuration and shared fixtures."""
 
 import tempfile
+from collections.abc import Generator
 from pathlib import Path
-from typing import Dict, Generator, Optional
+from typing import Optional
 
 import pytest
 import sqlite_utils
@@ -71,7 +72,7 @@ def temp_db(temp_dir: Path) -> sqlite_utils.Database:
 
 
 @pytest.fixture
-def sample_til_record() -> Dict[str, str]:
+def sample_til_record() -> dict[str, str]:
     """Sample TIL record for testing."""
     return {
         "path": "python_test-til.md",
@@ -101,8 +102,8 @@ def mock_github_api(monkeypatch: pytest.MonkeyPatch) -> None:
     def mock_post(
         url: str,
         *,
-        json: Optional[Dict[str, str]] = None,
-        headers: Optional[Dict[str, str]] = None,
+        json: Optional[dict[str, str]] = None,
+        headers: Optional[dict[str, str]] = None,
         timeout: Optional[float] = None,
     ) -> MockResponse:
         if url == "https://api.github.com/markdown" and json is not None:
