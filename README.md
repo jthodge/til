@@ -181,6 +181,53 @@
 * [Choose Folders to Ignore During Search](https://github.com/jthodge/til/blob/main/vscode/choose-folders-to-ignore-during-search.md) - 2020-08-29
 <!-- index ends -->
 
+## Development Setup
+
+This project uses [`uv`](https://github.com/astral-sh/uv) as its build system and package manager for fast, modern Python development.
+
+### Quick Start
+
+```bash
+# Install uv (if you haven't already)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Clone the repository
+git clone https://github.com/jthodge/til.git
+cd til
+
+# Setup development environment
+uv venv
+uv sync --all-extras
+
+# Or use the helper script
+./scripts/dev.sh init
+```
+
+### Common Commands
+
+```bash
+# Build the database
+uv run til build
+
+# Update README
+uv run til update-readme --rewrite
+
+# Run Datasette locally
+uv run datasette . -h 0.0.0.0 -p 8765 --cors
+
+# Run tests
+uv run pytest tests/
+
+# Format and lint code
+uv run ruff format til/ tests/
+uv run ruff check til/ tests/
+
+# Type check
+uv run mypy til/
+```
+
+See [CLAUDE.md](CLAUDE.md) for more detailed development instructions.
+
 ## About
 
 I shamelessly stole this idea from [jbranchaud/til](https://github.com/jbranchaud/til). And I hope you'll shamelessly steal it from me!

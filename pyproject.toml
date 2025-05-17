@@ -10,6 +10,21 @@ authors = [{name = "Taylor Hodge", email = "j.taylor.hodge@gmail.com"}]
 readme = "README.md"
 license = {file = "LICENSE"}
 requires-python = ">=3.9"
+homepage = "https://til.taylorhodge.com"
+repository = "https://github.com/jthodge/til"
+keywords = ["til", "today-i-learned", "datasette", "static-site-generator"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Documentation",
+]
 dependencies = [
     "click>=8.0",
     "GitPython",
