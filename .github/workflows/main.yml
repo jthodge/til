@@ -86,7 +86,7 @@ jobs:
         run: |-
           cd main
           heroku plugins:install heroku-builds
-          datasette publish heroku til.db \
+          uv run datasette publish heroku til.db \
             --branch main \
             --name til-taylorhodge \
             --metadata metadata.yaml \
