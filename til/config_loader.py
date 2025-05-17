@@ -122,7 +122,7 @@ class ConfigLoader:
         except ImportError:
             raise ConfigurationError(
                 "PyYAML is required to read YAML configuration files. "
-                "Install it with: pip install pyyaml"
+                "Install it with: uv add pyyaml"
             )
 
         try:
@@ -149,7 +149,7 @@ class ConfigLoader:
             except ImportError:
                 raise ConfigurationError(
                     "TOML support requires Python 3.11+ or tomli package. "
-                    "Install tomli with: pip install tomli"
+                    "Install tomli with: uv add tomli"
                 )
 
         try:

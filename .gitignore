@@ -3,3 +3,4 @@
 # uv specific
 .venv/
 .uv-cache/
+uv.lock
