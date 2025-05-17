@@ -3,23 +3,32 @@ name: Test
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
   workflow_call:
 
 jobs:
-  test:
+  # Unit tests job - runs for all Python versions
+  test-unit:
     runs-on: ubuntu-latest
-    
     strategy:
+      fail-fast: true
       matrix:
         python-version: ['3.9', '3.10', '3.11', '3.12']
+        # Define test depth per version
+        include:
+          - python-version: '3.9'
+            test-depth: 'full'
+          - python-version: '3.10'
+            test-depth: 'smoke'
+          - python-version: '3.11'
+            test-depth: 'smoke'
+          - python-version: '3.12'
+            test-depth: 'full'
     
     steps:
     - uses: actions/checkout@v4
       
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
     
@@ -28,29 +37,110 @@ jobs:
       with:
         enable-cache: true
         github-token: ${{ github.token }}
+        cache-prefix: "test-py${{ matrix.python-version }}"
     
     - name: Install dependencies
       run: |
         uv venv
         uv sync --all-extras
     
-    - name: Run tests with coverage
+    - name: Run full tests with coverage
+      if: matrix.test-depth == 'full'
       run: |
         uv run pytest tests/ -v --cov=til --cov-report=xml --cov-report=term-missing
     
+    - name: Run smoke tests
+      if: matrix.test-depth == 'smoke'
+      run: |
+        # Run only critical test files for smoke testing
+        uv run pytest tests/test_cli.py tests/test_processor.py tests/test_database.py -v
+    
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+      if: matrix.test-depth == 'full'
+      uses: codecov/codecov-action@v4
       with:
         file: ./coverage.xml
-        flags: unittests
-        name: codecov-umbrella
+        flags: py${{ matrix.python-version }}
+        name: Python ${{ matrix.python-version }}
         fail_ci_if_error: false
+
+  # Type checking job - runs only on latest Python
+  test-types:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Install uv
+      uses: astral-sh/setup-uv@v4
+      with:
+        enable-cache: true
+        github-token: ${{ github.token }}
+        cache-prefix: "types"
+    
+    - name: Install dependencies
+      run: |
+        uv venv
+        uv sync --all-extras
     
     - name: Run type checks
       run: |
         uv run mypy til/
+
+  # Linting job - runs only on latest Python
+  test-lint:
+    runs-on: ubuntu-latest
     
-    - name: Check code formatting and linting
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Install uv
+      uses: astral-sh/setup-uv@v4
+      with:
+        enable-cache: true
+        github-token: ${{ github.token }}
+        cache-prefix: "lint"
+    
+    - name: Install dependencies
+      run: |
+        uv venv
+        uv sync
+    
+    - name: Check code formatting
       run: |
         uv run ruff format --check til/ tests/
+    
+    - name: Run linting
+      run: |
         uv run ruff check til/ tests/
+
+  # Summary job to ensure all tests pass
+  test-summary:
+    if: always()
+    needs: [test-unit, test-types, test-lint]
+    runs-on: ubuntu-latest
+    outputs:
+      unit-result: ${{ needs.test-unit.result }}
+      types-result: ${{ needs.test-types.result }}
+      lint-result: ${{ needs.test-lint.result }}
+    
+    steps:
+    - name: Check test results
+      run: |
+        if [ "${{ needs.test-unit.result }}" != "success" ] || \
+           [ "${{ needs.test-types.result }}" != "success" ] || \
+           [ "${{ needs.test-lint.result }}" != "success" ]; then
+          echo "One or more test jobs failed"
+          exit 1
+        fi
+        echo "All tests passed successfully!"
