@@ -28,19 +28,17 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
-      - uses: actions/cache@v3
-        name: Configure pip caching
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
         with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-      - name: Install Python dependencies
+          enable-cache: true
+          github-token: ${{ github.token }}
+          cache-prefix: "main"
+      - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r main/requirements.txt
-          # Install the package itself to make CLI commands available
-          pip install -e main/
+          cd main
+          uv venv
+          uv sync
       - name: Download previous database unless REBUILD in commit message
         if: |-
           !contains(github.event.head_commit.message, 'REBUILD')
@@ -51,15 +49,15 @@ jobs:
           MARKDOWN_GITHUB_TOKEN: ${{ secrets.MARKDOWN_GITHUB_TOKEN }}
         run: |-
           cd main
-          til build
+          uv run til build
       - name: Perform soundness check
         run: |-
           cd main
-          datasette . --get / | grep "Taylor Hodge - TIL"
+          uv run datasette . --get / | grep "Taylor Hodge - TIL"
       - name: Update README
         run: |-
           cd main
-          til update-readme --rewrite
+          uv run til update-readme --rewrite
           cat README.md
       - name: Commit and push if README changed
         run: |-
