@@ -9,6 +9,7 @@ import httpx
 from .config import TILConfig
 from .exceptions import APIError, RenderingError
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -20,6 +21,7 @@ class MarkdownRenderer:
 
         Args:
             config: TIL configuration containing API settings
+
         """
         self.config = config
         self.api_url = "https://api.github.com/markdown"
@@ -36,6 +38,7 @@ class MarkdownRenderer:
         Raises:
             RenderingError: If rendering fails after all retries
             APIError: If API returns an authentication error
+
         """
         if not markdown.strip():
             logger.warning("Empty markdown content provided")
@@ -66,12 +69,12 @@ class MarkdownRenderer:
                     if not html:
                         logger.warning("GitHub API returned empty HTML")
                     return html
-                elif response.status_code == 401:
+                if response.status_code == 401:
                     raise APIError(
                         "GitHub API returned 401 Unauthorized - check your token",
                         status_code=401,
                     )
-                elif response.status_code == 403:
+                if response.status_code == 403:
                     if "rate limit" in response.text.lower():
                         logger.warning(
                             f"Rate limit exceeded (attempt {attempt + 1}/{self.config.max_retries})"
@@ -136,6 +139,7 @@ class MarkdownRenderer:
 
         Returns:
             Number of seconds to wait
+
         """
         # Exponential backoff: 1, 2, 4, 8, etc. seconds
         base_delay = self.config.retry_delay

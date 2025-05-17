@@ -3,11 +3,12 @@
 import logging
 import pathlib
 from datetime import timezone
-from typing import Dict, Optional
+from typing import Optional
 
 import git
 
 from .exceptions import RepositoryError
+
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +24,7 @@ class GitRepository:
 
         Raises:
             RepositoryError: If path is not a valid git repository
+
         """
         self.path = path
         if not path.exists():
@@ -43,6 +45,7 @@ class GitRepository:
 
         Raises:
             RepositoryError: If unable to determine current branch
+
         """
         try:
             return self.repo.active_branch.name
@@ -53,7 +56,7 @@ class GitRepository:
         except Exception as e:
             raise RepositoryError(f"Failed to get current branch: {e}")
 
-    def get_file_history(self, ref: Optional[str] = None) -> Dict[str, Dict[str, str]]:
+    def get_file_history(self, ref: Optional[str] = None) -> dict[str, dict[str, str]]:
         """Extract created/changed times from git history.
 
         Args:
@@ -64,8 +67,9 @@ class GitRepository:
 
         Raises:
             RepositoryError: If unable to retrieve git history
+
         """
-        created_changed_times: Dict[str, Dict[str, str]] = {}
+        created_changed_times: dict[str, dict[str, str]] = {}
 
         # Use current branch if ref not specified
         if ref is None:
@@ -86,8 +90,7 @@ class GitRepository:
         except git.GitCommandError as e:
             if "unknown revision" in str(e):
                 raise RepositoryError(f"Invalid git reference '{ref}': {e}")
-            else:
-                raise RepositoryError(f"Failed to get commits for ref {ref}: {e}")
+            raise RepositoryError(f"Failed to get commits for ref {ref}: {e}")
         except Exception as e:
             raise RepositoryError(f"Unexpected error getting commits: {e}")
 

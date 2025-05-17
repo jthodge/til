@@ -6,7 +6,6 @@ from typing import Optional
 
 import click
 
-from .config import TILConfig
 from .config_loader import ConfigLoader
 from .database import TILDatabase
 from .exceptions import ConfigurationError, DatabaseError, TILError
@@ -208,7 +207,7 @@ def update_readme(
                         click.style("✨ README updated successfully!", fg="green")
                     )
 
-            except IOError as e:
+            except OSError as e:
                 click.echo(
                     click.style(f"Failed to update README: {e}", fg="red"), err=True
                 )
@@ -226,7 +225,7 @@ def update_readme(
                         click.style(f"✨ Index written to {output_path}", fg="green")
                     )
 
-            except IOError as e:
+            except OSError as e:
                 click.echo(
                     click.style(f"Failed to write output: {e}", fg="red"), err=True
                 )

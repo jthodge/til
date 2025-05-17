@@ -3,10 +3,9 @@
 import logging
 import pathlib
 import re
-from typing import Dict, List
 
-from .config import TILConfig
 from .database import TILDatabase
+
 
 logger = logging.getLogger(__name__)
 
@@ -25,14 +24,16 @@ class ReadmeGenerator:
 
         Args:
             database: TIL database instance
+
         """
         self.database = database
 
-    def generate_index(self) -> List[str]:
+    def generate_index(self) -> list[str]:
         """Generate index lines for README.
 
         Returns:
             List of index lines to be inserted into README
+
         """
         by_topic = self.database.get_all_by_topic()
 
@@ -60,6 +61,7 @@ class ReadmeGenerator:
 
         Args:
             readme_path: Path to README.md file
+
         """
         index_lines = self.generate_index()
         total_count = self.database.count()
@@ -67,7 +69,7 @@ class ReadmeGenerator:
         try:
             with readme_path.open() as f:
                 readme_contents = f.read()
-        except IOError as e:
+        except OSError as e:
             logger.error(f"Failed to read README: {e}")
             return
 
@@ -85,5 +87,5 @@ class ReadmeGenerator:
             with readme_path.open("w") as f:
                 f.write(updated_contents)
             logger.info("README updated successfully")
-        except IOError as e:
+        except OSError as e:
             logger.error(f"Failed to write README: {e}")

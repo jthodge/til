@@ -40,15 +40,20 @@ case "${1:-help}" in
     
     format)
         echo -e "${YELLOW}Formatting code...${NC}"
-        uv run black til/ tests/
-        uv run isort til/ tests/
+        uv run ruff format til/ tests/
         echo -e "${GREEN}✓ Code formatted${NC}"
         ;;
     
     lint)
         echo -e "${YELLOW}Running linters...${NC}"
-        uv run flake8 til/ tests/
+        uv run ruff check til/ tests/
         echo -e "${GREEN}✓ Linting complete${NC}"
+        ;;
+    
+    fix)
+        echo -e "${YELLOW}Fixing linting issues...${NC}"
+        uv run ruff check --fix til/ tests/
+        echo -e "${GREEN}✓ Linting issues fixed${NC}"
         ;;
     
     typecheck)
@@ -118,8 +123,9 @@ case "${1:-help}" in
         echo "  init         - Initialize project environment and install dependencies"
         echo "  install      - Install project dependencies (no dev)"
         echo "  install-dev  - Install project with dev dependencies" 
-        echo "  format       - Format code with black and isort"
-        echo "  lint         - Run flake8 linter"
+        echo "  format       - Format code with ruff"
+        echo "  lint         - Run ruff linter"
+        echo "  fix          - Auto-fix linting issues"
         echo "  typecheck    - Run mypy type checker"
         echo "  test         - Run tests"
         echo "  test-cov     - Run tests with coverage"

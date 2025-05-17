@@ -2,13 +2,14 @@
 
 import logging
 import pathlib
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from .config import TILConfig
 from .database import TILDatabase
 from .exceptions import ConfigurationError, FileProcessingError, RepositoryError
 from .renderer import MarkdownRenderer
 from .repository import GitRepository
+
 
 logger = logging.getLogger(__name__)
 
@@ -24,6 +25,7 @@ class TILProcessor:
 
         Raises:
             ConfigurationError: If configuration is invalid
+
         """
         if not config.root_path.exists():
             raise ConfigurationError(f"Root path does not exist: {config.root_path}")
@@ -44,7 +46,7 @@ class TILProcessor:
         self.renderer = MarkdownRenderer(config)
         self.database = TILDatabase(config.database_path)
 
-    def process_file(self, filepath: pathlib.Path) -> Dict[str, Any]:
+    def process_file(self, filepath: pathlib.Path) -> dict[str, Any]:
         """Process a single markdown file.
 
         Args:
@@ -55,6 +57,7 @@ class TILProcessor:
 
         Raises:
             FileProcessingError: If file cannot be processed
+
         """
         if not filepath.exists():
             raise FileProcessingError(f"File does not exist: {filepath}")
@@ -79,7 +82,7 @@ class TILProcessor:
 
         except UnicodeDecodeError as e:
             raise FileProcessingError(f"Invalid encoding in file {filepath}: {e}")
-        except IOError as e:
+        except OSError as e:
             raise FileProcessingError(f"Failed to read file {filepath}: {e}")
 
         try:
@@ -100,7 +103,7 @@ class TILProcessor:
         url = f"{self.config.github_url_base}/blob/main/{path}"
         path_slug = path.replace("/", "_")
 
-        record = {
+        return {
             "path": path_slug,
             "slug": slug,
             "topic": topic,
@@ -109,9 +112,7 @@ class TILProcessor:
             "body": body,
         }
 
-        return record
-
-    def should_update_html(self, record: Dict[str, Any]) -> bool:
+    def should_update_html(self, record: dict[str, Any]) -> bool:
         """Check if HTML needs to be updated for a record.
 
         Args:
@@ -119,6 +120,7 @@ class TILProcessor:
 
         Returns:
             True if HTML needs updating, False otherwise
+
         """
         try:
             previous_record = self.database.get_previous_record(record["path"])
@@ -242,6 +244,7 @@ class TILProcessor:
 
         Raises:
             FileProcessingError: If no files could be processed
+
         """
         try:
             self.process_all_files()

@@ -8,6 +8,7 @@ from .database import TILDatabase
 from .exceptions import ConfigurationError, DatabaseError, TILError
 from .readme_generator import ReadmeGenerator
 
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -49,7 +50,7 @@ def main() -> None:
                 logger.info(f"Updating {readme_path}")
                 generator.update_readme(readme_path)
                 logger.info("README updated successfully")
-            except IOError as e:
+            except OSError as e:
                 logger.error(f"Failed to update README: {e}")
                 sys.exit(1)
             except Exception as e:

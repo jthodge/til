@@ -7,6 +7,7 @@ from .config import TILConfig
 from .exceptions import ConfigurationError, FileProcessingError, TILError
 from .processor import TILProcessor
 
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -22,6 +23,7 @@ def build_database(config: TILConfig) -> None:
 
     Raises:
         TILError: If database build fails
+
     """
     try:
         processor = TILProcessor(config)

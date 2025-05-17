@@ -2,7 +2,7 @@
 
 import os
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from .config import TILConfig
 from .exceptions import ConfigurationError
@@ -49,9 +49,10 @@ class ConfigLoader:
 
         Raises:
             ConfigurationError: If configuration is invalid
+
         """
         # Start with defaults
-        config_dict: Dict[str, Any] = {}
+        config_dict: dict[str, Any] = {}
 
         # Load from configuration file if exists
         if config_file:
@@ -86,7 +87,7 @@ class ConfigLoader:
         return TILConfig(**config_dict)
 
     @classmethod
-    def _load_config_file(cls, file_path: Path) -> Dict[str, Any]:
+    def _load_config_file(cls, file_path: Path) -> dict[str, Any]:
         """Load configuration from YAML or TOML file.
 
         Args:
@@ -97,6 +98,7 @@ class ConfigLoader:
 
         Raises:
             ConfigurationError: If file cannot be loaded
+
         """
         if not file_path.exists():
             raise ConfigurationError(f"Configuration file not found: {file_path}")
@@ -105,16 +107,15 @@ class ConfigLoader:
 
         if suffix in [".yaml", ".yml"]:
             return cls._load_yaml(file_path)
-        elif suffix == ".toml":
+        if suffix == ".toml":
             return cls._load_toml(file_path)
-        else:
-            raise ConfigurationError(
-                f"Unsupported configuration file format: {suffix}. "
-                "Supported formats: .yaml, .yml, .toml"
-            )
+        raise ConfigurationError(
+            f"Unsupported configuration file format: {suffix}. "
+            "Supported formats: .yaml, .yml, .toml"
+        )
 
     @classmethod
-    def _load_yaml(cls, file_path: Path) -> Dict[str, Any]:
+    def _load_yaml(cls, file_path: Path) -> dict[str, Any]:
         """Load configuration from YAML file."""
         try:
             import yaml
@@ -125,7 +126,7 @@ class ConfigLoader:
             )
 
         try:
-            with open(file_path, "r") as f:
+            with open(file_path) as f:
                 data = yaml.safe_load(f)
                 if not isinstance(data, dict):
                     raise ConfigurationError(
@@ -138,7 +139,7 @@ class ConfigLoader:
             raise ConfigurationError(f"Failed to read configuration file: {e}")
 
     @classmethod
-    def _load_toml(cls, file_path: Path) -> Dict[str, Any]:
+    def _load_toml(cls, file_path: Path) -> dict[str, Any]:
         """Load configuration from TOML file."""
         try:
             import tomllib
@@ -155,16 +156,13 @@ class ConfigLoader:
             with open(file_path, "rb") as f:
                 data = tomllib.load(f)
                 # Look for a [til] section or use root
-                if "til" in data:
-                    config_data = data["til"]
-                else:
-                    config_data = data
+                config_data = data.get("til", data)
                 return cls._normalize_config(config_data)
         except Exception as e:
             raise ConfigurationError(f"Failed to read TOML configuration: {e}")
 
     @classmethod
-    def _normalize_config(cls, data: Dict[str, Any]) -> Dict[str, Any]:
+    def _normalize_config(cls, data: dict[str, Any]) -> dict[str, Any]:
         """Normalize configuration keys and values.
 
         Converts keys from snake_case and kebab-case to snake_case.
@@ -175,8 +173,9 @@ class ConfigLoader:
 
         Returns:
             Normalized configuration dictionary
+
         """
-        normalized: Dict[str, Any] = {}
+        normalized: dict[str, Any] = {}
 
         for key, value in data.items():
             # Normalize key (kebab-case to snake_case)
@@ -191,13 +190,14 @@ class ConfigLoader:
         return normalized
 
     @classmethod
-    def _load_from_environment(cls) -> Dict[str, Any]:
+    def _load_from_environment(cls) -> dict[str, Any]:
         """Load configuration from environment variables.
 
         Returns:
             Dictionary of configuration values from environment
+
         """
-        config: Dict[str, Any] = {}
+        config: dict[str, Any] = {}
 
         # GitHub token
         if token := os.environ.get("MARKDOWN_GITHUB_TOKEN"):

@@ -2,12 +2,13 @@
 
 import logging
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 import sqlite_utils
 from sqlite_utils.db import NotFoundError, Table
 
 from .exceptions import DatabaseError
+
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +24,7 @@ class TILDatabase:
 
         Raises:
             DatabaseError: If database cannot be initialized
+
         """
         self.db_path = db_path
 
@@ -42,6 +44,7 @@ class TILDatabase:
 
         Raises:
             DatabaseError: If table cannot be accessed
+
         """
         try:
             table = self.db.table("til", pk="path")
@@ -52,7 +55,7 @@ class TILDatabase:
         except Exception as e:
             raise DatabaseError(f"Failed to get til table: {e}")
 
-    def upsert_record(self, record: Dict[str, Any]) -> None:
+    def upsert_record(self, record: dict[str, Any]) -> None:
         """Insert or update a TIL record.
 
         Args:
@@ -60,6 +63,7 @@ class TILDatabase:
 
         Raises:
             DatabaseError: If record cannot be saved
+
         """
         if not record:
             raise DatabaseError("Cannot save empty record")
@@ -77,7 +81,7 @@ class TILDatabase:
         except Exception as e:
             raise DatabaseError(f"Failed to save record {record.get('path', '?')}: {e}")
 
-    def get_previous_record(self, path: str) -> Optional[Dict[str, Any]]:
+    def get_previous_record(self, path: str) -> Optional[dict[str, Any]]:
         """Get previous version of a record.
 
         Args:
@@ -88,6 +92,7 @@ class TILDatabase:
 
         Raises:
             DatabaseError: If there's an error retrieving the record
+
         """
         if not path:
             raise DatabaseError("Path cannot be empty")
@@ -109,6 +114,7 @@ class TILDatabase:
 
         Raises:
             DatabaseError: If search cannot be enabled
+
         """
         try:
             table = self.get_table()
@@ -132,7 +138,7 @@ class TILDatabase:
             else:
                 raise DatabaseError(f"Failed to enable full-text search: {e}")
 
-    def get_all_by_topic(self) -> Dict[str, List[Dict[str, Any]]]:
+    def get_all_by_topic(self) -> dict[str, list[dict[str, Any]]]:
         """Get all entries grouped by topic.
 
         Returns:
@@ -140,8 +146,9 @@ class TILDatabase:
 
         Raises:
             DatabaseError: If records cannot be retrieved
+
         """
-        by_topic: Dict[str, List[Dict[str, Any]]] = {}
+        by_topic: dict[str, list[dict[str, Any]]] = {}
 
         try:
             if "til" not in self.db.table_names():
@@ -164,6 +171,7 @@ class TILDatabase:
 
         Returns:
             Number of records in the database
+
         """
         try:
             if "til" not in self.db.table_names():
