@@ -20,7 +20,6 @@ def test_til_processor_initialization(temp_dir: Path) -> None:
         patch("til.processor.MarkdownRenderer") as mock_renderer,
         patch("til.processor.TILDatabase") as mock_db,
     ):
-
         processor = TILProcessor(config)
 
         assert processor.config == config
@@ -38,7 +37,6 @@ def test_til_processor_initialization_git_failure(temp_dir: Path) -> None:
         patch("til.processor.MarkdownRenderer") as mock_renderer,
         patch("til.processor.TILDatabase") as mock_db,
     ):
-
         processor = TILProcessor(config)
 
         assert processor.repository is None
@@ -61,7 +59,6 @@ def test_process_file(temp_dir: Path) -> None:
         patch("til.processor.MarkdownRenderer"),
         patch("til.processor.TILDatabase"),
     ):
-
         processor = TILProcessor(config)
         record = processor.process_file(test_file)
 
@@ -83,7 +80,6 @@ def test_process_file_not_exists(temp_dir: Path) -> None:
         patch("til.processor.MarkdownRenderer"),
         patch("til.processor.TILDatabase"),
     ):
-
         processor = TILProcessor(config)
         nonexistent_file = temp_dir / "python" / "nonexistent.md"
 
@@ -121,7 +117,6 @@ def test_should_update_html_no_previous(temp_dir: Path) -> None:
         patch("til.processor.MarkdownRenderer"),
         patch("til.processor.TILDatabase") as mock_db,
     ):
-
         mock_db.return_value.get_previous_record.return_value = None
 
         processor = TILProcessor(config)
@@ -139,7 +134,6 @@ def test_should_update_html_different_body(temp_dir: Path) -> None:
         patch("til.processor.MarkdownRenderer"),
         patch("til.processor.TILDatabase") as mock_db,
     ):
-
         previous = {"body": "old content", "html": "<p>old</p>"}
         mock_db.return_value.get_previous_record.return_value = previous
 
@@ -158,7 +152,6 @@ def test_should_update_html_no_html(temp_dir: Path) -> None:
         patch("til.processor.MarkdownRenderer"),
         patch("til.processor.TILDatabase") as mock_db,
     ):
-
         previous = {"body": "content"}
         mock_db.return_value.get_previous_record.return_value = previous
 
@@ -177,7 +170,6 @@ def test_should_update_html_same_content(temp_dir: Path) -> None:
         patch("til.processor.MarkdownRenderer"),
         patch("til.processor.TILDatabase") as mock_db,
     ):
-
         previous = {"body": "content", "html": "<p>content</p>"}
         mock_db.return_value.get_previous_record.return_value = previous
 

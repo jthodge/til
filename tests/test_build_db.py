@@ -35,7 +35,6 @@ class TestBuildDatabase:
             patch("til.build_db.TILConfig") as mock_config,
             patch("til.build_db.build_database") as mock_build,
         ):
-
             mock_config.from_environment.return_value = Mock()
 
             # Import main and call it

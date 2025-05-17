@@ -20,7 +20,6 @@ class TestUpdateReadme:
             patch("til.update_readme.TILDatabase") as mock_db,
             patch("til.update_readme.ReadmeGenerator") as mock_generator,
         ):
-
             # Setup mocks
             mock_db_path = Mock()
             mock_db_path.exists.return_value = True
@@ -57,7 +56,6 @@ class TestUpdateReadme:
             patch("til.update_readme.TILDatabase") as mock_db,
             patch("til.update_readme.ReadmeGenerator") as mock_generator,
         ):
-
             # Setup mocks
             mock_db_path = Mock()
             mock_db_path.exists.return_value = True
