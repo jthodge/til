@@ -9,7 +9,7 @@ import uuid
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any, Optional, Union
 
 from .exceptions import ConfigurationError
 
@@ -199,6 +199,7 @@ def setup_logging(config: LogConfig) -> None:
     root_logger.filters = []
 
     # Set up formatters
+    formatter: Union[JSONFormatter, logging.Formatter]
     if config.format == LogFormat.JSON:
         formatter = JSONFormatter()
     else:

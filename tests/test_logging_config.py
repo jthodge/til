@@ -24,7 +24,7 @@ from til.logging_config import (
 class TestLogLevel:
     """Test LogLevel enum."""
 
-    def test_log_levels(self):
+    def test_log_levels(self) -> None:
         """Test all log levels are defined."""
         assert LogLevel.DEBUG.value == "DEBUG"
         assert LogLevel.INFO.value == "INFO"
@@ -36,7 +36,7 @@ class TestLogLevel:
 class TestLogFormat:
     """Test LogFormat enum."""
 
-    def test_log_formats(self):
+    def test_log_formats(self) -> None:
         """Test all log formats are defined."""
         assert LogFormat.JSON.value == "json"
         assert LogFormat.TEXT.value == "text"
@@ -45,7 +45,7 @@ class TestLogFormat:
 class TestLogConfig:
     """Test LogConfig dataclass."""
 
-    def test_default_config(self):
+    def test_default_config(self) -> None:
         """Test default configuration values."""
         config = LogConfig()
         assert config.level == LogLevel.INFO
@@ -57,7 +57,7 @@ class TestLogConfig:
         assert config.add_context is True
         assert config.request_id is None
 
-    def test_custom_config(self):
+    def test_custom_config(self) -> None:
         """Test custom configuration values."""
         log_file = Path("/tmp/test.log")
         config = LogConfig(
@@ -79,7 +79,7 @@ class TestLogConfig:
         assert config.add_context is False
         assert config.request_id == "test-123"
 
-    def test_validation_max_bytes(self):
+    def test_validation_max_bytes(self) -> None:
         """Test max_bytes validation."""
         with pytest.raises(ConfigurationError, match="max_bytes must be positive"):
             LogConfig(max_bytes=0)
@@ -87,21 +87,21 @@ class TestLogConfig:
         with pytest.raises(ConfigurationError, match="max_bytes must be positive"):
             LogConfig(max_bytes=-1)
 
-    def test_validation_backup_count(self):
+    def test_validation_backup_count(self) -> None:
         """Test backup_count validation."""
         with pytest.raises(
             ConfigurationError, match="backup_count must be non-negative"
         ):
             LogConfig(backup_count=-1)
 
-    def test_log_file_directory_creation(self):
+    def test_log_file_directory_creation(self) -> None:
         """Test log file directory is created if it doesn't exist."""
         with tempfile.TemporaryDirectory() as tmpdir:
             log_file = Path(tmpdir) / "logs" / "test.log"
             config = LogConfig(log_file=log_file)
             assert log_file.parent.exists()
 
-    def test_from_environment(self):
+    def test_from_environment(self) -> None:
         """Test creating config from environment variables."""
         env_vars = {
             "TIL_LOG_LEVEL": "DEBUG",
@@ -119,7 +119,7 @@ class TestLogConfig:
             assert config.console_enabled is False
             assert config.add_context is False
 
-    def test_from_environment_defaults(self):
+    def test_from_environment_defaults(self) -> None:
         """Test creating config from environment with defaults."""
         with patch.dict(os.environ, clear=True):
             config = LogConfig.from_environment()
@@ -133,7 +133,7 @@ class TestLogConfig:
 class TestJSONFormatter:
     """Test JSONFormatter class."""
 
-    def test_format_basic(self):
+    def test_format_basic(self) -> None:
         """Test basic JSON formatting."""
         formatter = JSONFormatter(include_timestamp=False)
         record = logging.LogRecord(
@@ -154,7 +154,7 @@ class TestJSONFormatter:
         assert data["message"] == "Test message"
         assert "timestamp" not in data
 
-    def test_format_with_timestamp(self):
+    def test_format_with_timestamp(self) -> None:
         """Test JSON formatting with timestamp."""
         formatter = JSONFormatter(include_timestamp=True)
         record = logging.LogRecord(
@@ -172,7 +172,7 @@ class TestJSONFormatter:
 
         assert "timestamp" in data
 
-    def test_format_with_exception(self):
+    def test_format_with_exception(self) -> None:
         """Test JSON formatting with exception."""
         formatter = JSONFormatter()
 
@@ -199,7 +199,7 @@ class TestJSONFormatter:
         assert "exception" in data
         assert "ValueError: Test error" in data["exception"]
 
-    def test_format_with_extra_fields(self):
+    def test_format_with_extra_fields(self) -> None:
         """Test JSON formatting with extra fields."""
         formatter = JSONFormatter()
         record = logging.LogRecord(
@@ -224,7 +224,7 @@ class TestJSONFormatter:
 class TestContextFilter:
     """Test ContextFilter class."""
 
-    def test_filter_adds_request_id(self):
+    def test_filter_adds_request_id(self) -> None:
         """Test filter adds request_id to record."""
         filter = ContextFilter(request_id="test-123")
         record = logging.LogRecord(
@@ -239,9 +239,9 @@ class TestContextFilter:
 
         result = filter.filter(record)
         assert result is True
-        assert record.request_id == "test-123"
+        assert record.request_id == "test-123"  # type: ignore
 
-    def test_filter_generates_request_id(self):
+    def test_filter_generates_request_id(self) -> None:
         """Test filter generates request_id if not provided."""
         filter = ContextFilter()
         record = logging.LogRecord(
@@ -259,7 +259,7 @@ class TestContextFilter:
         assert hasattr(record, "request_id")
         assert len(record.request_id) > 0
 
-    def test_filter_preserves_existing_request_id(self):
+    def test_filter_preserves_existing_request_id(self) -> None:
         """Test filter preserves existing request_id."""
         filter = ContextFilter(request_id="new-123")
         record = logging.LogRecord(
@@ -275,13 +275,13 @@ class TestContextFilter:
 
         result = filter.filter(record)
         assert result is True
-        assert record.request_id == "existing-456"
+        assert record.request_id == "existing-456"  # type: ignore
 
 
 class TestSetupLogging:
     """Test setup_logging function."""
 
-    def test_setup_basic(self):
+    def test_setup_basic(self) -> None:
         """Test basic logging setup."""
         config = LogConfig()
         setup_logging(config)
@@ -299,7 +299,7 @@ class TestSetupLogging:
 
         assert console_handler is not None
 
-    def test_setup_with_file(self):
+    def test_setup_with_file(self) -> None:
         """Test logging setup with file handler."""
         with tempfile.TemporaryDirectory() as tmpdir:
             log_file = Path(tmpdir) / "test.log"
@@ -318,7 +318,7 @@ class TestSetupLogging:
             assert file_handler is not None
             assert file_handler.baseFilename == str(log_file)
 
-    def test_setup_json_format(self):
+    def test_setup_json_format(self) -> None:
         """Test logging setup with JSON format."""
         config = LogConfig(format=LogFormat.JSON)
         setup_logging(config)
@@ -329,7 +329,7 @@ class TestSetupLogging:
         for handler in root_logger.handlers:
             assert isinstance(handler.formatter, JSONFormatter)
 
-    def test_setup_without_console(self):
+    def test_setup_without_console(self) -> None:
         """Test logging setup without console handler."""
         config = LogConfig(console_enabled=False)
         setup_logging(config)
@@ -345,7 +345,7 @@ class TestSetupLogging:
 
         assert console_handler is None
 
-    def test_setup_with_context(self):
+    def test_setup_with_context(self) -> None:
         """Test logging setup with context filter."""
         config = LogConfig(add_context=True, request_id="test-123")
         setup_logging(config)
@@ -362,13 +362,13 @@ class TestSetupLogging:
 class TestGetLogger:
     """Test get_logger function."""
 
-    def test_get_logger(self):
+    def test_get_logger(self) -> None:
         """Test getting a logger instance."""
         logger = get_logger("test.module")
         assert isinstance(logger, logging.Logger)
         assert logger.name == "test.module"
 
-    def test_get_logger_inherits_configuration(self):
+    def test_get_logger_inherits_configuration(self) -> None:
         """Test logger inherits root configuration."""
         config = LogConfig(level=LogLevel.DEBUG)
         setup_logging(config)
