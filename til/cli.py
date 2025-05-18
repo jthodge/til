@@ -106,7 +106,13 @@ def build(
         click.echo("\nBuild interrupted by user")
         sys.exit(130)
     except Exception as e:
-        logger.exception("Unexpected error")
+        import logging
+
+        try:
+            logger = logging.getLogger(__name__)
+            logger.exception("Unexpected error")
+        except:
+            pass
         click.echo(click.style(f"Unexpected error: {e}", fg="red"), err=True)
         sys.exit(1)
 
@@ -248,7 +254,13 @@ def update_readme(
         click.echo("\nUpdate interrupted by user")
         sys.exit(130)
     except Exception as e:
-        logger.exception("Unexpected error")
+        import logging
+
+        try:
+            logger = logging.getLogger(__name__)
+            logger.exception("Unexpected error")
+        except:
+            pass
         click.echo(click.style(f"Unexpected error: {e}", fg="red"), err=True)
         sys.exit(1)
 

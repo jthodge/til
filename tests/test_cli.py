@@ -8,6 +8,7 @@ import click.testing
 
 # Import the module and cli separately to fix CI issues
 from til.cli import cli
+from til.logging_config import LogConfig, LogLevel, LogFormat
 
 
 # Get the actual module for patching
@@ -60,6 +61,15 @@ class TestCLI:
 
         # Set up mock instances
         mock_config = Mock()
+        mock_config.log_config = Mock()
+        mock_config.log_config.level = LogLevel.INFO
+        mock_config.log_config.format = LogFormat.TEXT
+        mock_config.log_config.add_context = True
+        mock_config.log_config.request_id = None
+        mock_config.log_config.console_enabled = True
+        mock_config.log_config.log_file = None
+        mock_config.log_config.max_bytes = 10 * 1024 * 1024
+        mock_config.log_config.backup_count = 5
         mock_loader_class.load_config.return_value = mock_config
 
         mock_processor = Mock()
@@ -92,6 +102,15 @@ class TestCLI:
 
         # Set up mock instances
         mock_config = Mock()
+        mock_config.log_config = Mock()
+        mock_config.log_config.level = LogLevel.INFO
+        mock_config.log_config.format = LogFormat.TEXT
+        mock_config.log_config.add_context = True
+        mock_config.log_config.request_id = None
+        mock_config.log_config.console_enabled = True
+        mock_config.log_config.log_file = None
+        mock_config.log_config.max_bytes = 10 * 1024 * 1024
+        mock_config.log_config.backup_count = 5
         mock_loader_class.load_config.return_value = mock_config
 
         mock_processor = Mock()
@@ -132,6 +151,15 @@ class TestCLI:
         mock_config = Mock()
         mock_config.database_path = Path("/tmp/til.db")
         mock_config.github_repo = "user/repo"
+        mock_config.log_config = Mock()
+        mock_config.log_config.level = LogLevel.INFO
+        mock_config.log_config.format = LogFormat.TEXT
+        mock_config.log_config.add_context = True
+        mock_config.log_config.request_id = None
+        mock_config.log_config.console_enabled = True
+        mock_config.log_config.log_file = None
+        mock_config.log_config.max_bytes = 10 * 1024 * 1024
+        mock_config.log_config.backup_count = 5
         mock_loader_class.load_config.return_value = mock_config
 
         mock_processor = Mock()
@@ -153,6 +181,15 @@ class TestCLI:
 
         # Set up mock instances
         mock_config = Mock()
+        mock_config.log_config = Mock()
+        mock_config.log_config.level = LogLevel.INFO
+        mock_config.log_config.format = LogFormat.TEXT
+        mock_config.log_config.add_context = True
+        mock_config.log_config.request_id = None
+        mock_config.log_config.console_enabled = True
+        mock_config.log_config.log_file = None
+        mock_config.log_config.max_bytes = 10 * 1024 * 1024
+        mock_config.log_config.backup_count = 5
         mock_loader_class.load_config.return_value = mock_config
 
         mock_processor = Mock()
@@ -173,6 +210,15 @@ class TestCLI:
 
         # Set up mock instances
         mock_config = Mock()
+        mock_config.log_config = Mock()
+        mock_config.log_config.level = LogLevel.INFO
+        mock_config.log_config.format = LogFormat.TEXT
+        mock_config.log_config.add_context = True
+        mock_config.log_config.request_id = None
+        mock_config.log_config.console_enabled = True
+        mock_config.log_config.log_file = None
+        mock_config.log_config.max_bytes = 10 * 1024 * 1024
+        mock_config.log_config.backup_count = 5
         mock_loader_class.load_config.return_value = mock_config
 
         mock_processor = Mock()
@@ -197,6 +243,15 @@ class TestCLI:
         mock_config = Mock()
         mock_config.database_path = Mock(exists=Mock(return_value=True))
         mock_config.root_path = Path("/tmp")
+        mock_config.log_config = Mock()
+        mock_config.log_config.level = LogLevel.INFO
+        mock_config.log_config.format = LogFormat.TEXT
+        mock_config.log_config.add_context = True
+        mock_config.log_config.request_id = None
+        mock_config.log_config.console_enabled = True
+        mock_config.log_config.log_file = None
+        mock_config.log_config.max_bytes = 10 * 1024 * 1024
+        mock_config.log_config.backup_count = 5
         mock_loader_class.load_config.return_value = mock_config
 
         mock_db = Mock()
@@ -226,6 +281,15 @@ class TestCLI:
         mock_config = Mock()
         mock_config.database_path = Mock(exists=Mock(return_value=True))
         mock_config.root_path = Mock(__truediv__=Mock(return_value=readme_path))
+        mock_config.log_config = Mock()
+        mock_config.log_config.level = LogLevel.INFO
+        mock_config.log_config.format = LogFormat.TEXT
+        mock_config.log_config.add_context = True
+        mock_config.log_config.request_id = None
+        mock_config.log_config.console_enabled = True
+        mock_config.log_config.log_file = None
+        mock_config.log_config.max_bytes = 10 * 1024 * 1024
+        mock_config.log_config.backup_count = 5
         mock_loader_class.load_config.return_value = mock_config
 
         mock_db = Mock()
@@ -253,6 +317,15 @@ class TestCLI:
             # Set up mock instances
             mock_config = Mock()
             mock_config.database_path = Mock(exists=Mock(return_value=True))
+            mock_config.log_config = Mock()
+            mock_config.log_config.level = LogLevel.INFO
+            mock_config.log_config.format = LogFormat.TEXT
+            mock_config.log_config.add_context = True
+            mock_config.log_config.request_id = None
+            mock_config.log_config.console_enabled = True
+            mock_config.log_config.log_file = None
+            mock_config.log_config.max_bytes = 10 * 1024 * 1024
+            mock_config.log_config.backup_count = 5
             mock_loader_class.load_config.return_value = mock_config
 
             mock_db = Mock()
@@ -277,6 +350,15 @@ class TestCLI:
         # Set up mock instance
         mock_config = Mock()
         mock_config.database_path = Mock(exists=Mock(return_value=False))
+        mock_config.log_config = Mock()
+        mock_config.log_config.level = LogLevel.INFO
+        mock_config.log_config.format = LogFormat.TEXT
+        mock_config.log_config.add_context = True
+        mock_config.log_config.request_id = None
+        mock_config.log_config.console_enabled = True
+        mock_config.log_config.log_file = None
+        mock_config.log_config.max_bytes = 10 * 1024 * 1024
+        mock_config.log_config.backup_count = 5
         mock_loader_class.load_config.return_value = mock_config
 
         result = runner.invoke(cli, ["update-readme"])
