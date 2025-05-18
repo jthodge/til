@@ -1,0 +1,42 @@
+{# Macro library for common patterns #}
+
+{% macro meta_tags(title, description, url=None, type="website") %}
+<meta property="og:title" content="{{ title }}" />
+<meta property="og:description" content="{{ description }}" />
+<meta property="og:type" content="{{ type }}" />
+{% if url %}
+<meta property="og:url" content="{{ url }}" />
+{% endif %}
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="{{ title }}" />
+<meta name="twitter:description" content="{{ description }}" />
+{% endmacro %}
+
+{% macro pagination(current_page, total_pages, base_url) %}
+<div class="pagination">
+    {% if current_page > 1 %}
+        <a href="{{ base_url }}?page={{ current_page - 1 }}">Previous</a>
+    {% endif %}
+    
+    <span>Page {{ current_page }} of {{ total_pages }}</span>
+    
+    {% if current_page < total_pages %}
+        <a href="{{ base_url }}?page={{ current_page + 1 }}">Next</a>
+    {% endif %}
+</div>
+{% endmacro %}
+
+{% macro til_list(tils, show_date=True, show_topic=False) %}
+<ul class="til-list">
+    {% for til in tils %}
+        {% include "components/til_item.html" %}
+    {% endfor %}
+</ul>
+{% endmacro %}
+
+{% macro search_form(placeholder="Search", action="/til/search") %}
+<form action="{{ action }}" method="get" class="search-form">
+    <input type="search" name="q" placeholder="{{ placeholder }}" />
+    <input type="submit" value="Search" />
+</form>
+{% endmacro %}

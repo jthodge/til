@@ -1,0 +1,24 @@
+{# Site configuration - define global variables and settings #}
+{% set SITE_TITLE = "Taylor Hodge" %}
+{% set SITE_DESCRIPTION = "Things I've learned and collected" %}
+{% set SITE_AUTHOR = "Taylor Hodge" %}
+{% set GITHUB_REPO = "jthodge/til" %}
+{% set BASE_URL = "https://til.taylorhodge.me" %}
+{% set DEFAULT_FONT_FAMILY = "Merriweather, Titillium Web" %}
+
+{# Navigation items #}
+{% set NAV_ITEMS = [
+    {"title": "Home", "url": "/"},
+    {"title": "All TILs", "url": "/all"},
+    {"title": "GitHub", "url": "https://github.com/" ~ GITHUB_REPO}
+] %}
+
+{# Footer content #}
+{% macro footer_content() %}
+<footer class="site-footer">
+    <p>
+        &copy; 2024 {{ SITE_AUTHOR }} | 
+        <a href="https://github.com/{{ GITHUB_REPO }}">View on GitHub</a>
+    </p>
+</footer>
+{% endmacro %}

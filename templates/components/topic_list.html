@@ -1,0 +1,8 @@
+{# Topic list component - accepts topics list #}
+<div class="topic-list">
+    {% for topic in topics %}
+        <a title="{{ topic.num_tils }} TIL{{ "s" if topic.num_tils > 1 else "" }}" 
+           href="/{{ topic.topic }}">{{ topic.topic }}</a> 
+        {{ topic.num_tils }}{% if not loop.last %} &middot;{% endif %}
+    {% endfor %}
+</div>

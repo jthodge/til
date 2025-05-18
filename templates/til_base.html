@@ -1,24 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{% block title %}{% endblock %}</title>
-    {% block extra_head %}{% endblock %}
-    <link
-      href="https://fonts.googleapis.com/css?family=Merriweather|Titillium+Web"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/static/til-base.css" />
-  </head>
-  <body>
-    <div class="wrapper">
-      <div class="header">
-        <nav>
-          <h1><a href="/">Taylor Hodge</a></h1>
-        </nav>
-      </div>
-      <section class="body">{% block body %}{% endblock %}</section>
-    </div>
-  </body>
-</html>
+{% extends "base.html" %}
+
+{% block stylesheets %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+{% block body %}{% endblock %}
+{% endblock %}
