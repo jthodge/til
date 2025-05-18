@@ -23,8 +23,12 @@ def temp_git_repo(temp_dir: Path) -> Generator[Repo, None, None]:
     """Create a temporary git repository with sample TIL files."""
     repo = Repo.init(temp_dir)
 
+    # Create content directory
+    content_dir = temp_dir / "content"
+    content_dir.mkdir()
+    
     # Create sample TIL files
-    python_dir = temp_dir / "python"
+    python_dir = content_dir / "python"
     python_dir.mkdir()
 
     til1 = python_dir / "test-til-1.md"
@@ -38,7 +42,7 @@ def temp_git_repo(temp_dir: Path) -> Generator[Repo, None, None]:
     repo.config_writer().set_value("user", "email", "test@example.com").release()
 
     # Create initial commit
-    repo.index.add(["python/test-til-1.md", "python/test-til-2.md"])
+    repo.index.add(["content/python/test-til-1.md", "content/python/test-til-2.md"])
     commit = repo.index.commit("Initial commit")
 
     # Ensure we have a branch reference
@@ -46,13 +50,13 @@ def temp_git_repo(temp_dir: Path) -> Generator[Repo, None, None]:
         repo.create_head("main", commit)
 
     # Create another TIL in a different topic
-    bash_dir = temp_dir / "bash"
+    bash_dir = content_dir / "bash"
     bash_dir.mkdir()
 
     til3 = bash_dir / "bash-test.md"
     til3.write_text("# Bash Test\n\nA test TIL about bash scripting.")
 
-    repo.index.add(["bash/bash-test.md"])
+    repo.index.add(["content/bash/bash-test.md"])
     repo.index.commit("Add bash TIL")
 
     # Create a main branch if the default is different (e.g., master)
@@ -75,11 +79,11 @@ def temp_db(temp_dir: Path) -> sqlite_utils.Database:
 def sample_til_record() -> dict[str, str]:
     """Sample TIL record for testing."""
     return {
-        "path": "python_test-til.md",
+        "path": "content_python_test-til.md",
         "slug": "test-til",
         "topic": "python",
         "title": "Test TIL",
-        "url": "https://github.com/jthodge/til/blob/main/python/test-til.md",
+        "url": "https://github.com/jthodge/til/blob/main/content/python/test-til.md",
         "body": "# Test TIL\n\nThis is a test.",
         "html": "<h1>Test TIL</h1>\n<p>This is a test.</p>",
         "created": "2023-01-01T00:00:00",

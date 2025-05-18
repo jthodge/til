@@ -44,8 +44,11 @@ def test_file_processing_error_empty_file(temp_dir: Path) -> None:
     config = TILConfig(root_path=temp_dir)
 
     # Create empty markdown file
-    test_file = temp_dir / "test" / "empty.md"
-    test_file.parent.mkdir()
+    content_dir = temp_dir / "content"
+    content_dir.mkdir()
+    test_dir = content_dir / "test"
+    test_dir.mkdir()
+    test_file = test_dir / "empty.md"
     test_file.write_text("")
 
     with patch("til.processor.GitRepository"):
@@ -60,8 +63,11 @@ def test_file_processing_error_no_title(temp_dir: Path) -> None:
     config = TILConfig(root_path=temp_dir)
 
     # Create markdown file with no title (but not empty)
-    test_file = temp_dir / "test" / "no_title.md"
-    test_file.parent.mkdir()
+    content_dir = temp_dir / "content"
+    content_dir.mkdir()
+    test_dir = content_dir / "test"
+    test_dir.mkdir()
+    test_file = test_dir / "no_title.md"
     test_file.write_text("###\n\nSome content but no title")
 
     with patch("til.processor.GitRepository"):
@@ -75,8 +81,10 @@ def test_file_processing_error_invalid_structure(temp_dir: Path) -> None:
     """Test FileProcessingError for invalid file structure."""
     config = TILConfig(root_path=temp_dir)
 
-    # Create markdown file at root level (not in topic directory)
-    test_file = temp_dir / "invalid.md"
+    # Create markdown file at content level (not in topic directory)
+    content_dir = temp_dir / "content"
+    content_dir.mkdir()
+    test_file = content_dir / "invalid.md"
     test_file.write_text("# Title\n\nContent")
 
     with patch("til.processor.GitRepository"):
@@ -153,7 +161,9 @@ def test_processor_graceful_git_failure(temp_dir: Path) -> None:
     config = TILConfig(root_path=temp_dir)
 
     # Create a topic directory with a markdown file
-    topic_dir = temp_dir / "test"
+    content_dir = temp_dir / "content"
+    content_dir.mkdir()
+    topic_dir = content_dir / "test"
     topic_dir.mkdir()
     test_file = topic_dir / "test.md"
     test_file.write_text("# Test\n\nContent")
@@ -173,7 +183,9 @@ def test_processor_continues_on_file_errors(temp_dir: Path) -> None:
     config = TILConfig(root_path=temp_dir)
 
     # Create topic directory
-    topic_dir = temp_dir / "test"
+    content_dir = temp_dir / "content"
+    content_dir.mkdir()
+    topic_dir = content_dir / "test"
     topic_dir.mkdir()
 
     # Create good file

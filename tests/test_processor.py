@@ -48,7 +48,9 @@ def test_process_file(temp_dir: Path) -> None:
     config = TILConfig(root_path=temp_dir)
 
     # Create test file
-    topic_dir = temp_dir / "python"
+    content_dir = temp_dir / "content"
+    content_dir.mkdir()
+    topic_dir = content_dir / "python"
     topic_dir.mkdir()
     test_file = topic_dir / "test.md"
     test_file.write_text("# Test Title\n\nTest content")
@@ -62,12 +64,12 @@ def test_process_file(temp_dir: Path) -> None:
         record = processor.process_file(test_file)
 
     assert record is not None
-    assert record["path"] == "python_test.md"
+    assert record["path"] == "content_python_test.md"
     assert record["slug"] == "test"
     assert record["topic"] == "python"
     assert record["title"] == "Test Title"
     assert record["body"] == "Test content"
-    assert record["url"] == "https://github.com/jthodge/til/blob/main/python/test.md"
+    assert record["url"] == "https://github.com/jthodge/til/blob/main/content/python/test.md"
 
 
 def test_process_file_not_exists(temp_dir: Path) -> None:
@@ -183,12 +185,14 @@ def test_process_all_files(temp_dir: Path) -> None:
     config = TILConfig(root_path=temp_dir)
 
     # Create test files
-    python_dir = temp_dir / "python"
+    content_dir = temp_dir / "content"
+    content_dir.mkdir()
+    python_dir = content_dir / "python"
     python_dir.mkdir()
     (python_dir / "test1.md").write_text("# Test 1\n\nContent 1")
     (python_dir / "test2.md").write_text("# Test 2\n\nContent 2")
 
-    js_dir = temp_dir / "javascript"
+    js_dir = content_dir / "javascript"
     js_dir.mkdir()
     (js_dir / "test.md").write_text("# JS Test\n\nJS Content")
 
@@ -223,7 +227,9 @@ def test_process_all_files_with_errors(temp_dir: Path) -> None:
     config = TILConfig(root_path=temp_dir)
 
     # Create test files - one good, one bad (empty)
-    python_dir = temp_dir / "python"
+    content_dir = temp_dir / "content"
+    content_dir.mkdir()
+    python_dir = content_dir / "python"
     python_dir.mkdir()
     (python_dir / "good.md").write_text("# Good\n\nContent")
     (python_dir / "bad.md").write_text("")  # Empty file

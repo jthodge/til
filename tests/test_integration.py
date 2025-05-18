@@ -26,9 +26,11 @@ class TestFullPipeline:
         repo.config_writer().set_value("user", "email", "test@example.com").release()
 
         # Create directory structure
-        python_dir = temp_dir / "python"
+        content_dir = temp_dir / "content"
+        content_dir.mkdir()
+        python_dir = content_dir / "python"
         python_dir.mkdir()
-        bash_dir = temp_dir / "bash"
+        bash_dir = content_dir / "bash"
         bash_dir.mkdir()
 
         # Create TIL files
@@ -44,7 +46,7 @@ class TestFullPipeline:
         til3.write_text("# Bash Loops\n\nFor loops in bash use different syntax.")
 
         # Commit files
-        repo.index.add(["python/lists.md", "python/decorators.md", "bash/loops.md"])
+        repo.index.add(["content/python/lists.md", "content/python/decorators.md", "content/bash/loops.md"])
         repo.index.commit("Add initial TILs")
 
         # Create README
@@ -104,13 +106,15 @@ class TestFullPipeline:
         repo.config_writer().set_value("user", "name", "Test User").release()
         repo.config_writer().set_value("user", "email", "test@example.com").release()
 
-        python_dir = temp_dir / "python"
+        content_dir = temp_dir / "content"
+        content_dir.mkdir()
+        python_dir = content_dir / "python"
         python_dir.mkdir()
 
         til1 = python_dir / "first.md"
         til1.write_text("# First TIL\n\nInitial content.")
 
-        repo.index.add(["python/first.md"])
+        repo.index.add(["content/python/first.md"])
         repo.index.commit("Initial commit")
 
         # Build initial database
@@ -124,7 +128,7 @@ class TestFullPipeline:
         til2 = python_dir / "second.md"
         til2.write_text("# Second TIL\n\nNew content.")
 
-        repo.index.add(["python/second.md"])
+        repo.index.add(["content/python/second.md"])
         repo.index.commit("Add second TIL")
 
         # Rebuild database
@@ -152,12 +156,14 @@ class TestFullPipeline:
         repo.config_writer().set_value("user", "name", "Test User").release()
         repo.config_writer().set_value("user", "email", "test@example.com").release()
 
-        test_dir = temp_dir / "test"
+        content_dir = temp_dir / "content"
+        content_dir.mkdir() 
+        test_dir = content_dir / "test"
         test_dir.mkdir()
         til = test_dir / "example.md"
         til.write_text("# Example\n\nTest content.")
 
-        repo.index.add(["test/example.md"])
+        repo.index.add(["content/test/example.md"])
         repo.index.commit("Add example")
 
         # Create README

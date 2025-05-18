@@ -94,12 +94,12 @@ class TILProcessor:
 
         # Extract topic from path
         path_parts = path.split("/")
-        if len(path_parts) < 2:
+        if len(path_parts) < 3 or path_parts[0] != "content":
             raise FileProcessingError(
-                f"Invalid file structure, expected topic/file.md: {path}"
+                f"Invalid file structure, expected content/topic/file.md: {path}"
             )
 
-        topic = path_parts[0]
+        topic = path_parts[1]
         url = f"{self.config.github_url_base}/blob/main/{path}"
         path_slug = path.replace("/", "_")
 
@@ -150,7 +150,7 @@ class TILProcessor:
 
         # Find all markdown files
         try:
-            markdown_files = list(self.config.root_path.glob("*/*.md"))
+            markdown_files = list(self.config.root_path.glob("content/*/*.md"))
         except Exception as e:
             raise FileProcessingError(f"Failed to find markdown files: {e}")
 

@@ -55,7 +55,10 @@ dev = [
 til = "til.cli:cli"
 
 [tool.hatch.build.targets.wheel]
-packages = ["til"]
+packages = ["src/til"]
+
+[tool.hatch.build]
+sources = ["src"]
 
 [tool.black]
 line-length = 88
@@ -87,9 +90,10 @@ addopts = [
     "--cov-report=html",
     "--cov-report=term-missing"
 ]
+pythonpath = ["src"]
 
 [tool.coverage.run]
-source = ["til"]
+source = ["src/til"]
 omit = ["tests/*", "*/conftest.py"]
 
 [tool.coverage.report]

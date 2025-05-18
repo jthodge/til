@@ -62,9 +62,9 @@ def test_get_file_history(temp_git_repo: Repo) -> None:
     history = git_repo.get_file_history()
 
     # Check that we have history for our test files
-    assert "python/test-til-1.md" in history
-    assert "python/test-til-2.md" in history
-    assert "bash/bash-test.md" in history
+    assert "content/python/test-til-1.md" in history
+    assert "content/python/test-til-2.md" in history
+    assert "content/bash/bash-test.md" in history
 
     # Check structure of history entries
     for _, times in history.items():
@@ -87,8 +87,8 @@ def test_get_file_history_with_ref(temp_git_repo: Repo) -> None:
     branch_name = temp_git_repo.active_branch.name
     history = git_repo.get_file_history(ref=branch_name)
 
-    assert "python/test-til-1.md" in history
-    assert "python/test-til-2.md" in history
+    assert "content/python/test-til-1.md" in history
+    assert "content/python/test-til-2.md" in history
 
 
 def test_get_file_history_invalid_ref(temp_git_repo: Repo) -> None:
@@ -106,10 +106,10 @@ def test_get_file_history_multiple_commits(temp_git_repo: Repo, temp_dir: Path) 
     repo_path = temp_git_repo.working_dir
 
     # Create additional commits for the same file
-    test_file = temp_dir / "python" / "test-til-1.md"
+    test_file = temp_dir / "content" / "python" / "test-til-1.md"
     test_file.write_text("# Updated Content\nNew content")
     # Use relative path for git add
-    relative_path = "python/test-til-1.md"
+    relative_path = "content/python/test-til-1.md"
     temp_git_repo.index.add([relative_path])
     second_commit = temp_git_repo.index.commit("Update test1.md")
 
@@ -117,7 +117,7 @@ def test_get_file_history_multiple_commits(temp_git_repo: Repo, temp_dir: Path) 
     history = git_repo.get_file_history()
 
     # Check that updated times are from the second commit
-    file_history = history["python/test-til-1.md"]
+    file_history = history["content/python/test-til-1.md"]
     updated_time = file_history["updated"]
 
     # The updated time should match the second commit

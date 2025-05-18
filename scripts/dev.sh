@@ -40,25 +40,25 @@ case "${1:-help}" in
     
     format)
         echo -e "${YELLOW}Formatting code...${NC}"
-        uv run ruff format til/ tests/
+        uv run ruff format src/til/ tests/
         echo -e "${GREEN}✓ Code formatted${NC}"
         ;;
     
     lint)
         echo -e "${YELLOW}Running linters...${NC}"
-        uv run ruff check til/ tests/
+        uv run ruff check src/til/ tests/
         echo -e "${GREEN}✓ Linting complete${NC}"
         ;;
     
     fix)
         echo -e "${YELLOW}Fixing linting issues...${NC}"
-        uv run ruff check --fix til/ tests/
+        uv run ruff check --fix src/til/ tests/
         echo -e "${GREEN}✓ Linting issues fixed${NC}"
         ;;
     
     typecheck)
         echo -e "${YELLOW}Running type checker...${NC}"
-        uv run mypy til/
+        uv run mypy src/til/
         echo -e "${GREEN}✓ Type checking complete${NC}"
         ;;
     

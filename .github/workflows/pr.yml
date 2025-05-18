@@ -29,11 +29,11 @@ jobs:
           - task: types
             python-version: '3.12'
             name: 'Type Checks'
-            cmd: 'uv run mypy til/'
+            cmd: 'uv run mypy src/til/'
           - task: lint
             python-version: '3.12'
             name: 'Linting'
-            cmd: 'uv run ruff format --check til/ tests/ && uv run ruff check til/ tests/'
+            cmd: 'uv run ruff format --check src/til/ tests/ && uv run ruff check src/til/ tests/'
     
     name: ${{ matrix.name }}
     

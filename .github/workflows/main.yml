@@ -177,7 +177,7 @@ jobs:
             --branch main \
             --name til-taylorhodge \
             --metadata metadata.yaml \
-            --static static:static \
+            --static static:src/static \
             --install datasette-template-sql \
             --install "datasette-sitemap>=1.0" \
             --install "datasette-atom>=0.7" \
@@ -186,8 +186,8 @@ jobs:
             --install "datasette-debug-asgi>=1.1" \
             --install "datasette-graphql>=2.2" \
             --install datasette-block-robots \
-            --plugins-dir plugins \
-            --template-dir templates
+            --plugins-dir src/plugins \
+            --template-dir src/templates
       
       # - name: Post Slack Notification
       #   if: success()

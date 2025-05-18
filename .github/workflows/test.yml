@@ -90,7 +90,7 @@ jobs:
     
     - name: Run type checks
       run: |
-        uv run mypy til/
+        uv run mypy src/til/
 
   # Linting job - runs only on latest Python
   test-lint:
@@ -118,11 +118,11 @@ jobs:
     
     - name: Check code formatting
       run: |
-        uv run ruff format --check til/ tests/
+        uv run ruff format --check src/til/ tests/
     
     - name: Run linting
       run: |
-        uv run ruff check til/ tests/
+        uv run ruff check src/til/ tests/
 
   # Summary job to ensure all tests pass
   test-summary:
