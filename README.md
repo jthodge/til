@@ -226,8 +226,6 @@ uv run ruff check til/ tests/
 uv run mypy til/
 ```
 
-See [CLAUDE.md](CLAUDE.md) for more detailed development instructions.
-
 ## About
 
 I shamelessly stole this idea from [jbranchaud/til](https://github.com/jbranchaud/til). And I hope you'll shamelessly steal it from me!
