@@ -1,0 +1,17 @@
+/* Search Styles */
+.topic {
+  background-color: #ccc;
+  padding: 3px;
+  border: 1px solid #777;
+  font-size: 0.65em;
+  position: relative;
+  top: -1px;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+pre strong {
+  background-color: yellow;
+}

@@ -8,35 +8,7 @@
   title="Atom"
   href="/til/feed.atom"
 />
-<style>
-  input::placeholder {
-    font-family: "Titillium Web", sans-serif;  
-  }
-  
-  input[type="search"] {
-    padding: 0.25em;
-    font-size: 0.9rem;
-    width: 60%;
-  }
-
-  input[type="submit"] {
-    box-sizing: border-box;
-    color: #fff;
-    background-color: #1a0dab;
-    border-color: #1a0dab;
-    font-family: "Titillium Web", sans-serif;
-    font-weight: 400;
-    cursor: pointer;
-    text-align: center;
-    vertical-align: middle;
-    border-width: 1px;
-    border-style: solid;
-    padding: 0.5em 0.8em;
-    font-size: 0.9rem;
-    line-height: 1;
-    border-radius: 0.25rem;
-  }
-</style>
+<link rel="stylesheet" href="/static/forms.css" />
 {% endblock %} {% block body %}
 {% set til_count = sql("select count(*) from TIL", database="til")[0][0] %}
 
