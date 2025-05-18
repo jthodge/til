@@ -148,6 +148,7 @@ ignore = [
     "E501",  # Line too long (let black handle this)
     "TRY300", # Consider moving this statement to an `else` block
     "TRY301", # Abstract `raise` to an inner function
+    "S110",  # try-except-pass - we're using it appropriately for optional logging
 ]
 
 [tool.ruff.lint.per-file-ignores]

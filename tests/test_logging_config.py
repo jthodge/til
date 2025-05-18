@@ -239,7 +239,7 @@ class TestContextFilter:
 
         result = filter.filter(record)
         assert result is True
-        assert record.request_id == "test-123"  # type: ignore
+        assert record.request_id == "test-123"  # type: ignore[attr-defined]
 
     def test_filter_generates_request_id(self) -> None:
         """Test filter generates request_id if not provided."""
@@ -275,7 +275,7 @@ class TestContextFilter:
 
         result = filter.filter(record)
         assert result is True
-        assert record.request_id == "existing-456"  # type: ignore
+        assert record.request_id == "existing-456"  # type: ignore[attr-defined]
 
 
 class TestSetupLogging:

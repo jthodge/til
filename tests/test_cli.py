@@ -8,7 +8,7 @@ import click.testing
 
 # Import the module and cli separately to fix CI issues
 from til.cli import cli
-from til.logging_config import LogConfig, LogLevel, LogFormat
+from til.logging_config import LogConfig, LogFormat, LogLevel
 
 
 # Get the actual module for patching
