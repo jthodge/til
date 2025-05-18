@@ -10,6 +10,20 @@ from til.config import TILConfig
 class TestBuildDatabase:
     """Test the build_database function."""
 
+    def _create_mock_log_config(self) -> Mock:
+        """Create a properly configured mock log config."""
+        from til.logging_config import LogFormat
+
+        mock_log_config = Mock()
+        mock_log_config.level = Mock()
+        mock_log_config.level.value = "INFO"
+        mock_log_config.format = LogFormat.TEXT
+        mock_log_config.add_context = False
+        mock_log_config.console_enabled = True
+        mock_log_config.log_file = None
+        mock_log_config.request_id = None
+        return mock_log_config
+
     def test_build_database(self, temp_dir: Path) -> None:
         """Test that build_database creates a TILProcessor and calls build_database."""
         config = TILConfig(root_path=temp_dir)
@@ -29,7 +43,9 @@ class TestBuildDatabase:
             patch("til.build_db.TILConfig") as mock_config,
             patch("til.build_db.build_database") as mock_build,
         ):
-            mock_config.from_environment.return_value = Mock()
+            mock_config.from_environment.return_value = Mock(
+                log_config=self._create_mock_log_config()
+            )
 
             # Import main and call it
             from til.build_db import main
