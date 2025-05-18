@@ -69,7 +69,10 @@ def test_process_file(temp_dir: Path) -> None:
     assert record["topic"] == "python"
     assert record["title"] == "Test Title"
     assert record["body"] == "Test content"
-    assert record["url"] == "https://github.com/jthodge/til/blob/main/content/python/test.md"
+    assert (
+        record["url"]
+        == "https://github.com/jthodge/til/blob/main/content/python/test.md"
+    )
 
 
 def test_process_file_not_exists(temp_dir: Path) -> None:

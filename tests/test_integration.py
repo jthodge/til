@@ -46,7 +46,13 @@ class TestFullPipeline:
         til3.write_text("# Bash Loops\n\nFor loops in bash use different syntax.")
 
         # Commit files
-        repo.index.add(["content/python/lists.md", "content/python/decorators.md", "content/bash/loops.md"])
+        repo.index.add(
+            [
+                "content/python/lists.md",
+                "content/python/decorators.md",
+                "content/bash/loops.md",
+            ]
+        )
         repo.index.commit("Add initial TILs")
 
         # Create README
@@ -157,7 +163,7 @@ class TestFullPipeline:
         repo.config_writer().set_value("user", "email", "test@example.com").release()
 
         content_dir = temp_dir / "content"
-        content_dir.mkdir() 
+        content_dir.mkdir()
         test_dir = content_dir / "test"
         test_dir.mkdir()
         til = test_dir / "example.md"

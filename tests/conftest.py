@@ -26,7 +26,7 @@ def temp_git_repo(temp_dir: Path) -> Generator[Repo, None, None]:
     # Create content directory
     content_dir = temp_dir / "content"
     content_dir.mkdir()
-    
+
     # Create sample TIL files
     python_dir = content_dir / "python"
     python_dir.mkdir()
