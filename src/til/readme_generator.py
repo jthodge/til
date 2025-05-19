@@ -43,14 +43,32 @@ class ReadmeGenerator:
         for topic, rows in sorted(by_topic.items()):
             index.append(f"## {topic}\n")
 
+            # Deduplicate entries by slug
+            seen_slugs = set()
+            deduplicated_rows = []
+            
             for row in rows:
+                # Only add if we haven't seen this slug yet
+                if row["slug"] not in seen_slugs:
+                    seen_slugs.add(row["slug"])
+                    deduplicated_rows.append(row)
+                    
+            # Ensure all entries have content/ prefix in the URL for consistency
+            for row in deduplicated_rows:
                 # Handle entries without created dates (e.g., non-TIL files)
                 if row.get("created"):
                     date = row["created"].split("T")[0]
-                    index.append(f"* [{row['title']}]({row['url']}) - {date}")
+                    # Make sure URL points to content directory
+                    url = row["url"]
+                    if "/content/" not in url and "/blob/main/" in url:
+                        url = url.replace("/blob/main/", "/blob/main/content/", 1)
+                    index.append(f"* [{row['title']}]({url}) - {date}")
                 else:
                     # For entries without dates, just show the title and URL
-                    index.append(f"* [{row['title']}]({row['url']})")
+                    url = row["url"]
+                    if "/content/" not in url and "/blob/main/" in url:
+                        url = url.replace("/blob/main/", "/blob/main/content/", 1)
+                    index.append(f"* [{row['title']}]({url})")
             index.append("")
 
         # Remove trailing empty line if present
