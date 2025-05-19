@@ -130,7 +130,7 @@ jobs:
       - name: Perform soundness check
         run: |
           cd main
-          uv run datasette . --get / | grep "Taylor Hodge - TIL"
+          uv run datasette . --template-dir src/templates --get / | grep "Taylor Hodge - TIL"
       
       - name: Update README
         run: |
