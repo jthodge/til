@@ -15,7 +15,7 @@ import pathlib
 import shutil
 import sqlite3
 import sys
-from typing import Any
+from typing import Any, Union
 
 
 logging.basicConfig(
@@ -27,10 +27,10 @@ logger = logging.getLogger(__name__)
 class ProductionMigration:
     """Handles safe database migration with backup and rollback capabilities."""
 
-    def __init__(self, db_path: pathlib.Path):
+    def __init__(self, db_path: Union[pathlib.Path, str]):
         """Initialize the migration with the database path."""
-        self.db_path = db_path
-        self.backup_path = db_path.with_suffix(".backup")
+        self.db_path = pathlib.Path(db_path)
+        self.backup_path = self.db_path.with_suffix(".backup")
 
     def create_backup(self) -> None:
         """Create a backup of the database."""
