@@ -1,101 +1,123 @@
-# `DiskFull` Error
+# Postgres `DiskFull` Error
 
-A noteworthy, common Postgres error. Particularly when working with Postgres via ORMs.
+I.e. `could not resize shared memory segment`
 
-Generic form:
+## BLUF
 
-```bash
-DiskFull ERRROR: could not resize shared memory segment
+* The error stems from shared‑memory exhaustion, **not** disk usage.
+* Multiply `work_mem × workers × hash/sort nodes` to estimate demand.
+* Hash joins are the usual offender; fix with composite indexes or lower `work_mem`.
+* Bursty logs trace back to one pathological query—optimize it, cap resources, or add RAM.
+* Single occurrences are noise; systemic repetition is solvable with the steps above.
+
+When Postgres writes
+
+```
+ERROR: could not resize shared memory segment "/PostgreSQL.…" to N bytes: No space left on device
 ```
 
-Python flavored:
+it is signalling an *internal* out‑of‑memory condition. The string “DiskFull” is appended by libpq clients; the physical volume is almost always fine. The failure occurs in a `shmget(2)` call while extending a hash‑or‑sort buffer inside `/dev/shm` (on Linux) or System V shared memory.
+
+---
+
+## Mechanics: why memory, *not* disk?
+
+| Factor                       | Multiplier | Example                    |
+| ---------------------------- | ---------: | -------------------------- |
+| `work_mem` per plan node     |      38 MB |                            |
+| × parallel workers           |          8 | `max_parallel_workers = 8` |
+| × RAM‑hungry nodes           |          5 | hash joins + sorts         |
+| **Total shared‑buf request** | **7.6 GB** | 38 MB × 8 × 5              |
+
+If the allocator sees < 7.6 GB available in the shared segment, it aborts the backend and raises this error. Large temporary operations *usually* spill to disk, but the planner prefers in‑memory hash joins/aggregates whenever the node fits within `work_mem`; once the multiplication above overshoots, spilling is impossible.
+
+---
+
+## Initial sanity checks
 
 ```bash
-psycopg2.OperationalError: ERROR:  could not resize shared memory segment "/PostgreSQL.759674958" to 55444231 bytes: No space left on device
+# disk really OK?
+df -h /var/lib/postgresql
+
+# frequency over the last day
+grep -iR "could not resize shared memory" /var/log/postgresql \
+  | sed 's/.log.*//' | uniq -c | sort -nr   # bursty? continuous?
 ```
 
-## Possible Causes
+Single‑digit incidents per day are benign. Persistent bursts require investigation.
 
-`DiskFull` errors can occur due to:
+---
 
-1. **Actual disk space exhaustion**: The database server is genuinely out of disk space
-2. **Temporary files filling up**: Heavy queries or sorts creating large temporary files
-3. **Shared memory segment limitations**: Operating system limits on shared memory segments (often on macOS)
-4. **WAL segment accumulation**: Write-Ahead Log files building up due to replication lag or misconfiguration
-5. **Log file growth**: Excessive logging filling up disk space
+## Trace a specimen query
 
-## Common Fixes
-
-1. **Check disk space**:
+1. Extract the PID from a log line (`postgres[5883275]: …`).
+2. Pull the full statement sequence:
 
    ```bash
-   df -h
+   grep 5883275 /var/log/postgresql/*.log | less  # note: [42-1], [42-2] fragments
    ```
-
-2. **Clean up temporary files**:
+3. In `psql`, inspect the execution plan:
 
    ```sql
-   -- Check temp file usage
-   SELECT datname, temp_files, temp_bytes FROM pg_stat_database;
+   EXPLAIN (ANALYZE, BUFFERS) <query>;
    ```
 
-3. **Increase shared memory limits** (macOS):
+Red flags: `Hash Join`, `HashAggregate`, many `Workers Launched`, or unusually high `Work_mem` in the settings column.
 
-   ```bash
-   sudo sysctl -w kern.sysv.shmmax=4294967296
-   sudo sysctl -w kern.sysv.shmall=1048576
-   ```
+---
 
-4. **Manage WAL segments**:
+## Remediation
 
-   ```sql
-   -- Check WAL size
-   SELECT pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(), '0/0'));
-   ```
+| Symptom                    | Targeted fix                                      | Command                                                           |
+| -------------------------- | ------------------------------------------------- | ----------------------------------------------------------------- |
+| Hash joins on large tables | Encourage merge/nested‑loop joins via **indexes** | `CREATE INDEX CONCURRENTLY ON big(a, b);`                         |
+| Generous `work_mem`        | Lower to a rational per‑node value                | `ALTER SYSTEM SET work_mem = '16MB';`  `SELECT pg_reload_conf();` |
+| Explosive parallelism      | Cap workers                                       | `ALTER SYSTEM SET max_parallel_workers = 4;`                      |
+| Broad `SELECT *` analytics | Trim projection or materialize interim results    | `CREATE MATERIALIZED VIEW …`                                      |
+| Still OOM after tuning     | Add RAM / move to a larger instance               | —                                                                 |
 
-5. **Vacuum database**:
+Implementation order: **indexes → memory tuning → parallelism → query rewrite → hardware**. After each change rerun the log grep to confirm reduction.
 
-   ```sql
-   VACUUM FULL;
-   ```
+---
 
-## Investigation Techniques
+## Detailed tuning notes
 
-1. **Check PostgreSQL logs**:
+### Index strategy
 
-   ```bash
-   tail -f /var/log/postgresql/postgresql-*.log
-   ```
+If a query filters on column A and joins on column B, add a multicolumn index `(A, B)` on *both* tables; this reduces the hash‑table input size and lets the planner pick a merge join.
 
-2. **Monitor disk usage by database**:
+### Memory parameters
 
-   ```sql
-   SELECT datname, pg_size_pretty(pg_database_size(datname))
-   FROM pg_database
-   ORDER BY pg_database_size(datname) DESC;
-   ```
+`work_mem` is global‑per‑node, not per‑session. Keep it conservative (8–32 MB) on OLTP systems and use `SET LOCAL work_mem = …` for known analytics jobs.
 
-3. **Identify large tables**:
-   ```sql
-   SELECT schemaname, tablename, pg_size_pretty(pg_total_relation_size(schemaname||'.'||tablename))
-   FROM pg_tables
-   ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC
-   LIMIT 10;
-   ```
+### Parallel workers
 
-4. **Check running queries**:
-   ```sql
-   SELECT pid, now() - query_start AS duration, query
-   FROM pg_stat_activity
-   WHERE state = 'active'
-   ORDER BY duration DESC;
-   ```
+High `work_mem` *and* many workers multiply; tune them together. A practical upper bound is:
 
-5. **Monitor temporary file creation**:
-   ```sql
-   SELECT query, temp_blks_written
-   FROM pg_stat_statements
-   WHERE temp_blks_written > 0
-   ORDER BY temp_blks_written DESC
-   LIMIT 10;
-   ```
+```
+total_RAM_bytes × 0.4 / (work_mem_bytes × avg_parallel_nodes)
+```
+
+Empirical monitoring trumps formulas—adjust until incidents disappear without degrading throughput.
+
+---
+
+## "Don’t panic" playbook
+
+```bash
+# 1. Prove the volume has headroom
+df -hT /var/lib/postgresql
+
+# 2. Locate noisy backends
+grep -iR "could not resize shared memory" /var/log/postgresql | head
+
+pid=5883275
+grep $pid /var/log/postgresql/* | less        # capture SQL
+
+# 3. Inside psql
+EXPLAIN (ANALYZE, BUFFERS) <query>;
+-- if HASH JOIN present:
+CREATE INDEX CONCURRENTLY ... ;
+SET work_mem = '16MB';
+SET max_parallel_workers = 4;
+```
