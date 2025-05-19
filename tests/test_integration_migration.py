@@ -24,7 +24,7 @@ def test_full_migration_workflow() -> None:
     cursor = conn.cursor()
 
     # Create the til table
-    cursor.execute('''
+    cursor.execute("""
         CREATE TABLE til (
             path TEXT PRIMARY KEY,
             slug TEXT,
@@ -38,38 +38,71 @@ def test_full_migration_workflow() -> None:
             updated_utc TEXT,
             url TEXT
         )
-    ''')
+    """)
 
     # Insert a mix of old and new entries with various edge cases
     entries = [
         # Old entries with timestamps
-        ('bash_script-template.md', 'script-template', 'bash', 'Shell Script Template',
-         'Template body', '<p>Template body</p>',
-         '2020-05-01T12:00:00', '2020-05-01T16:00:00',
-         '2020-05-01T12:00:00', '2020-05-01T16:00:00',
-         'https://github.com/jthodge/til/blob/main/bash/script-template.md'),
-
+        (
+            "bash_script-template.md",
+            "script-template",
+            "bash",
+            "Shell Script Template",
+            "Template body",
+            "<p>Template body</p>",
+            "2020-05-01T12:00:00",
+            "2020-05-01T16:00:00",
+            "2020-05-01T12:00:00",
+            "2020-05-01T16:00:00",
+            "https://github.com/jthodge/til/blob/main/bash/script-template.md",
+        ),
         # New entries without timestamps (duplicates)
-        ('content_bash_script-template.md', 'script-template', 'bash', 'Shell Script Template',
-         'Template body', '<p>Template body</p>',
-         None, None, None, None,
-         'https://github.com/jthodge/til/blob/main/content/bash/script-template.md'),
-
+        (
+            "content_bash_script-template.md",
+            "script-template",
+            "bash",
+            "Shell Script Template",
+            "Template body",
+            "<p>Template body</p>",
+            None,
+            None,
+            None,
+            None,
+            "https://github.com/jthodge/til/blob/main/content/bash/script-template.md",
+        ),
         # Entry with partial timestamp info
-        ('python_deepcopy.md', 'deepcopy', 'python', 'Creating Deep Copies',
-         'Deepcopy body', '<p>Deepcopy body</p>',
-         '2021-03-15T09:30:00', None, None, None,
-         'https://github.com/jthodge/til/blob/main/python/deepcopy.md'),
-
+        (
+            "python_deepcopy.md",
+            "deepcopy",
+            "python",
+            "Creating Deep Copies",
+            "Deepcopy body",
+            "<p>Deepcopy body</p>",
+            "2021-03-15T09:30:00",
+            None,
+            None,
+            None,
+            "https://github.com/jthodge/til/blob/main/python/deepcopy.md",
+        ),
         # New entry without old counterpart
-        ('content_javascript_promises.md', 'promises', 'javascript', 'Understanding Promises',
-         'Promise body', '<p>Promise body</p>',
-         '2024-01-01T00:00:00', '2024-01-01T00:00:00',
-         '2024-01-01T00:00:00', '2024-01-01T00:00:00',
-         'https://github.com/jthodge/til/blob/main/content/javascript/promises.md'),
+        (
+            "content_javascript_promises.md",
+            "promises",
+            "javascript",
+            "Understanding Promises",
+            "Promise body",
+            "<p>Promise body</p>",
+            "2024-01-01T00:00:00",
+            "2024-01-01T00:00:00",
+            "2024-01-01T00:00:00",
+            "2024-01-01T00:00:00",
+            "https://github.com/jthodge/til/blob/main/content/javascript/promises.md",
+        ),
     ]
 
-    cursor.executemany('INSERT INTO til VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', entries)
+    cursor.executemany(
+        "INSERT INTO til VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", entries
+    )
     conn.commit()
     conn.close()
 
@@ -78,7 +111,7 @@ def test_full_migration_workflow() -> None:
         migration = ProductionMigration(db_path)
 
         # Mock input to not keep backup
-        with patch('builtins.input', return_value='n'):
+        with patch("builtins.input", return_value="n"):
             success = migration.run()
 
         assert success
@@ -98,7 +131,9 @@ def test_full_migration_workflow() -> None:
         assert len(duplicates) == 0
 
         # Check that old entries with duplicates were removed
-        cursor.execute("SELECT COUNT(*) FROM til WHERE path = 'bash_script-template.md'")
+        cursor.execute(
+            "SELECT COUNT(*) FROM til WHERE path = 'bash_script-template.md'"
+        )
         old_bash_count = cursor.fetchone()[0]
         assert old_bash_count == 0
 
@@ -114,7 +149,7 @@ def test_full_migration_workflow() -> None:
             WHERE path = 'content_bash_script-template.md'
         """)
         result = cursor.fetchone()
-        assert result[0] == '2020-05-01T12:00:00'
+        assert result[0] == "2020-05-01T12:00:00"
 
         # Check that new entry without old counterpart still exists
         cursor.execute("""
@@ -135,14 +170,16 @@ def test_full_migration_workflow() -> None:
         index_lines = generator.generate_index()
 
         # Verify content
-        content = '\n'.join(index_lines)
-        assert 'Shell Script Template' in content
-        assert 'Understanding Promises' in content
-        assert '2020-05-01' in content  # Old timestamp preserved
-        assert '2024-01-01' in content  # New timestamp kept
+        content = "\n".join(index_lines)
+        assert "Shell Script Template" in content
+        assert "Understanding Promises" in content
+        assert "2020-05-01" in content  # Old timestamp preserved
+        assert "2024-01-01" in content  # New timestamp kept
 
         # Test updating README file
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False) as readme:
+        with tempfile.NamedTemporaryFile(
+            mode="w", suffix=".md", delete=False
+        ) as readme:
             readme_path = pathlib.Path(readme.name)
             readme.write("""# Test README
 
@@ -156,8 +193,8 @@ def test_full_migration_workflow() -> None:
         with open(readme_path) as f:
             updated_content = f.read()
 
-        assert 'Shell Script Template' in updated_content
-        assert 'Understanding Promises' in updated_content
+        assert "Shell Script Template" in updated_content
+        assert "Understanding Promises" in updated_content
 
         # Cleanup
         readme_path.unlink()
@@ -178,7 +215,7 @@ def test_migration_workflow_with_edge_cases() -> None:
     cursor = conn.cursor()
 
     # Create table
-    cursor.execute('''
+    cursor.execute("""
         CREATE TABLE til (
             path TEXT PRIMARY KEY,
             slug TEXT,
@@ -192,29 +229,57 @@ def test_migration_workflow_with_edge_cases() -> None:
             updated_utc TEXT,
             url TEXT
         )
-    ''')
+    """)
 
     # Edge cases
     entries = [
         # Entry with null created but valid updated
-        ('old_edge1.md', 'edge1', 'testing', 'Edge Case 1', 'Body', '<p>Body</p>',
-         None, None, '2022-01-01T00:00:00', '2022-01-01T00:00:00',
-         'https://example.com/old_edge1.md'),
-
+        (
+            "old_edge1.md",
+            "edge1",
+            "testing",
+            "Edge Case 1",
+            "Body",
+            "<p>Body</p>",
+            None,
+            None,
+            "2022-01-01T00:00:00",
+            "2022-01-01T00:00:00",
+            "https://example.com/old_edge1.md",
+        ),
         # Special characters in path/slug
-        ('content_testing_special-chars-test.md', 'special-chars-test', 'testing',
-         'Special Characters: Test!', 'Body', '<p>Body</p>',
-         '2023-01-01T00:00:00', '2023-01-01T00:00:00', None, None,
-         'https://example.com/content_testing_special-chars-test.md'),
-
+        (
+            "content_testing_special-chars-test.md",
+            "special-chars-test",
+            "testing",
+            "Special Characters: Test!",
+            "Body",
+            "<p>Body</p>",
+            "2023-01-01T00:00:00",
+            "2023-01-01T00:00:00",
+            None,
+            None,
+            "https://example.com/content_testing_special-chars-test.md",
+        ),
         # Very long title
-        ('content_testing_long-title.md', 'long-title', 'testing',
-         'This is a very long title that might cause issues with formatting or display in various contexts but should still be handled properly',
-         'Body', '<p>Body</p>', None, None, None, None,
-         'https://example.com/content_testing_long-title.md'),
+        (
+            "content_testing_long-title.md",
+            "long-title",
+            "testing",
+            "This is a very long title that might cause issues with formatting or display in various contexts but should still be handled properly",
+            "Body",
+            "<p>Body</p>",
+            None,
+            None,
+            None,
+            None,
+            "https://example.com/content_testing_long-title.md",
+        ),
     ]
 
-    cursor.executemany('INSERT INTO til VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', entries)
+    cursor.executemany(
+        "INSERT INTO til VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", entries
+    )
     conn.commit()
     conn.close()
 
@@ -222,7 +287,7 @@ def test_migration_workflow_with_edge_cases() -> None:
         # Run migration
         migration = ProductionMigration(db_path)
 
-        with patch('builtins.input', return_value='n'):
+        with patch("builtins.input", return_value="n"):
             success = migration.run()
 
         assert success
@@ -233,11 +298,11 @@ def test_migration_workflow_with_edge_cases() -> None:
 
         # Should not raise exceptions with edge cases
         index_lines = generator.generate_index()
-        content = '\n'.join(index_lines)
+        content = "\n".join(index_lines)
 
         # Verify all entries are included
-        assert 'Special Characters: Test!' in content
-        assert 'This is a very long title' in content
+        assert "Special Characters: Test!" in content
+        assert "This is a very long title" in content
 
     finally:
         if db_path.exists():

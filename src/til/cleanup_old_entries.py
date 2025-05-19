@@ -34,7 +34,8 @@ def cleanup_old_entries(db_path: pathlib.Path) -> None:
             paths_to_delete = [entry[0] for entry in old_entries]
             placeholders = ",".join(["?"] * len(paths_to_delete))
             cursor.execute(
-                f"DELETE FROM til WHERE path IN ({placeholders})", paths_to_delete  # noqa: S608
+                f"DELETE FROM til WHERE path IN ({placeholders})",
+                paths_to_delete,  # noqa: S608
             )
 
             for path, slug, topic in old_entries:

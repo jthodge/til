@@ -157,7 +157,8 @@ class ProductionMigration:
                 logger.info(f"Deleting {len(deletions)} old entries...")
                 placeholders = ",".join(["?"] * len(deletions))
                 cursor.execute(
-                    f"DELETE FROM til WHERE path IN ({placeholders})", deletions  # noqa: S608
+                    f"DELETE FROM til WHERE path IN ({placeholders})",
+                    deletions,  # noqa: S608
                 )
 
             conn.commit()

@@ -27,7 +27,7 @@ def test_db_with_duplicates() -> Generator[pathlib.Path, None, None]:
     cursor = conn.cursor()
 
     # Create table
-    cursor.execute('''
+    cursor.execute("""
         CREATE TABLE til (
             path TEXT PRIMARY KEY,
             slug TEXT,
@@ -41,32 +41,102 @@ def test_db_with_duplicates() -> Generator[pathlib.Path, None, None]:
             updated_utc TEXT,
             url TEXT
         )
-    ''')
+    """)
 
     # Insert old-style entries
     old_entries = [
-        ('bash_test-entry.md', 'test-entry', 'bash', 'Test Entry', 'Body', '<p>Body</p>',
-         '2020-01-01T00:00:00', '2020-01-01T00:00:00', '2020-01-01T00:00:00', '2020-01-01T00:00:00',
-         'https://github.com/jthodge/til/blob/main/bash/test-entry.md'),
-        ('python_another-test.md', 'another-test', 'python', 'Another Test', 'Body 2', '<p>Body 2</p>',
-         '2021-01-01T00:00:00', '2021-01-01T00:00:00', '2021-01-01T00:00:00', '2021-01-01T00:00:00',
-         'https://github.com/jthodge/til/blob/main/python/another-test.md'),
+        (
+            "bash_test-entry.md",
+            "test-entry",
+            "bash",
+            "Test Entry",
+            "Body",
+            "<p>Body</p>",
+            "2020-01-01T00:00:00",
+            "2020-01-01T00:00:00",
+            "2020-01-01T00:00:00",
+            "2020-01-01T00:00:00",
+            "https://github.com/jthodge/til/blob/main/bash/test-entry.md",
+        ),
+        (
+            "python_another-test.md",
+            "another-test",
+            "python",
+            "Another Test",
+            "Body 2",
+            "<p>Body 2</p>",
+            "2021-01-01T00:00:00",
+            "2021-01-01T00:00:00",
+            "2021-01-01T00:00:00",
+            "2021-01-01T00:00:00",
+            "https://github.com/jthodge/til/blob/main/python/another-test.md",
+        ),
     ]
 
     # Insert new-style entries (duplicates)
-    new_entries: list[tuple[str, str, str, str, str, str, Optional[str], Optional[str], Optional[str], Optional[str], str]] = [
-        ('content_bash_test-entry.md', 'test-entry', 'bash', 'Test Entry', 'Body', '<p>Body</p>',
-         None, None, None, None,
-         'https://github.com/jthodge/til/blob/main/content/bash/test-entry.md'),
-        ('content_python_another-test.md', 'another-test', 'python', 'Another Test', 'Body 2', '<p>Body 2</p>',
-         None, None, None, None,
-         'https://github.com/jthodge/til/blob/main/content/python/another-test.md'),
+    new_entries: list[
+        tuple[
+            str,
+            str,
+            str,
+            str,
+            str,
+            str,
+            Optional[str],
+            Optional[str],
+            Optional[str],
+            Optional[str],
+            str,
+        ]
+    ] = [
+        (
+            "content_bash_test-entry.md",
+            "test-entry",
+            "bash",
+            "Test Entry",
+            "Body",
+            "<p>Body</p>",
+            None,
+            None,
+            None,
+            None,
+            "https://github.com/jthodge/til/blob/main/content/bash/test-entry.md",
+        ),
+        (
+            "content_python_another-test.md",
+            "another-test",
+            "python",
+            "Another Test",
+            "Body 2",
+            "<p>Body 2</p>",
+            None,
+            None,
+            None,
+            None,
+            "https://github.com/jthodge/til/blob/main/content/python/another-test.md",
+        ),
     ]
 
-    all_entries: list[tuple[str, str, str, str, str, str, Optional[str], Optional[str], Optional[str], Optional[str], str]] = []
+    all_entries: list[
+        tuple[
+            str,
+            str,
+            str,
+            str,
+            str,
+            str,
+            Optional[str],
+            Optional[str],
+            Optional[str],
+            Optional[str],
+            str,
+        ]
+    ] = []
     all_entries.extend(old_entries)  # type: ignore[arg-type]
     all_entries.extend(new_entries)
-    cursor.executemany('INSERT INTO til VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', all_entries)
+    cursor.executemany(
+        "INSERT INTO til VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", all_entries
+    )
 
     conn.commit()
     conn.close()
@@ -78,7 +148,9 @@ def test_db_with_duplicates() -> Generator[pathlib.Path, None, None]:
         db_path.unlink()
 
 
-def test_readme_generator_handles_null_timestamps(test_db_with_duplicates: pathlib.Path) -> None:
+def test_readme_generator_handles_null_timestamps(
+    test_db_with_duplicates: pathlib.Path,
+) -> None:
     """Test that README generator handles entries with null timestamps."""
     db = TILDatabase(test_db_with_duplicates)
     generator = ReadmeGenerator(db)
@@ -90,9 +162,9 @@ def test_readme_generator_handles_null_timestamps(test_db_with_duplicates: pathl
     assert len(index_lines) > 0
 
     # Check that entries without dates are still included
-    content = '\n'.join(index_lines)
-    assert 'Test Entry' in content
-    assert 'Another Test' in content
+    content = "\n".join(index_lines)
+    assert "Test Entry" in content
+    assert "Another Test" in content
 
 
 def test_migrate_timestamps(test_db_with_duplicates: pathlib.Path) -> None:
@@ -105,7 +177,7 @@ def test_migrate_timestamps(test_db_with_duplicates: pathlib.Path) -> None:
 
     cursor.execute("SELECT created FROM til WHERE path = 'content_bash_test-entry.md'")
     result = cursor.fetchone()
-    assert result[0] == '2020-01-01T00:00:00'
+    assert result[0] == "2020-01-01T00:00:00"
 
     conn.close()
 
@@ -145,7 +217,7 @@ def test_remove_duplicates(test_db_with_duplicates: pathlib.Path) -> None:
     # Check timestamps were preserved
     cursor.execute("SELECT created FROM til WHERE path = 'content_bash_test-entry.md'")
     result = cursor.fetchone()
-    assert result[0] == '2020-01-01T00:00:00'
+    assert result[0] == "2020-01-01T00:00:00"
 
     conn.close()
 
@@ -155,7 +227,7 @@ def test_production_migration(test_db_with_duplicates: pathlib.Path) -> None:
     migration = ProductionMigration(test_db_with_duplicates)
 
     # Mock input to not keep backup
-    with patch('builtins.input', return_value='n'):
+    with patch("builtins.input", return_value="n"):
         success = migration.run()
 
     assert success
