@@ -44,8 +44,13 @@ class ReadmeGenerator:
             index.append(f"## {topic}\n")
 
             for row in rows:
-                date = row["created"].split("T")[0]
-                index.append(f"* [{row['title']}]({row['url']}) - {date}")
+                # Handle entries without created dates (e.g., non-TIL files)
+                if row.get("created"):
+                    date = row["created"].split("T")[0]
+                    index.append(f"* [{row['title']}]({row['url']}) - {date}")
+                else:
+                    # For entries without dates, just show the title and URL
+                    index.append(f"* [{row['title']}]({row['url']})")
             index.append("")
 
         # Remove trailing empty line if present

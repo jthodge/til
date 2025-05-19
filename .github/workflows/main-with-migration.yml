@@ -1,0 +1,352 @@
+name: Build, Deploy and Migrate
+
+on:
+  push:
+    branches:
+      - main
+
+# Cancel in-progress runs when a new run is triggered
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Run tests using the reusable workflow
+  test:
+    uses: ./.github/workflows/test.yml
+  
+  # Start build preparations early, in parallel with tests
+  prepare-build:
+    runs-on: ubuntu-latest
+    outputs:
+      should-rebuild: ${{ steps.check-rebuild.outputs.rebuild }}
+      should-migrate: ${{ steps.check-migrate.outputs.migrate }}
+      migration-type: ${{ steps.check-migrate.outputs.migration-type }}
+    
+    steps:
+      - name: Check out jthodge/til
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          path: main
+      
+      - name: Check out jthodge/til-db
+        uses: actions/checkout@v4
+        with:
+          repository: jthodge/til-db
+          path: til-db
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN_FOR_PUSH }}
+      
+      - name: Check commit message flags
+        id: check-flags
+        run: |
+          COMMIT_MSG="${{ github.event.head_commit.message }}"
+          
+          # Check for REBUILD flag
+          if [[ "$COMMIT_MSG" == *"REBUILD"* ]]; then
+            echo "rebuild=true" >> $GITHUB_OUTPUT
+          else
+            echo "rebuild=false" >> $GITHUB_OUTPUT
+          fi
+          
+          # Check for MIGRATE flag
+          if [[ "$COMMIT_MSG" == *"MIGRATE"* ]]; then
+            echo "migrate=true" >> $GITHUB_OUTPUT
+            
+            # Check migration type
+            if [[ "$COMMIT_MSG" == *"MIGRATE:DEDUP"* ]]; then
+              echo "migration-type=dedup" >> $GITHUB_OUTPUT
+            elif [[ "$COMMIT_MSG" == *"MIGRATE:TIMESTAMP"* ]]; then
+              echo "migration-type=timestamp" >> $GITHUB_OUTPUT
+            else
+              echo "migration-type=full" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "migrate=false" >> $GITHUB_OUTPUT
+            echo "migration-type=none" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Set migration outputs
+        id: check-migrate
+        run: |
+          echo "migrate=${{ steps.check-flags.outputs.migrate }}" >> $GITHUB_OUTPUT
+          echo "migration-type=${{ steps.check-flags.outputs.migration-type }}" >> $GITHUB_OUTPUT
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+      
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+          github-token: ${{ github.token }}
+          cache-prefix: "build"
+      
+      - name: Install dependencies
+        run: |
+          cd main
+          uv venv
+          uv sync
+      
+      - name: Cache build artifacts
+        uses: actions/cache@v4
+        with:
+          path: |
+            main/til.db
+            main/.venv
+          key: build-artifacts-${{ github.sha }}
+  
+  # Database migration job (optional, based on commit message)
+  migrate:
+    needs: [test, prepare-build]
+    if: |
+      always() && 
+      needs.test.result == 'success' &&
+      needs.prepare-build.outputs.should-migrate == 'true'
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check out jthodge/til
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          path: main
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+      
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+          github-token: ${{ github.token }}
+      
+      - name: Install dependencies
+        run: |
+          cd main
+          uv venv
+          uv sync
+      
+      - name: Download current database
+        run: |
+          curl --fail -o main/til.db https://raw.githubusercontent.com/jthodge/til-db/main/til.db
+      
+      - name: Create database backup
+        run: |
+          cd main
+          cp til.db til.db.backup-$(date +%Y%m%d-%H%M%S)
+          
+      - name: Run migration
+        env:
+          MIGRATION_TYPE: ${{ needs.prepare-build.outputs.migration-type }}
+        run: |
+          cd main
+          
+          case "$MIGRATION_TYPE" in
+            "dedup")
+              echo "Running deduplication migration..."
+              uv run python src/til/production_safe_migration.py til.db
+              ;;
+            "timestamp")
+              echo "Running timestamp migration..."
+              uv run python src/til/migrate_timestamps.py til.db
+              ;;
+            "full")
+              echo "Running full migration..."
+              uv run python src/til/production_safe_migration.py til.db
+              ;;
+            *)
+              echo "Unknown migration type: $MIGRATION_TYPE"
+              exit 1
+              ;;
+          esac
+      
+      - name: Validate migration
+        run: |
+          cd main
+          
+          # Check for duplicates
+          DUPLICATES=$(uv run sqlite3 til.db "SELECT slug, topic, COUNT(*) as count FROM til GROUP BY slug, topic HAVING count > 1;" | wc -l)
+          if [ "$DUPLICATES" -gt 0 ]; then
+            echo "ERROR: Found $DUPLICATES duplicate entries after migration"
+            exit 1
+          fi
+          
+          # Check database integrity
+          uv run sqlite3 til.db "PRAGMA integrity_check;"
+          
+          # Check that content entries have proper timestamps
+          NULL_TIMESTAMPS=$(uv run sqlite3 til.db "SELECT COUNT(*) FROM til WHERE path LIKE 'content_%' AND created IS NULL;")
+          echo "Entries with null timestamps: $NULL_TIMESTAMPS"
+      
+      - name: Upload migration artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: migrated-database
+          path: main/til.db
+          retention-days: 7
+      
+      - name: Create migration report
+        run: |
+          cd main
+          
+          cat > migration-report.md << EOF
+          # Migration Report
+          
+          - Date: $(date)
+          - Migration Type: ${{ needs.prepare-build.outputs.migration-type }}
+          - Commit: ${{ github.sha }}
+          
+          ## Database Statistics
+          
+          - Total entries: $(uv run sqlite3 til.db 'SELECT COUNT(*) FROM til;')
+          - Entries with content/ prefix: $(uv run sqlite3 til.db 'SELECT COUNT(*) FROM til WHERE path LIKE "content_%";')
+          - Entries without timestamps: $(uv run sqlite3 til.db 'SELECT COUNT(*) FROM til WHERE created IS NULL;')
+          
+          ## Validation Results
+          
+          - Duplicates found: $DUPLICATES
+          - Database integrity: PASSED
+          EOF
+          
+          cat migration-report.md
+      
+      - name: Upload migration report
+        uses: actions/upload-artifact@v4
+        with:
+          name: migration-report
+          path: main/migration-report.md
+  
+  # Main build job
+  build:
+    needs: [test, prepare-build, migrate]
+    # Continue building even if migration was skipped
+    if: |
+      always() && 
+      needs.test.result == 'success' &&
+      (needs.migrate.result == 'success' || needs.migrate.result == 'skipped')
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Restore build artifacts
+        uses: actions/cache@v4
+        with:
+          path: |
+            main/til.db
+            main/.venv
+          key: build-artifacts-${{ github.sha }}
+      
+      - name: Check out jthodge/til
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          path: main
+      
+      - name: Check out jthodge/til-db
+        uses: actions/checkout@v4
+        with:
+          repository: jthodge/til-db
+          path: til-db
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN_FOR_PUSH }}
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+      
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+          github-token: ${{ github.token }}
+          cache-prefix: "build"
+      
+      - name: Download migrated database if available
+        if: needs.migrate.result == 'success'
+        uses: actions/download-artifact@v4
+        with:
+          name: migrated-database
+          path: main
+      
+      - name: Download previous database if no migration
+        if: |
+          needs.prepare-build.outputs.should-rebuild != 'true' &&
+          needs.migrate.result != 'success'
+        run: |
+          curl --fail -o main/til.db https://raw.githubusercontent.com/jthodge/til-db/main/til.db || true
+        continue-on-error: true
+      
+      - name: Build database
+        env:
+          MARKDOWN_GITHUB_TOKEN: ${{ secrets.MARKDOWN_GITHUB_TOKEN }}
+        run: |
+          cd main
+          uv run til build
+      
+      - name: Perform soundness check
+        run: |
+          cd main
+          uv run datasette . --template-dir src/templates --get / | grep "Taylor Hodge - TIL"
+      
+      - name: Update README
+        run: |
+          cd main
+          uv run til update-readme --rewrite
+          cat README.md
+      
+      - name: Commit and push if README changed
+        run: |
+          cd main
+          git diff
+          git config --global user.email "j.taylor.hodge@gmail.com"
+          git config --global user.name "jthodge"
+          git stash --include-untracked
+          git pull origin main --rebase
+          git stash pop || true
+          git diff --quiet || (git add README.md && git commit -m "Updated README")
+          git push
+      
+      - name: Save til.db to jthodge/til-db
+        run: |
+          cd til-db
+          cp ../main/til.db .
+          git add til.db
+          git commit --amend --no-edit
+          git push --force
+      
+      - name: Deploy to Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          cd main
+          # Install Heroku CLI
+          curl https://cli-assets.heroku.com/install.sh | sh
+          heroku plugins:install heroku-builds
+          
+          # Clear existing buildpacks and set them in the correct order
+          heroku buildpacks:clear -a til-taylorhodge
+          heroku buildpacks:add -a til-taylorhodge https://github.com/simonw/datasette-publish-heroku
+          heroku buildpacks:add -a til-taylorhodge heroku/python
+          
+          # Deploy
+          uv run datasette publish heroku til.db \
+            --branch main \
+            --name til-taylorhodge \
+            --metadata metadata.yaml \
+            --static static:src/static \
+            --install datasette-template-sql \
+            --install "datasette-sitemap>=1.0" \
+            --install "datasette-atom>=0.7" \
+            --install datasette-json-html \
+            --install beautifulsoup4 \
+            --install "datasette-debug-asgi>=1.1" \
+            --install "datasette-graphql>=2.2" \
+            --install datasette-block-robots \
+            --plugins-dir src/plugins \
+            --template-dir src/templates
