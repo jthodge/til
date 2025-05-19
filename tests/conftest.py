@@ -7,7 +7,6 @@ from typing import Optional
 
 import pytest
 import sqlite_utils
-
 from git import Repo
 
 

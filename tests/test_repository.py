@@ -3,10 +3,10 @@
 import pathlib
 from pathlib import Path
 
-import pytest
-
 import git
+import pytest
 from git import Repo
+
 from til.exceptions import RepositoryError
 from til.repository import GitRepository
 

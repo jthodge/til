@@ -5,8 +5,8 @@ from pathlib import Path
 
 import pytest
 import sqlite_utils
-
 from git import Repo
+
 from til.build_db import build_database
 from til.config import TILConfig
 from til.database import TILDatabase
