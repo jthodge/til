@@ -7,29 +7,30 @@ database to ensure consistency.
 """
 
 import logging
-import pathlib
 import sys
+
 from .config_loader import ConfigLoader
 from .processor import TILProcessor
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def main():
+def main() -> None:
     """Rebuild database to fix inconsistent URLs."""
     try:
         # Load configuration
         config_loader = ConfigLoader()
         config = config_loader.load_config()
-        
+
         # Create processor and rebuild database
         processor = TILProcessor(config)
         logger.info("Rebuilding database to fix inconsistent URLs...")
         processor.build_database()
-        
+
         logger.info("Database rebuild complete!")
-        
+
     except Exception as e:
         logger.error(f"Error rebuilding database: {e}")
         sys.exit(1)
