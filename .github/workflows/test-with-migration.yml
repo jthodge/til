@@ -237,16 +237,20 @@ jobs:
                 slug TEXT,
                 topic TEXT,
                 title TEXT,
+                url TEXT,
                 body TEXT,
+                html TEXT,
                 created TEXT,
-                url TEXT
+                created_utc TEXT,
+                updated TEXT,
+                updated_utc TEXT
             )
         ''')
         
         # Insert entry with null timestamp
         cursor.execute('''
-            INSERT INTO til VALUES 
-            ('test.md', 'test', 'testing', 'Test', 'Body', NULL, 'http://example.com')
+            INSERT INTO til (path, slug, topic, title, body, created, created_utc, url, html, updated, updated_utc) VALUES 
+            ('test.md', 'test', 'testing', 'Test', 'Body', NULL, NULL, 'http://example.com', '<p>Body</p>', NULL, NULL)
         ''')
         conn.commit()
         conn.close()
