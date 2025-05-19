@@ -46,13 +46,13 @@ class ReadmeGenerator:
             # Deduplicate entries by slug
             seen_slugs = set()
             deduplicated_rows = []
-            
+
             for row in rows:
                 # Only add if we haven't seen this slug yet
                 if row["slug"] not in seen_slugs:
                     seen_slugs.add(row["slug"])
                     deduplicated_rows.append(row)
-                    
+
             # Ensure all entries have content/ prefix in the URL for consistency
             for row in deduplicated_rows:
                 # Handle entries without created dates (e.g., non-TIL files)

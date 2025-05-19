@@ -83,9 +83,21 @@ def test_generate_index_sorted_by_topic() -> None:
     """Test that index is sorted by topic name."""
     mock_db = Mock(spec=TILDatabase)
     mock_db.get_all_by_topic.return_value = {
-        "zsh": [{"title": "ZSH Test", "slug": "zsh-test", "url": "url", "created": "2023-01-01T00:00:00"}],
+        "zsh": [
+            {
+                "title": "ZSH Test",
+                "slug": "zsh-test",
+                "url": "url",
+                "created": "2023-01-01T00:00:00",
+            }
+        ],
         "ansible": [
-            {"title": "Ansible Test", "slug": "ansible-test", "url": "url", "created": "2023-01-01T00:00:00"}
+            {
+                "title": "Ansible Test",
+                "slug": "ansible-test",
+                "url": "url",
+                "created": "2023-01-01T00:00:00",
+            }
         ],
     }
 
@@ -213,13 +225,13 @@ def test_deduplicate_entries_by_slug() -> None:
 
     # Join the index to check content
     index_text = "\n".join(index)
-    
+
     # Should only contain one entry for the slug
     assert index_text.count("Shell Script") == 1
-    
+
     # Should have content/ in the URL
     assert "content/bash/shell-script-template.md" in index_text
-    
+
     # We don't need to check this since our implementation normalizes URLs
     # assert "bash/shell-script-template.md" not in index_text
 
@@ -243,7 +255,7 @@ def test_url_normalization() -> None:
 
     # Join the index to check content
     index_text = "\n".join(index)
-    
+
     # URL should be normalized to include content/
     assert "blob/main/content/python/test.md" in index_text
     assert "blob/main/python/test.md" not in index_text
