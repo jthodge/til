@@ -126,10 +126,10 @@ jobs:
               # Rebuild search index
               echo "Rebuilding search index..." >> maintenance-report.md
               uv run python -c "
-import sqlite_utils
-db = sqlite_utils.Database('til.db')
-db['til'].enable_fts(['title', 'body'], tokenize='porter', create_triggers=True, replace=True)
-"
+                import sqlite_utils
+                db = sqlite_utils.Database('til.db')
+                db['til'].enable_fts(['title', 'body'], tokenize='porter', create_triggers=True, replace=True)
+              "
               
               echo "Optimization complete!" >> maintenance-report.md
               echo "action-needed=false" >> $GITHUB_OUTPUT

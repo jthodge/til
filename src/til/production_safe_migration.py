@@ -10,6 +10,7 @@ This script:
 """
 
 import logging
+import os
 import pathlib
 import shutil
 import sqlite3
@@ -157,8 +158,8 @@ class ProductionMigration:
                 logger.info(f"Deleting {len(deletions)} old entries...")
                 placeholders = ",".join(["?"] * len(deletions))
                 cursor.execute(
-                    f"DELETE FROM til WHERE path IN ({placeholders})",
-                    deletions,  # noqa: S608
+                    f"DELETE FROM til WHERE path IN ({placeholders})",  # noqa: S608
+                    deletions,
                 )
 
             conn.commit()
@@ -279,8 +280,11 @@ def main() -> None:
         sys.exit(1)
 
     # Optionally keep backup for safety
-    if input("Keep backup file? (y/n): ").lower() == "n":
-        migration.cleanup_backup()
+    if not os.environ.get("CI"):
+        if input("Keep backup file? (y/n): ").lower() == "n":
+            migration.cleanup_backup()
+    else:
+        print("CI environment detected - keeping backup file for safety")
 
 
 if __name__ == "__main__":
