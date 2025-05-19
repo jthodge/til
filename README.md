@@ -6,10 +6,6 @@
 [![Build](https://github.com/jthodge/til/actions/workflows/main.yml/badge.svg)](https://github.com/jthodge/til/actions/workflows/main.yml)
 
 <!-- index starts -->
-## .pytest_cache
-
-* [pytest cache directory #](https://github.com/jthodge/til/blob/main/content/.pytest_cache/README.md)
-
 ## bash
 
 * [Use the `DEBUG` Trap to Step Through a Script](https://github.com/jthodge/til/blob/main/content/bash/use-the-debug-trap-to-step-through-a-script.md) - 2020-10-19
@@ -45,6 +41,11 @@
 
 * [Useful HTTP Flags](https://github.com/jthodge/til/blob/main/content/curl/useful-http-flags.md) - 2021-06-28
 
+## django
+
+* [Django Drops the SQL `DEFAULT` Constraint When Creating New Columns](https://github.com/jthodge/til/blob/main/content/django/django-drops-the-sql-default-constraint-when-creating-new-columns.md) - 2022-01-27
+* [`{% querystring %}` Template Tag](https://github.com/jthodge/til/blob/main/content/django/querystring-template-tag.md) - 2024-09-02
+
 ## docker
 
 * [Enable Long-Lived Container Logs](https://github.com/jthodge/til/blob/main/content/docker/enable-long-lived-container-logs.md) - 2022-11-02
@@ -55,6 +56,18 @@
 * [Remove All Whitespace from Beginning of All Lines](https://github.com/jthodge/til/blob/main/content/emacs/remove-all-whitespace-from-beginning-of-all-lines.md) - 2020-10-18
 * [Update Feature Branch to Latest `main`](https://github.com/jthodge/til/blob/main/content/emacs/update-feature-branch-to-latest-main.md) - 2021-03-31
 * [Insert Detailed Timestamps](https://github.com/jthodge/til/blob/main/content/emacs/insert-detailed-timestamps.md) - 2024-05-13
+
+## git
+
+* [Push an Empty Commit](https://github.com/jthodge/til/blob/main/content/git/push-an-empty-commit.md) - 2020-05-05
+* [Use Exclamation Marks in Commit Messages](https://github.com/jthodge/til/blob/main/content/git/use-exclamation-marks-in-commit-messages.md) - 2020-05-05
+* [Use Multiple `git commit` Message Flags to Create Multiline Commits](https://github.com/jthodge/til/blob/main/content/git/use-multiple-git-commit-message-flags-to-create-multiline-commits.md) - 2020-07-12
+* [The Differences Between `.git/info/exclude` and `.gitignore`](https://github.com/jthodge/til/blob/main/content/git/the-differences-between-git-info-exclude-and-gitignore.md) - 2020-08-02
+* [Git Only Stores Timestamps and Author Information on Commits](https://github.com/jthodge/til/blob/main/content/git/git-only-stores-timestamp-and-author-information-on-commits.md) - 2020-08-02
+* [Set Default for Initial Branch Name](https://github.com/jthodge/til/blob/main/content/git/set-default-for-initial-branch-name.md) - 2020-08-09
+* [Move a Range of Commits Between Branches](https://github.com/jthodge/til/blob/main/content/git/move-a-range-of-commits-between-branches.md) - 2021-03-31
+* [Move Individual Commits Between Branches with `cherry-pick`](https://github.com/jthodge/til/blob/main/content/git/move-individual-commits-between-branches-with-cherry-pick.md) - 2021-03-31
+* [Get Earliest Commit Over Time Range](https://github.com/jthodge/til/blob/main/content/git/get-earliest-commit-over-time-range.md) - 2024-08-26
 
 ## github
 
@@ -67,6 +80,10 @@
 * [Create Multiline Strings Using Backticks](https://github.com/jthodge/til/blob/main/content/go/create-multiline-strings-using-backticks.md) - 2020-07-28
 * [Concatenate Strings Efficiently with `bytes.Buffer` and `strings.Builder`](https://github.com/jthodge/til/blob/main/content/go/concatenate-strings-efficiently-with-bytesbuffer-and-stringsbuilder.md) - 2020-07-28
 
+## graphical-control-elements
+
+* [Throbber](https://github.com/jthodge/til/blob/main/content/graphical-control-elements/throbber.md) - 2021-06-28
+
 ## haskell
 
 * [String Concatenation Operators](https://github.com/jthodge/til/blob/main/content/haskell/string-concatenation-operators.md) - 2024-08-12
@@ -78,9 +95,17 @@
 
 ## javascript
 
+* [Inconsistencies in `Date`](https://github.com/jthodge/til/blob/main/content/javascript/inconsistencies-in-date.md) - 2020-08-03
+* [Use Numeric Separators to Parse Large Numbers by Eye](https://github.com/jthodge/til/blob/main/content/javascript/use-numeric-separators-to-parse-large-numbers-by-eye.md) - 2020-08-09
 * [Disable Jest's Auto-generated Coverage Reports](https://github.com/jthodge/til/blob/main/content/javascript/disable-jests-auto-generated-coverage-reports.md) - 2020-08-29
+* [Dates as Keys are not Equal](https://github.com/jthodge/til/blob/main/content/javascript/dates-as-keys-are-not-equal.md) - 2021-02-07
+* [Canceling Asynchronous Threads Can Be Tricky](https://github.com/jthodge/til/blob/main/content/javascript/canceling-asynchronous-threads-can-be-tricky.md) - 2021-02-07
+* [Every Readable Stream is Asynchronously Iterable](https://github.com/jthodge/til/blob/main/content/javascript/every-readable-stream-is-asynchronously-iterable.md) - 2021-03-31
 * [Lexicographical String Comparison](https://github.com/jthodge/til/blob/main/content/javascript/lexicographical-string-comparison.md) - 2021-03-31
+* [Pump Large (> 2^53) Numbers Through Your Data Pipeline to Check for Leaks](https://github.com/jthodge/til/blob/main/content/javascript/pump-large-numbers-through-your-data-pipeline-to-check-for-leaks.md) - 2021-03-31
 * [JavaScript `RegExp` Objects are Stateful](https://github.com/jthodge/til/blob/main/content/javascript/javascript-regexp-objects-are-stateful.md) - 2022-01-12
+* [`Object.is` is Different From `===` and `!==`](https://github.com/jthodge/til/blob/main/content/javascript/object-dot-is-is-different-from-strict-value-comparison.md) - 2022-01-13
+* [`in` Operator Patterns are Rare](https://github.com/jthodge/til/blob/main/content/javascript/in-operator-patterns-are-rare.md) - 2023-03-02
 
 ## language-features
 
@@ -92,6 +117,11 @@
 * [Reveal `.` Files in Finder](https://github.com/jthodge/til/blob/main/content/macos/reveal-hidden-files-in-finder.md) - 2024-08-24
 * [Modifier Keys in Menu Bar](https://github.com/jthodge/til/blob/main/content/macos/modifier-keys-in-menu-bar.md) - 2024-08-24
 * [Instruments](https://github.com/jthodge/til/blob/main/content/macos/instruments.md) - 2024-08-30
+
+## node
+
+* [`libuv` Implements a Reactor Pattern](https://github.com/jthodge/til/blob/main/content/node/libuv-implements-a-reactor-pattern.md) - 2021-03-31
+* [Basic Node Test Runner](https://github.com/jthodge/til/blob/main/content/node/basic-node-test-runner.md) - 2022-01-11
 
 ## patterns
 
@@ -126,9 +156,13 @@
 * [Use Quine Quotes to Delimit Regular Expressions](https://github.com/jthodge/til/blob/main/content/regex/use-quine-quotes-to-delimit-regular-expressions.md) - 2022-01-10
 * [Character Classes Are a Sub-language of Regex](https://github.com/jthodge/til/blob/main/content/regex/character-classes-are-a-sublanguage-of-regex.md) - 2024-09-05
 
-## templates
+## ruby
 
-* [TIL Templates Documentation](https://github.com/jthodge/til/blob/main/content/templates/README.md)
+* [Run `rbenv rehash` to Use Newly Installed Versions of Ruby or Gems](https://github.com/jthodge/til/blob/main/content/ruby/run-rbenv-rehash-to-use-newly-installed-versions-of-ruby-or-gems.md) - 2020-07-03
+* [Skip Installing Ruby Docs](https://github.com/jthodge/til/blob/main/content/ruby/skip-installing-ruby-docs.md) - 2020-07-03
+* [Specify a Gem Version Range](https://github.com/jthodge/til/blob/main/content/ruby/specify-a-gem-version-range.md) - 2020-07-03
+* [Reset Bundle Gems](https://github.com/jthodge/til/blob/main/content/ruby/reset-bundle-gems.md) - 2020-07-30
+* [Numeric Literal Prefixes](https://github.com/jthodge/til/blob/main/content/ruby/numeric-literal-prefixes.md) - 2020-08-02
 
 ## unix
 
@@ -139,6 +173,12 @@
 * [Use the `-i` flag to Confirm Before Overwriting an Existing File](https://github.com/jthodge/til/blob/main/content/unix/use-the-i-flag-to-confirm-before-overwriting-an-existing-file.md) - 2020-10-20
 * [Use `column` to View Pretty CSVs](https://github.com/jthodge/til/blob/main/content/unix/use-column-to-view-pretty-csvs.md) - 2020-10-31
 * [`kill` Works on Any Process](https://github.com/jthodge/til/blob/main/content/unix/kill-works-on-any-process.md) - 2021-06-27
+
+## vscode
+
+* [Navigate Your Cursor Position History](https://github.com/jthodge/til/blob/main/content/vscode/navigate-your-cursor-position-history.md) - 2020-05-20
+* [Disable Jest Test Runner Auto Run](https://github.com/jthodge/til/blob/main/content/vscode/disable-jest-test-runner-auto-run.md) - 2020-07-20
+* [Choose Folders to Ignore During Search](https://github.com/jthodge/til/blob/main/content/vscode/choose-folders-to-ignore-during-search.md) - 2020-08-29
 <!-- index ends -->
 
 ## Development Setup
