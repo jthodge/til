@@ -201,7 +201,7 @@
 * [`DiskFull` Error](https://github.com/jthodge/til/blob/main/postgres/diskfull-error.md) - 2024-08-17
 * [Idenfity `NULL` JSON Values](https://github.com/jthodge/til/blob/main/postgres/identify-null-json-values.md) - 2024-08-27
 * [Cross-Table Row Deletions](https://github.com/jthodge/til/blob/main/postgres/cross-table-row-deletions.md) - 2024-08-29
-* [`DiskFull` Error](https://github.com/jthodge/til/blob/main/content/postgres/diskfull-error.md) - 2025-05-18
+* [Postgres `DiskFull` Error](https://github.com/jthodge/til/blob/main/content/postgres/diskfull-error.md) - 2025-05-18
 * [Write a Query Result to a File](https://github.com/jthodge/til/blob/main/content/postgres/write-a-query-result-to-a-file.md) - 2025-05-18
 * [Drop a Database Even When Clients are Connected](https://github.com/jthodge/til/blob/main/content/postgres/drop-a-database-even-when-clients-are-connected.md) - 2025-05-18
 * [Cross-Table Row Deletions](https://github.com/jthodge/til/blob/main/content/postgres/cross-table-row-deletions.md) - 2025-05-18
