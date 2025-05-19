@@ -1,5 +1,6 @@
 """TIL processor orchestrating the entire pipeline."""
 
+import datetime
 import logging
 import pathlib
 from typing import Any, Optional
@@ -214,6 +215,17 @@ class TILProcessor:
                 record.update(all_times[path])
             else:
                 logger.info(f"No git history found for {path}, using current time")
+                # Add current time as fallback
+                now = datetime.datetime.now()
+                now_utc = now.astimezone(datetime.timezone.utc)
+                record.update(
+                    {
+                        "created": now.isoformat(),
+                        "created_utc": now_utc.isoformat(),
+                        "updated": now.isoformat(),
+                        "updated_utc": now_utc.isoformat(),
+                    }
+                )
 
             # Update database
             try:
