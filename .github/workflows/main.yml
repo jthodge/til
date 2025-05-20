@@ -167,10 +167,10 @@ jobs:
           curl https://cli-assets.heroku.com/install.sh | sh
           heroku plugins:install heroku-builds
           
-          # Clear existing buildpacks and set them in the correct order
-          heroku buildpacks:clear -a til-taylorhodge
-          heroku buildpacks:add -a til-taylorhodge https://github.com/simonw/datasette-publish-heroku
-          heroku buildpacks:add -a til-taylorhodge heroku/python
+          # Set buildpacks in the correct order using --index, and make clearing non-fatal
+          heroku buildpacks:clear -a til-taylorhodge || true
+          heroku buildpacks:add -a til-taylorhodge --index 1 https://github.com/simonw/datasette-publish-heroku || true
+          heroku buildpacks:add -a til-taylorhodge --index 2 heroku/python || true
           
           # Deploy
           uv run datasette publish heroku til.db \
