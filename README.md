@@ -150,6 +150,7 @@
 * [Python Development Environment Management (macOS)](https://github.com/jthodge/til/blob/main/content/python/dev-env-mgmt.md) - 2024-08-11
 * [Eager and Lazy Evaluation](https://github.com/jthodge/til/blob/main/content/python/eager-and-lazy-evaluation.md) - 2024-08-30
 * [`uvtrick`: Run Python Code from `venv` in Current Environment](https://github.com/jthodge/til/blob/main/content/python/uvtrick.md) - 2024-09-02
+* [Typing Overloads](https://github.com/jthodge/til/blob/main/content/python/typing-overloads.md) - 2025-05-19
 
 ## regex
 
