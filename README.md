@@ -6,6 +6,10 @@
 [![Build](https://github.com/jthodge/til/actions/workflows/main.yml/badge.svg)](https://github.com/jthodge/til/actions/workflows/main.yml)
 
 <!-- index starts -->
+## awk
+
+* [Field Variables](https://github.com/jthodge/til/blob/main/content/awk/field-variables.md) - 2025-05-21
+
 ## bash
 
 * [Use the `DEBUG` Trap to Step Through a Script](https://github.com/jthodge/til/blob/main/content/bash/use-the-debug-trap-to-step-through-a-script.md) - 2020-10-19
