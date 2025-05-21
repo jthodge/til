@@ -1,4 +1,4 @@
-/* Component Styles */
+/* Minimal component styles to complement tufte-css */
 
 /* Feed Icon */
 .feed-icon {
@@ -8,95 +8,29 @@
     margin-left: 0.5rem;
 }
 
-/* TIL List */
+/* Remove list styling for TIL lists - let tufte handle it */
 .til-list {
     list-style: none;
-    padding: 0;
 }
 
-.til-item {
-    margin-bottom: 1rem;
-    padding: 0.5rem 0;
-}
-
-.til-item .topic {
-    display: inline-block;
-    background-color: #f0f0f0;
-    padding: 0.2rem 0.5rem;
-    border-radius: 3px;
-    font-size: 0.85rem;
-    margin-right: 0.5rem;
-}
-
-/* Topic List */
-.topic-list {
-    margin: 1rem 0;
-}
-
-.topic-list a {
-    display: inline-block;
-    margin-right: 0.5rem;
-    padding: 0.2rem 0.5rem;
-    text-decoration: none;
-}
-
-.topic-list a:hover {
-    text-decoration: underline;
-}
-
-/* Pagination */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin: 2rem 0;
-}
-
-.pagination a {
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-}
-
-.pagination a:hover {
-    background-color: #f0f0f0;
-}
-
-/* Search Form */
-.search-form {
-    display: flex;
-    gap: 0.5rem;
-    margin: 1rem 0;
-}
-
-.search-form input[type="search"] {
-    flex: 1;
-    padding: 0.5rem;
-}
-
-/* Footer */
+/* Footer - minimal to work with tufte */
 .site-footer {
     margin-top: 3rem;
-    padding: 2rem 0;
-    border-top: 1px solid #eee;
-    text-align: center;
-    color: #666;
+    padding-top: 1rem;
+    border-top: 1px solid #ccc;
+    font-size: 0.9rem;
 }
 
 .site-footer a {
     color: inherit;
-    text-decoration: none;
 }
 
-.site-footer a:hover {
-    text-decoration: underline;
-}
-
-/* Tool Container */
+/* Tool Container - adjust for tufte layout */
 .tool-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
+    /* Tufte handles main container, this is for special cases */
+}
+
+/* Override any conflicting styles with tufte-css */
+.til-item {
+    /* Let tufte handle list item styling */
 }

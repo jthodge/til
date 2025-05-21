@@ -16,7 +16,7 @@
         {% include "components/feed_icon.html" %}
     {% endwith %}
 </h1>
-<p>
+<p class="subtitle">
     Things I've learned and collected in
     <a href="https://github.com/jthodge/til">jthodge/til</a>.
 </p>
@@ -30,22 +30,20 @@
 
 <p><a href="/all">Browse all {{ til_count }} TILs</a></p>
 
+<h2>Browse by topic</h2>
 <p>
-    <strong>Browse by topic:</strong>
     {% for row in sql("select topic, count(*) as num_tils from til group by topic order by topic", database="til") %}
-        <a title="{{ row.num_tils }} TIL{{ "s" if row.num_tils > 1 else "" }}" href="/{{ row.topic }}">{{ row.topic }}</a> {{ row.num_tils }}{% if not loop.last %} &middot;{% endif %}
+        <a title="{{ row.num_tils }} TIL{{ "s" if row.num_tils > 1 else "" }}" href="/{{ row.topic }}">{{ row.topic }}</a><span class="marginnote">{{ row.num_tils }}</span>{% if not loop.last %} &middot; {% endif %}
     {% endfor %}
 </p>
 
-<p>
-    <strong>Recently added:</strong>
-    <ul>
-        {% for row in sql("select * from til order by created_utc desc limit 5", database="til") %}
-        <li>
-            <a href="/{{ row.topic }}/{{ row.slug }}">{{ row.title }}</a>
-        </li>
-        {% endfor %}
-    </ul>
-</p>
+<h2>Recently added</h2>
+<ul>
+    {% for row in sql("select * from til order by created_utc desc limit 5", database="til") %}
+    <li>
+        <a href="/{{ row.topic }}/{{ row.slug }}">{{ row.title }}</a><span class="marginnote">{{ row.topic }}</span>
+    </li>
+    {% endfor %}
+</ul>
 
 {% endblock %}

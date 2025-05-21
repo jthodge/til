@@ -13,7 +13,7 @@
 
 {% block extra_head %}
 {% import "macros.html" as macros %}
-<link rel="stylesheet" href="https://til.taylorhodge.md/static/github-light.css" />
+<link rel="stylesheet" href="/static/github-light.css" />
 {{ macros.meta_tags(
     title=til.title,
     description=til.summary,
@@ -23,7 +23,17 @@
 {% endblock %}
 
 {% block body %}
-<h1>{{ til.title }}</h1>
+<h1>{{ til.title }}<span class="marginnote">{{ til.topic }}</span></h1>
+
+<p class="subtitle">
+    Created: {{ til.created_strftime }}<span class="sidenote">Last updated: {{ til.updated_strftime or til.created_strftime }}</span>
+</p>
 
 {{ til.html|safe }}
+
+<p>
+    <a href="/{{ til.topic }}">More {{ til.topic }} TILs</a> | 
+    <a href="/all">All TILs</a> | 
+    <a href="https://github.com/jthodge/til/blob/main/content/{{ til.topic }}/{{ til.slug }}.md">View source</a>
+</p>
 {% endblock %}

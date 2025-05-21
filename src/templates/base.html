@@ -8,36 +8,38 @@
     {% block meta %}{% endblock %}
     
     {% block stylesheets %}
-    <link href="https://fonts.googleapis.com/css?family={{ config.DEFAULT_FONT_FAMILY|urlencode }}" rel="stylesheet" />
-    <link rel="stylesheet" href="/static/til-base.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css" />
     <link rel="stylesheet" href="/static/components.css" />
+    <link rel="stylesheet" href="/static/tufte-code.css" />
     {% endblock %}
     
     {% block extra_head %}{% endblock %}
 </head>
 <body>
     {% block body_wrapper %}
-    <div class="wrapper">
+    <article>
         {% block header %}
-        <div class="header">
+        <section>
             <nav>
                 {% block navigation %}
                 <h1><a href="/">{{ config.SITE_TITLE }}</a></h1>
                 {% endblock %}
             </nav>
-        </div>
+        </section>
         {% endblock %}
         
         {% block content_wrapper %}
-        <section class="body">
+        <section>
             {% block content %}{% endblock %}
         </section>
         {% endblock %}
         
         {% block footer %}
-        {{ config.footer_content() }}
+        <section>
+            {{ config.footer_content() }}
+        </section>
         {% endblock %}
-    </div>
+    </article>
     {% endblock %}
     
     {% block scripts %}{% endblock %}

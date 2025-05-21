@@ -1,10 +1,10 @@
 {# TIL item component - accepts til object #}
 <li class="til-item">
     <a href="/{{ til.topic }}/{{ til.slug }}">{{ til.title }}</a>
-    {% if show_date %}
-        - {{ til.created[:10] }}
+    {% if show_date and til.created %}
+        <span class="marginnote">{{ til.created[:10] }}</span>
     {% endif %}
     {% if show_topic %}
-        <span class="topic">{{ til.topic }}</span>
+        <span class="marginnote">{{ til.topic }}</span>
     {% endif %}
 </li>
