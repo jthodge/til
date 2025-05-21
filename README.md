@@ -156,6 +156,7 @@
 * [Python `dict.update` method returns `None`](https://github.com/jthodge/til/blob/main/content/python/dict-update-return-values.md) - 2025-05-18
 * [Typing Overloads](https://github.com/jthodge/til/blob/main/content/python/typing-overloads.md) - 2025-05-19
 * [Metaclasses](https://github.com/jthodge/til/blob/main/content/python/metaclasses.md) - 2025-05-20
+* [Quiet Mode](https://github.com/jthodge/til/blob/main/content/python/quiet-mode.md) - 2025-05-21
 
 ## regex
 
