@@ -120,6 +120,13 @@ jobs:
           curl --fail -o main/til.db https://raw.githubusercontent.com/jthodge/til-db/main/til.db || true
         continue-on-error: true
       
+      - name: Remove existing database for REBUILD
+        if: needs.prepare-build.outputs.should-rebuild == 'true'
+        run: |
+          cd main
+          rm -f til.db
+          echo "Starting fresh database build"
+      
       - name: Build database
         env:
           MARKDOWN_GITHUB_TOKEN: ${{ secrets.MARKDOWN_GITHUB_TOKEN }}
