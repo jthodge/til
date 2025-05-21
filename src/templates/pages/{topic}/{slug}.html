@@ -1,7 +1,7 @@
 {% extends "til_base.html" %}
 
 {% set tils = sql("""
-    select * from til where path = :topic || '_' || :slug || '.md'
+    select * from til where path = 'content_' || :topic || '_' || :slug || '.md'
 """, {"topic": topic, "slug": slug}, database="til") %}
 
 {% set til = tils[0] if tils else None %}
