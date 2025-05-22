@@ -1,36 +1,99 @@
-/* Minimal component styles to complement tufte-css */
+/* Enhanced component styles to complement tufte-css with delightful interactions */
 
-/* Feed Icon */
+/* Feed Icon with subtle hover animation */
 .feed-icon {
     text-decoration: none;
     display: inline-block;
     vertical-align: middle;
     margin-left: 0.5rem;
+    transition: transform 0.2s ease;
 }
 
-/* Remove list styling for TIL lists - let tufte handle it */
+.feed-icon:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* TIL item enhancements with smooth interactions */
 .til-list {
     list-style: none;
 }
 
-/* Footer - minimal to work with tufte */
+.til-item a {
+    transition: all 0.2s ease;
+    border-bottom: 1px solid transparent;
+}
+
+.til-item a:hover {
+    border-bottom: 1px solid #1a0dab;
+    transform: translateX(4px);
+}
+
+/* Footer - enhanced with better spacing and subtle styling */
 .site-footer {
     margin-top: 3rem;
     padding-top: 1rem;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #e8e8e8;
     font-size: 0.9rem;
+    color: #666;
 }
 
 .site-footer a {
     color: inherit;
+    transition: color 0.2s ease;
 }
 
-/* Tool Container - adjust for tufte layout */
+.site-footer a:hover {
+    color: #1a0dab;
+}
+
+/* Enhanced navigation link styling */
+nav h1 a {
+    transition: color 0.2s ease;
+    text-decoration: none;
+}
+
+nav h1 a:hover {
+    color: #333;
+}
+
+/* Topic labels with subtle styling */
+.marginnote {
+    transition: opacity 0.2s ease;
+}
+
+h3 .marginnote {
+    opacity: 0.7;
+}
+
+h3:hover .marginnote {
+    opacity: 1;
+}
+
+/* Search form enhancements when they appear */
+input[type="search"] {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="search"]:focus {
+    outline: none;
+    border-color: #1a0dab;
+    box-shadow: 0 0 0 2px rgba(26, 13, 171, 0.1);
+}
+
+input[type="submit"] {
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #0f0a8a;
+    transform: translateY(-1px);
+}
+
+input[type="submit"]:active {
+    transform: translateY(0);
+}
+
+/* Tool Container - tufte-compatible special cases */
 .tool-container {
-    /* Tufte handles main container, this is for special cases */
-}
-
-/* Override any conflicting styles with tufte-css */
-.til-item {
-    /* Let tufte handle list item styling */
+    /* Tufte handles main container, this maintains compatibility */
 }

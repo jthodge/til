@@ -67,8 +67,9 @@ The template system provides several blocks for customization:
 
 ## CSS Organization
 
-- `/static/til-base.css` - Base styles
-- `/static/components.css` - Component-specific styles
+- Tufte CSS (CDN) - Primary typography and layout framework
+- `/static/components.css` - Component-specific styles that complement Tufte
+- `/static/tufte-code.css` - Code block styles integrated with Tufte typography
 - `/static/forms.css` - Form styles
 - `/static/search.css` - Search functionality styles
-- `/static/github-light.css` - Code highlighting styles
+- `/static/github-light.css` - Code syntax highlighting theme
