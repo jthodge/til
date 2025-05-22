@@ -9,6 +9,7 @@ import click
 from .config_loader import ConfigLoader
 from .database import TILDatabase
 from .exceptions import ConfigurationError, DatabaseError, TILError
+from .fix_creation_dates import fix_creation_dates
 from .logging_config import LogLevel, setup_logging
 from .processor import TILProcessor
 from .readme_generator import ReadmeGenerator
@@ -252,6 +253,108 @@ def update_readme(
         sys.exit(1)
     except KeyboardInterrupt:
         click.echo("\nUpdate interrupted by user")
+        sys.exit(130)
+    except Exception as e:
+        import logging
+
+        try:
+            logger = logging.getLogger(__name__)
+            logger.exception("Unexpected error")
+        except Exception:
+            pass
+        click.echo(click.style(f"Unexpected error: {e}", fg="red"), err=True)
+        sys.exit(1)
+
+
+@cli.command(name="fix-creation-dates")
+@click.option("--db", default="til.db", help="Database file name")
+@click.option(
+    "--config",
+    type=click.Path(exists=True, path_type=Path),
+    help="Path to configuration file",
+)
+@click.option(
+    "--dry-run",
+    is_flag=True,
+    help="Show what changes would be made without applying them",
+)
+@click.pass_context
+def fix_creation_dates_cmd(
+    ctx: click.Context,
+    db: str,
+    config: Optional[Path],
+    dry_run: bool,
+) -> None:
+    """Fix creation dates in database by re-extracting from git history.
+    
+    This command addresses the issue where TIL entries have incorrect creation
+    dates due to database rebuilds. It re-extracts the correct creation dates
+    from git history and updates the database.
+    
+    Only entries with creation dates from 2025-05-18 or 2025-05-19 will be
+    updated, preserving existing update timestamps where appropriate.
+    """
+    verbose = ctx.obj.get("verbose", False)
+    quiet = ctx.obj.get("quiet", False)
+
+    try:
+        til_config = ConfigLoader.load_config(
+            config_file=config,
+            database_name=db,
+        )
+
+        # Configure logging based on flags and config
+        log_config = til_config.log_config
+        if quiet:
+            log_config.level = LogLevel.ERROR
+        elif verbose:
+            log_config.level = LogLevel.DEBUG
+
+        setup_logging(log_config)
+
+        import logging
+
+        logger = logging.getLogger(__name__)
+
+        # Check if database exists
+        if not til_config.database_path.exists():
+            click.echo(
+                click.style(
+                    f"Database not found at {til_config.database_path}\n"
+                    + "Run 'til build' to create the database first",
+                    fg="red",
+                ),
+                err=True,
+            )
+            sys.exit(1)
+
+        if verbose:
+            click.echo(f"Fixing creation dates in: {til_config.database_path}")
+            click.echo(f"Repository: {til_config.root_path}")
+
+        if dry_run:
+            click.echo(click.style("DRY RUN MODE - No changes will be made", fg="yellow"))
+
+        # Import the function that does the actual work
+        from .fix_creation_dates import fix_creation_dates
+
+        # Call the fix function
+        fix_creation_dates(til_config.database_path, til_config.root_path, dry_run=dry_run)
+
+        if not quiet:
+            if dry_run:
+                click.echo(click.style("✨ Dry run completed - no changes made", fg="green"))
+            else:
+                click.echo(click.style("✨ Creation dates fixed successfully!", fg="green"))
+
+    except ConfigurationError as e:
+        click.echo(click.style(f"Configuration error: {e}", fg="red"), err=True)
+        sys.exit(1)
+    except TILError as e:
+        click.echo(click.style(f"Error: {e}", fg="red"), err=True)
+        sys.exit(1)
+    except KeyboardInterrupt:
+        click.echo("\nFix interrupted by user")
         sys.exit(130)
     except Exception as e:
         import logging
