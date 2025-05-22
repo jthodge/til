@@ -286,11 +286,11 @@ def fix_creation_dates_cmd(
     dry_run: bool,
 ) -> None:
     """Fix creation dates in database by re-extracting from git history.
-    
+
     This command addresses the issue where TIL entries have incorrect creation
     dates due to database rebuilds. It re-extracts the correct creation dates
     from git history and updates the database.
-    
+
     Only entries with creation dates from 2025-05-18 or 2025-05-19 will be
     updated, preserving existing update timestamps where appropriate.
     """
@@ -333,19 +333,27 @@ def fix_creation_dates_cmd(
             click.echo(f"Repository: {til_config.root_path}")
 
         if dry_run:
-            click.echo(click.style("DRY RUN MODE - No changes will be made", fg="yellow"))
+            click.echo(
+                click.style("DRY RUN MODE - No changes will be made", fg="yellow")
+            )
 
         # Import the function that does the actual work
         from .fix_creation_dates import fix_creation_dates
 
         # Call the fix function
-        fix_creation_dates(til_config.database_path, til_config.root_path, dry_run=dry_run)
+        fix_creation_dates(
+            til_config.database_path, til_config.root_path, dry_run=dry_run
+        )
 
         if not quiet:
             if dry_run:
-                click.echo(click.style("✨ Dry run completed - no changes made", fg="green"))
+                click.echo(
+                    click.style("✨ Dry run completed - no changes made", fg="green")
+                )
             else:
-                click.echo(click.style("✨ Creation dates fixed successfully!", fg="green"))
+                click.echo(
+                    click.style("✨ Creation dates fixed successfully!", fg="green")
+                )
 
     except ConfigurationError as e:
         click.echo(click.style(f"Configuration error: {e}", fg="red"), err=True)
