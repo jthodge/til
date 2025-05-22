@@ -37,6 +37,14 @@
 
 {{ macros.marginnote("This TIL was created on " ~ til.created_strftime ~ " and is part of the " ~ til.topic ~ " topic collection.") }}
 
+{{ macros.related_tils(til.topic, til.slug, 3) }}
+
+{{ macros.topic_suggestions(til.topic, 4) }}
+
+<div class="content-discovery">
+    {{ macros.random_til_button() }}
+</div>
+
 <section class="til-navigation">
     <p>
         <a href="/{{ til.topic }}">More {{ til.topic }} TILs</a> | 

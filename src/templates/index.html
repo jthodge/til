@@ -27,7 +27,10 @@
 {{ macros.search_form(placeholder="Search " ~ til_count ~ " TILs", action="/til/search") }}
 </div>
 
-<p><a href="/all">Browse all {{ til_count }} TILs</a></p>
+<div class="discovery-actions">
+    <p><a href="/all">Browse all {{ til_count }} TILs</a></p>
+    {{ macros.random_til_button() }}
+</div>
 
 <h2>Browse by topic</h2>
 <p>

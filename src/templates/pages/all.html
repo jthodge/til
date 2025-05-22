@@ -1,12 +1,22 @@
 {% extends "til_base.html" %}
+{% import "macros.html" as macros %}
 
 {% block title %}Taylor Hodge — All TILs{% endblock %}
 
 {% block body %}
-<h1>Taylor Hodge — All TILs</h1>
+{% set total_count = sql("select count(*) as count from til", database="til")[0][0] %}
 
-{% for row in sql("select topic from til group by topic order by max(created_utc) desc", database="til") %}
-<h2>{{ row.topic }}</h2>
+<h1>All TILs{{ macros.simple_marginnote(total_count ~ " total") }}</h1>
+
+<div class="content-discovery">
+    {{ macros.random_til_button() }}
+    <p style="margin-top: 1rem; color: #666; font-style: italic;">
+        Feeling adventurous? Try a random TIL!
+    </p>
+</div>
+
+{% for row in sql("select topic, count(*) as count from til group by topic order by max(created_utc) desc", database="til") %}
+<h2>{{ row.topic }}{{ macros.simple_marginnote(row.count ~ " TIL" ~ ("s" if row.count > 1 else "")) }}</h2>
 <ul>
     {% for til in sql("select * from til where topic = :topic order by created_utc desc", {"topic": row.topic}, database="til") %}
         {% with show_date=true %}
@@ -15,4 +25,11 @@
     {% endfor %}
 </ul>
 {% endfor %}
+
+<div class="all-tils-footer">
+    <p>
+        <a href="/">Back to homepage</a> | 
+        {{ macros.random_til_button() }}
+    </p>
+</div>
 {% endblock %}

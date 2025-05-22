@@ -28,6 +28,12 @@
 </h3>
 {% endfor %}
 
+{{ macros.topic_suggestions(topic, 5) }}
+
+<div class="content-discovery">
+    {{ macros.random_til_button() }}
+</div>
+
 <section class="topic-navigation">
     <p>
         <a href="/all">All TILs</a> | 
