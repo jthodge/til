@@ -175,8 +175,7 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: |
           cd main
-          # Ensure we're using the latest fixed database
-          curl --fail -o til.db https://raw.githubusercontent.com/jthodge/til-db/main/til.db
+          # Use the fixed database from the build process (don't re-download)
           # Install Heroku CLI
           curl https://cli-assets.heroku.com/install.sh | sh
           heroku plugins:install heroku-builds
