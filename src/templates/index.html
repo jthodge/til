@@ -33,11 +33,13 @@
 </div>
 
 <h2>Browse by topic</h2>
-<p>
+<div class="topic-browser">
     {% for row in sql("select topic, count(*) as num_tils from til group by topic order by topic", database="til") %}
-        <a title="{{ row.num_tils }} TIL{{ "s" if row.num_tils > 1 else "" }}" href="/{{ row.topic }}">{{ row.topic }}</a>{{ macros.simple_marginnote(row.num_tils) }}{% if not loop.last %} &middot; {% endif %}
+        <a class="topic-link" title="{{ row.num_tils }} TIL{{ "s" if row.num_tils > 1 else "" }}" href="/{{ row.topic }}">
+            {{ row.topic }}{{ macros.simple_marginnote(row.num_tils) }}
+        </a>{% if not loop.last %}<span class="topic-separator"> &middot; </span>{% endif %}
     {% endfor %}
-</p>
+</div>
 
 <h2>Recently added{{ macros.sidenote("Showing the 5 most recently created TILs") }}</h2>
 <ul>

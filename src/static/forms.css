@@ -80,15 +80,61 @@ input[type="submit"]:active {
   background-color: #0056b3;
 }
 
-/* Responsive adjustments */
+/* Enhanced mobile experience for forms */
 @media (max-width: 760px) {
+  /* Homepage search mobile optimization */
+  .homepage-search {
+    margin: 1rem -1rem 2rem -1rem;
+    padding: 1.5rem;
+    border-radius: 0;
+  }
+  
   .homepage-search input[type="search"] {
     width: 100%;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     margin-right: 0;
+    font-size: 16px; /* Prevent zoom on iOS */
+    min-height: 44px;
+    padding: 0.75em 1em;
+  }
+  
+  .homepage-search input[type="submit"] {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.8em 1em;
+    font-size: 1rem;
+  }
+  
+  /* Search page mobile optimization */
+  .search-page {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding: 1.5rem;
+    background-color: #fafafa;
+    border-radius: 0;
+  }
+  
+  .search-page input[type="search"] {
+    width: 100%;
+    margin-bottom: 1rem;
+    font-size: 16px; /* Prevent zoom on iOS */
+    min-height: 44px;
+  }
+  
+  .search-page input[type="submit"] {
+    width: 100%;
+    min-height: 44px;
+  }
+  
+  /* General form improvements */
+  input[type="search"] {
+    font-size: 16px; /* Prevent zoom on iOS */
+    min-height: 44px;
   }
   
   input[type="submit"] {
-    width: 100%;
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation; /* Improve touch response */
   }
 }

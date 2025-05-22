@@ -99,20 +99,82 @@
   text-decoration: underline;
 }
 
-/* Mobile responsiveness */
+/* Enhanced mobile search experience */
 @media (max-width: 760px) {
+  /* Search results mobile layout */
+  .search-result {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding: 1.5rem;
+    border-radius: 0;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+  }
+  
   .search-result h3 {
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+  
+  .search-result h3 a {
+    min-height: 44px;
+    display: inline-block;
+    line-height: 1.4;
+    padding: 0.25rem 0;
+  }
+  
+  /* Topic badges mobile */
+  .topic {
+    display: block;
+    margin-bottom: 0.75rem;
+    margin-right: 0;
+    padding: 0.4em 0.7em;
+    font-size: 0.8rem;
+    max-width: fit-content;
+  }
+  
+  /* Search snippets mobile */
+  .search-snippet {
+    font-size: 0.9rem;
+    padding: 1rem;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    margin-top: 1rem;
+    border-radius: 0;
     line-height: 1.5;
   }
   
-  .topic {
-    display: block;
-    margin-bottom: 0.3rem;
-    margin-right: 0;
+  /* Results count mobile */
+  .search-results-count {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding: 0 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 1rem;
   }
   
-  .search-snippet {
-    font-size: 0.9rem;
-    padding: 0.5rem;
+  /* No results mobile */
+  .no-results {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding: 2.5rem 1.5rem;
+    border-radius: 0;
+  }
+  
+  /* Search footer mobile */
+  .search-footer {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding: 2rem 1.5rem;
+    background-color: #fafafa;
+    border-radius: 0;
+    border-top: 1px solid #ddd;
+  }
+  
+  .search-footer a {
+    min-height: 44px;
+    display: inline-block;
+    line-height: 44px;
+    padding: 0 0.5rem;
   }
 }
