@@ -58,6 +58,8 @@ jobs:
               echo "migration-type=dedup" >> $GITHUB_OUTPUT
             elif [[ "$COMMIT_MSG" == *"MIGRATE:TIMESTAMP"* ]]; then
               echo "migration-type=timestamp" >> $GITHUB_OUTPUT
+            elif [[ "$COMMIT_MSG" == *"MIGRATE:FIX-CREATION-DATES"* ]]; then
+              echo "migration-type=fix-creation-dates" >> $GITHUB_OUTPUT
             else
               echo "migration-type=full" >> $GITHUB_OUTPUT
             fi
@@ -155,6 +157,10 @@ jobs:
             "timestamp")
               echo "Running timestamp migration..."
               uv run python src/til/migrate_timestamps.py til.db
+              ;;
+            "fix-creation-dates")
+              echo "Running creation date fix migration..."
+              uv run til fix-creation-dates
               ;;
             "full")
               echo "Running full migration..."

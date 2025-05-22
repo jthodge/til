@@ -134,6 +134,11 @@ jobs:
           cd main
           uv run til build
       
+      - name: Fix creation dates
+        run: |
+          cd main
+          uv run til fix-creation-dates
+      
       - name: Perform soundness check
         run: |
           cd main
