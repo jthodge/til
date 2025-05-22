@@ -9,7 +9,6 @@ import click
 from .config_loader import ConfigLoader
 from .database import TILDatabase
 from .exceptions import ConfigurationError, DatabaseError, TILError
-from .fix_creation_dates import fix_creation_dates
 from .logging_config import LogLevel, setup_logging
 from .processor import TILProcessor
 from .readme_generator import ReadmeGenerator

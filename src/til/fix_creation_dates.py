@@ -10,10 +10,9 @@ import logging
 import pathlib
 import sqlite3
 import sys
-from datetime import datetime, timezone
-from typing import Any, Optional
+from datetime import datetime
+from typing import Optional
 
-from .config import TILConfig
 from .repository import GitRepository
 
 
@@ -32,6 +31,7 @@ def fix_creation_dates(
         db_path: Path to SQLite database
         repo_path: Path to git repository (defaults to current directory)
         dry_run: If True, show what changes would be made without applying them
+
     """
     if repo_path is None:
         repo_path = pathlib.Path.cwd()
@@ -130,12 +130,14 @@ def fix_creation_dates(
 
                 # Check if we need to update (only if current creation date is 2025-05-18 or 2025-05-19)
                 needs_update = False
-                if db_created and (
-                    "2025-05-18" in db_created or "2025-05-19" in db_created
-                ):
-                    needs_update = True
-                elif db_created_utc and (
-                    "2025-05-18" in db_created_utc or "2025-05-19" in db_created_utc
+                if (
+                    db_created
+                    and ("2025-05-18" in db_created or "2025-05-19" in db_created)
+                ) or (
+                    db_created_utc
+                    and (
+                        "2025-05-18" in db_created_utc or "2025-05-19" in db_created_utc
+                    )
                 ):
                     needs_update = True
 
@@ -199,7 +201,7 @@ def fix_creation_dates(
                 logger.info(f"Applying {len(updates)} timestamp updates...")
                 cursor.executemany(
                     """
-                    UPDATE til 
+                    UPDATE til
                     SET created = ?, created_utc = ?, updated = ?, updated_utc = ?
                     WHERE path = ?
                 """,
@@ -216,8 +218,8 @@ def fix_creation_dates(
             logger.warning(
                 f"Found {len(files_without_history)} files without git history:"
             )
-            for db_path, git_path in files_without_history:
-                logger.warning(f"  {db_path} (looked for {git_path})")
+            for db_path_entry, git_path in files_without_history:
+                logger.warning(f"  {db_path_entry} (looked for {git_path})")
 
     except Exception as e:
         logger.error(f"Error during timestamp fix: {e}")
