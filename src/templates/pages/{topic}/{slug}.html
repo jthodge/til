@@ -23,17 +23,25 @@
 {% endblock %}
 
 {% block body %}
-<h1>{{ til.title }}<span class="marginnote">{{ til.topic }}</span></h1>
+{% import "macros.html" as macros %}
+
+<h1>{{ til.title }}{{ macros.simple_marginnote(til.topic) }}</h1>
 
 <p class="subtitle">
-    Created: {{ til.created_strftime }}<span class="sidenote">Last updated: {{ til.updated_strftime or til.created_strftime }}</span>
+    Created: {{ til.created_strftime }}{{ macros.sidenote("Last updated: " ~ (til.updated_strftime or til.created_strftime)) }}
 </p>
 
+<div class="til-content">
 {{ til.html|safe }}
+</div>
 
-<p>
-    <a href="/{{ til.topic }}">More {{ til.topic }} TILs</a> | 
-    <a href="/all">All TILs</a> | 
-    <a href="https://github.com/jthodge/til/blob/main/content/{{ til.topic }}/{{ til.slug }}.md">View source</a>
-</p>
+{{ macros.marginnote("This TIL was created on " ~ til.created_strftime ~ " and is part of the " ~ til.topic ~ " topic collection.") }}
+
+<section class="til-navigation">
+    <p>
+        <a href="/{{ til.topic }}">More {{ til.topic }} TILs</a> | 
+        <a href="/all">All TILs</a> | 
+        <a href="https://github.com/jthodge/til/blob/main/content/{{ til.topic }}/{{ til.slug }}.md">View source</a>
+    </p>
+</section>
 {% endblock %}

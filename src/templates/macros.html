@@ -40,3 +40,21 @@
     <input type="submit" value="Search" />
 </form>
 {% endmacro %}
+
+{% macro marginnote(content, id=None) %}
+{% set note_id = id or ("mn-" ~ range(1000, 9999) | random) %}
+<label for="{{ note_id }}" class="margin-toggle">&#8853;</label>
+<input type="checkbox" id="{{ note_id }}" class="margin-toggle"/>
+<span class="marginnote">{{ content }}</span>
+{% endmacro %}
+
+{% macro sidenote(content, id=None) %}
+{% set note_id = id or ("sn-" ~ range(1000, 9999) | random) %}
+<label for="{{ note_id }}" class="margin-toggle sidenote-number"></label>
+<input type="checkbox" id="{{ note_id }}" class="margin-toggle"/>
+<span class="sidenote">{{ content }}</span>
+{% endmacro %}
+
+{% macro simple_marginnote(content) %}
+<span class="marginnote">{{ content }}</span>
+{% endmacro %}

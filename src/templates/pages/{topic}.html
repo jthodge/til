@@ -7,22 +7,31 @@
 {% block title %}Taylor Hodge — TILs on {{ topic }}{% endblock %}
 
 {% block body %}
+{% import "macros.html" as macros %}
+
 {% if not tils %}
     {{ raise_404("No TILs found") }}
 {% endif %}
 
-<h1>Taylor Hodge — TILs on {{ topic }}</h1>
+<h1>TILs on {{ topic }}{{ macros.simple_marginnote(tils|length ~ " total") }}</h1>
 
 <p>
     {% with href="/tils/feed_by_topic.atom?topic={{ topic }}", title="Atom feed for {{ topic }}" %}
         {% include "components/feed_icon.html" %}
     {% endwith %}
-    Atom feed for {{ topic }}
+    Atom feed for {{ topic }}{{ macros.sidenote("Subscribe to get notified of new " ~ topic ~ " TILs") }}
 </p>
 
 {% for til in tils %}
 <h3>
-    <a href="/{{ til.topic }}/{{ til.slug }}">{{ til.title }}</a><span class="marginnote">{{ til.created[:10] }}</span>
+    <a href="/{{ til.topic }}/{{ til.slug }}">{{ til.title }}</a>{{ macros.simple_marginnote(til.created[:10]) }}
 </h3>
 {% endfor %}
+
+<section class="topic-navigation">
+    <p>
+        <a href="/all">All TILs</a> | 
+        <a href="/">Back to homepage</a>
+    </p>
+</section>
 {% endblock %}

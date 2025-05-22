@@ -32,15 +32,15 @@
 <h2>Browse by topic</h2>
 <p>
     {% for row in sql("select topic, count(*) as num_tils from til group by topic order by topic", database="til") %}
-        <a title="{{ row.num_tils }} TIL{{ "s" if row.num_tils > 1 else "" }}" href="/{{ row.topic }}">{{ row.topic }}</a><span class="marginnote">{{ row.num_tils }}</span>{% if not loop.last %} &middot; {% endif %}
+        <a title="{{ row.num_tils }} TIL{{ "s" if row.num_tils > 1 else "" }}" href="/{{ row.topic }}">{{ row.topic }}</a>{{ macros.simple_marginnote(row.num_tils) }}{% if not loop.last %} &middot; {% endif %}
     {% endfor %}
 </p>
 
-<h2>Recently added</h2>
+<h2>Recently added{{ macros.sidenote("Showing the 5 most recently created TILs") }}</h2>
 <ul>
     {% for row in sql("select * from til order by created_utc desc limit 5", database="til") %}
     <li>
-        <a href="/{{ row.topic }}/{{ row.slug }}">{{ row.title }}</a><span class="marginnote">{{ row.topic }}</span>
+        <a href="/{{ row.topic }}/{{ row.slug }}">{{ row.title }}</a>{{ macros.simple_marginnote(row.topic) }}
     </li>
     {% endfor %}
 </ul>

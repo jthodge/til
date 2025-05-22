@@ -93,6 +93,74 @@ input[type="submit"]:active {
     transform: translateY(0);
 }
 
+/* Enhanced visual hierarchy and content sections */
+.til-content {
+    margin: 2rem 0;
+}
+
+.til-navigation,
+.topic-navigation {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+}
+
+.til-navigation p,
+.topic-navigation p {
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.til-navigation a,
+.topic-navigation a {
+    color: #1a0dab;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.til-navigation a:hover,
+.topic-navigation a:hover {
+    color: #333;
+    text-decoration: underline;
+}
+
+/* Enhanced marginnote styling for better hierarchy */
+.marginnote {
+    font-size: 0.9rem;
+    line-height: 1.3;
+    margin-top: 0.1rem;
+}
+
+/* Sidenote enhancements */
+.sidenote {
+    font-size: 0.9rem;
+    line-height: 1.3;
+}
+
+/* Special styling for topic counts and metadata */
+h2 .sidenote {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+/* Improved spacing for marginnotes in lists */
+li .marginnote {
+    margin-left: 0.3rem;
+}
+
+/* Better visual connection between content and notes */
+h1 .marginnote {
+    font-weight: normal;
+    color: #666;
+}
+
+h3 .marginnote {
+    font-weight: normal;
+    color: #888;
+    font-size: 0.8rem;
+}
+
 /* Tool Container - tufte-compatible special cases */
 .tool-container {
     /* Tufte handles main container, this maintains compatibility */
