@@ -265,6 +265,79 @@ def update_readme(
         sys.exit(1)
 
 
+@cli.command(name="validate-db")
+@click.option("--db", default="til.db", help="Database file name")
+@click.option(
+    "--config",
+    type=click.Path(exists=True, path_type=Path),
+    help="Path to configuration file",
+)
+@click.option(
+    "--verbose",
+    is_flag=True,
+    help="Show detailed validation results",
+)
+@click.pass_context
+def validate_db_cmd(
+    ctx: click.Context,
+    db: str,
+    config: Optional[Path],
+    verbose: bool,
+) -> None:
+    """Validate database integrity and consistency.
+
+    Runs comprehensive checks on the database to ensure data quality,
+    including schema validation, creation date consistency, content
+    integrity, and full-text search functionality.
+    """
+    quiet = ctx.obj.get("quiet", False)
+
+    try:
+        # Load configuration
+        til_config = ConfigLoader.load_config(
+            config_file=config,
+            database_name=db,
+        )
+
+        if not quiet:
+            click.echo("🔍 Validating database integrity...")
+
+        # Import and run validation
+        from .database_validator import DatabaseValidator
+
+        validator = DatabaseValidator(til_config.database_path)
+        results = validator.run_all_validations()
+
+        failed_checks = [r for r in results if not r.is_valid]
+
+        if failed_checks:
+            if not quiet:
+                click.echo(
+                    click.style(
+                        f"❌ Database validation failed ({len(failed_checks)} issues)",
+                        fg="red",
+                    )
+                )
+                for result in failed_checks:
+                    click.echo(f"  • {result.message}")
+            sys.exit(1)
+        elif not quiet:
+            click.echo(
+                click.style(
+                    f"✅ Database validation passed (all {len(results)} checks)",
+                    fg="green",
+                )
+            )
+            if verbose:
+                for result in results:
+                    click.echo(f"  • {result.message}")
+
+    except Exception as e:
+        if not quiet:
+            click.echo(click.style(f"Validation error: {e}", fg="red"), err=True)
+        sys.exit(1)
+
+
 @cli.command(name="fix-creation-dates")
 @click.option("--db", default="til.db", help="Database file name")
 @click.option(
@@ -372,6 +445,96 @@ def fix_creation_dates_cmd(
         except Exception:
             pass
         click.echo(click.style(f"Unexpected error: {e}", fg="red"), err=True)
+        sys.exit(1)
+
+
+@cli.command(name="backup")
+@click.option("--db", default="til.db", help="Database file name")
+@click.option("--backup-dir", default="backups", help="Backup directory")
+@click.option("--description", help="Backup description")
+@click.option(
+    "--config",
+    type=click.Path(exists=True, path_type=Path),
+    help="Path to configuration file",
+)
+@click.pass_context
+def backup_cmd(
+    ctx: click.Context,
+    db: str,
+    backup_dir: str,
+    description: Optional[str],
+    config: Optional[Path],
+) -> None:
+    """Create a backup of the database.
+
+    Creates a timestamped backup with checksum verification.
+    Useful before major operations or as routine maintenance.
+    """
+    quiet = ctx.obj.get("quiet", False)
+
+    try:
+        # Load configuration
+        til_config = ConfigLoader.load_config(
+            config_file=config,
+            database_name=db,
+        )
+
+        if not quiet:
+            click.echo("💾 Creating database backup...")
+
+        from .backup_manager import BackupManager
+
+        backup_manager = BackupManager(Path(backup_dir))
+        backup = backup_manager.create_backup(til_config.database_path, description)
+
+        if not quiet:
+            click.echo(
+                click.style(
+                    f"✅ Backup created: {backup.path.name} (checksum: {backup.checksum[:8]}...)",
+                    fg="green",
+                )
+            )
+
+    except Exception as e:
+        if not quiet:
+            click.echo(click.style(f"Backup failed: {e}", fg="red"), err=True)
+        sys.exit(1)
+
+
+@cli.command(name="list-backups")
+@click.option("--backup-dir", default="backups", help="Backup directory")
+@click.pass_context
+def list_backups_cmd(
+    ctx: click.Context,
+    backup_dir: str,
+) -> None:
+    """List available database backups."""
+    quiet = ctx.obj.get("quiet", False)
+
+    try:
+        from .backup_manager import BackupManager
+
+        backup_manager = BackupManager(Path(backup_dir))
+        backups = backup_manager.list_backups()
+
+        if not backups:
+            if not quiet:
+                click.echo("No backups found")
+            return
+
+        if not quiet:
+            click.echo(f"Found {len(backups)} backups:")
+            for backup in backups:
+                click.echo(f"  📁 {backup.path.name}")
+                click.echo(f"     📅 {backup.timestamp.strftime('%Y-%m-%d %H:%M:%S')}")
+                click.echo(f"     🔢 {backup.checksum[:16]}...")
+                if backup.metadata.get("description"):
+                    click.echo(f"     📝 {backup.metadata['description']}")
+                click.echo()
+
+    except Exception as e:
+        if not quiet:
+            click.echo(click.style(f"Failed to list backups: {e}", fg="red"), err=True)
         sys.exit(1)
 
 
