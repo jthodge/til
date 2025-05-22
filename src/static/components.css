@@ -183,7 +183,7 @@ h3 .marginnote {
     margin: 2rem 0;
 }
 
-/* Random TIL Button */
+/* Random TIL Button - Personal touch with playful gradient */
 .random-til-button {
     display: inline-block;
     padding: 0.6em 1.2em;
@@ -197,6 +197,23 @@ h3 .marginnote {
     cursor: pointer;
     font-size: 0.95rem;
     box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.random-til-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.random-til-button:hover::before {
+    left: 100%;
 }
 
 .random-til-button:hover {
@@ -537,6 +554,27 @@ h3 .marginnote {
     .topic-separator {
         display: none;
     }
+}
+
+/* Personal touches and subtle branding */
+.site-footer a[href*="datasette.io"] {
+    color: #667eea;
+    font-weight: 500;
+}
+
+.site-footer a[href*="github.com"] {
+    color: #24292f;
+    font-weight: 500;
+}
+
+/* Add subtle personality to site title only */
+nav h1 a {
+    color: #1a0dab;
+    transition: color 0.3s ease;
+}
+
+nav h1 a:hover {
+    color: #667eea;
 }
 
 /* Tool Container - tufte-compatible special cases */
