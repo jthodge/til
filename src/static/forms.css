@@ -1,34 +1,94 @@
-/* Form Styles */
+/* Form Styles - Tufte-compatible */
+
+/* Use Tufte's font family for consistency */
 input::placeholder {
-  font-family: "Titillium Web", sans-serif;  
+  font-family: inherit;
+  color: #999;
 }
 
 input[type="search"] {
-  padding: 0.25em;
-  font-size: 0.9rem;
-  width: 60%;
+  padding: 0.5em 0.7em;
+  font-size: 1rem;
+  font-family: inherit;
+  width: 70%;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #fff;
+  margin-right: 0.5em;
+}
+
+input[type="search"]:focus {
+  border-color: #1a0dab;
+  box-shadow: 0 0 0 2px rgba(26, 13, 171, 0.1);
+  outline: none;
 }
 
 input[type="submit"] {
   box-sizing: border-box;
   color: #fff;
   background-color: #1a0dab;
-  border-color: #1a0dab;
-  font-family: "Titillium Web", sans-serif;
+  border: 1px solid #1a0dab;
+  font-family: inherit;
   font-weight: 400;
   cursor: pointer;
   text-align: center;
   vertical-align: middle;
-  border-width: 1px;
-  border-style: solid;
-  padding: 0.5em 0.8em;
-  font-size: 0.9rem;
-  line-height: 1;
-  border-radius: 0.25rem;
+  padding: 0.5em 1em;
+  font-size: 1rem;
+  line-height: 1.2;
+  border-radius: 3px;
+  transition: all 0.2s ease;
 }
 
-/* Alternative button style for search page */
+input[type="submit"]:hover {
+  background-color: #0f0a8a;
+  transform: translateY(-1px);
+}
+
+input[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/* Homepage search styling */
+.homepage-search {
+  margin: 1.5rem 0 2rem 0;
+  padding: 1rem;
+  background-color: #fafafa;
+  border-radius: 3px;
+  border-left: 3px solid #1a0dab;
+}
+
+.homepage-search .search-form {
+  margin: 0;
+}
+
+.homepage-search input[type="search"] {
+  width: 75%;
+}
+
+/* Search page specific styles */
+.search-page {
+  margin-bottom: 2rem;
+}
+
 .search-page input[type="submit"] {
   background-color: #007bff;
   border-color: #007bff;
+}
+
+.search-page input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 760px) {
+  .homepage-search input[type="search"] {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    margin-right: 0;
+  }
+  
+  input[type="submit"] {
+    width: 100%;
+  }
 }

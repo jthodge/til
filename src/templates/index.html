@@ -21,12 +21,11 @@
     <a href="https://github.com/jthodge/til">jthodge/til</a>.
 </p>
 
-<!-- <form action="/til/search">
-  <p>
-    <input type="search" name="q" placeholder="Search {{ til_count }} TILs">
-    <input type="submit" value="Search" />
-  </p>
-</form> -->
+{% import "macros.html" as macros %}
+
+<div class="homepage-search">
+{{ macros.search_form(placeholder="Search " ~ til_count ~ " TILs", action="/til/search") }}
+</div>
 
 <p><a href="/all">Browse all {{ til_count }} TILs</a></p>
 

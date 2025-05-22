@@ -10,22 +10,41 @@
 {% endblock %}
 
 {% block body %}
-<h1>TIL search: {{ q }}</h1>
+<h1>Search results{% if q %} for "{{ q }}"{% endif %}</h1>
 
 <div class="search-page">
-{{ macros.search_form(placeholder=q, action="/til/search") }}
+{{ macros.search_form(placeholder=q or "Search TILs", action="/til/search") }}
 </div>
 
+{% if q and rows %}
+<p class="search-results-count">Found {{ rows|length }} result{{ "s" if rows|length != 1 else "" }}:</p>
+{% endif %}
+
 {% if q and not rows %}
-<p><em>No results for "{{ q }}"</em></p>
+<div class="no-results">
+    <p><em>No results found for "{{ q }}"</em></p>
+    <p>Try different keywords or <a href="/all">browse all TILs</a> instead.</p>
+</div>
 {% endif %}
 
 {% for row in rows %}
-<p>
-    <span class="topic">{{ row.topic }}</span>
-    <a href="/{{ row.topic }}/{{ row.slug }}">{{ row.title }}</a> - {{ row.created[:10] }}
-</p>
-
-<pre>{{ highlight(row.snippet)|safe }}</pre>
+<div class="search-result">
+    <h3>
+        <span class="topic">{{ row.topic }}</span>
+        <a href="/{{ row.topic }}/{{ row.slug }}">{{ row.title }}</a>
+        <span class="marginnote">{{ row.created[:10] }}</span>
+    </h3>
+    
+    <div class="search-snippet">
+        {{ highlight(row.snippet)|safe }}
+    </div>
+</div>
 {% endfor %}
+
+{% if rows and rows|length > 0 %}
+<p class="search-footer">
+    <a href="/all">Browse all TILs</a> | 
+    <a href="/">Back to homepage</a>
+</p>
+{% endif %}
 {% endblock %}
