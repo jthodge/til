@@ -172,7 +172,7 @@ jobs:
           git stash --include-untracked
           git pull origin main --rebase
           git stash pop || true
-          git diff --quiet || (git add README.md && git commit -m "Updated README")
+          git diff --quiet || (git add README.md uv.lock && git commit -m "Updated README")
           git push
       
       - name: Save til.db to jthodge/til-db
