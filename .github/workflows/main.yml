@@ -197,7 +197,11 @@ jobs:
           heroku buildpacks:clear -a til-taylorhodge || true
           heroku buildpacks:add -a til-taylorhodge heroku/python
           
-          # Deploy using standard datasette publish but with serve options
+          # Copy templates and plugins to root directory for deployment
+          cp -r src/templates .
+          cp -r src/plugins .
+          
+          # Deploy using standard datasette publish
           uv run datasette publish heroku til.db \
             --branch main \
             --name til-taylorhodge \
@@ -211,9 +215,9 @@ jobs:
             --install "datasette-debug-asgi>=1.1" \
             --install "datasette-graphql>=2.2" \
             --install datasette-block-robots \
-            --plugins-dir src/plugins \
-            --template-dir src/templates \
-            --extra-options "--template-dir=src/templates --plugins-dir=src/plugins"
+            --plugins-dir plugins \
+            --template-dir templates \
+            --extra-options "--template-dir templates --plugins-dir plugins"
       
       # - name: Post Slack Notification
       #   if: success()
