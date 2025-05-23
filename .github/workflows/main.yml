@@ -183,28 +183,18 @@ jobs:
           git commit --amend --no-edit
           git push --force
       
-      - name: Deploy to Heroku
+      - name: Deploy to Fly.io
         env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
         run: |
           cd main
-          # Use the fixed database from the build process (don't re-download)
-          # Install Heroku CLI
-          curl https://cli-assets.heroku.com/install.sh | sh
-          heroku plugins:install heroku-builds
+          # Install flyctl
+          curl -L https://fly.io/install.sh | sh
+          export PATH="$HOME/.fly/bin:$PATH"
           
-          # Use standard Python buildpack
-          heroku buildpacks:clear -a til-taylorhodge || true
-          heroku buildpacks:add -a til-taylorhodge heroku/python
-          
-          # Copy templates and plugins to root directory for deployment
-          cp -r src/templates .
-          cp -r src/plugins .
-          
-          # Deploy using standard datasette publish
-          uv run datasette publish heroku til.db \
-            --branch main \
-            --name til-taylorhodge \
+          # Deploy using datasette publish fly
+          uv run datasette publish fly til.db \
+            --app til-taylorhodge \
             --metadata metadata.yaml \
             --static static:src/static \
             --install datasette-template-sql \
@@ -215,9 +205,8 @@ jobs:
             --install "datasette-debug-asgi>=1.1" \
             --install "datasette-graphql>=2.2" \
             --install datasette-block-robots \
-            --plugins-dir plugins \
-            --template-dir templates \
-            --extra-options "--template-dir templates --plugins-dir plugins"
+            --plugins-dir src/plugins \
+            --template-dir src/templates
       
       # - name: Post Slack Notification
       #   if: success()

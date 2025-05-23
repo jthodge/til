@@ -29,7 +29,7 @@ databases:
           til_fts match case
             :q
             when '' then '*'
-            else :q
+            else escape_fts(:q)
           end
         order by
           til_fts.rank limit 40

@@ -36,6 +36,7 @@ dependencies = [
     "datasette-graphql",
     "datasette-block-robots",
     "datasette-sitemap>=1.0",
+    "datasette-publish-fly",
     "httpx",
 ]
 
