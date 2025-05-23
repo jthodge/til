@@ -1,0 +1,146 @@
+name: Database Validation
+
+on:
+  workflow_call:
+    outputs:
+      validation-status:
+        description: "Database validation result (healthy/unhealthy)"
+        value: ${{ jobs.validate.outputs.status }}
+      validation-report:
+        description: "Summary of validation results"  
+        value: ${{ jobs.validate.outputs.report }}
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    outputs:
+      status: ${{ steps.validate.outputs.status }}
+      report: ${{ steps.validate.outputs.report }}
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Install uv
+      uses: astral-sh/setup-uv@v4
+      with:
+        enable-cache: true
+        github-token: ${{ github.token }}
+        cache-prefix: "validation"
+    
+    - name: Install dependencies
+      run: |
+        uv venv
+        uv sync --extra dev
+    
+    - name: Download current database
+      run: |
+        echo "📥 Downloading current database for validation..."
+        curl --fail -o til.db https://raw.githubusercontent.com/jthodge/til-db/main/til.db
+        
+        # Verify download
+        if [ ! -f til.db ]; then
+          echo "❌ Failed to download database"
+          exit 1
+        fi
+        
+        # Check file size
+        SIZE=$(stat -f%z til.db 2>/dev/null || stat -c%s til.db 2>/dev/null || echo "0")
+        echo "📊 Database size: $SIZE bytes"
+        
+        if [ "$SIZE" -lt 1000 ]; then
+          echo "⚠️ Database seems too small, may be corrupted"
+          exit 1
+        fi
+    
+    - name: Validate database
+      id: validate
+      run: |
+        echo "🔍 Running comprehensive database validation..."
+        
+        # Initialize report
+        REPORT=""
+        
+        # Run primary validation using CLI
+        if uv run til validate-db --verbose; then
+          echo "✅ Primary validation passed"
+          VALIDATION_PASSED=true
+          REPORT="✅ Database validation passed"
+        else
+          echo "❌ Primary validation failed"
+          VALIDATION_PASSED=false
+          REPORT="❌ Database validation failed"
+        fi
+        
+        # Gather health metrics
+        echo "📊 Gathering database health metrics..."
+        
+        TOTAL=$(uv run sqlite3 til.db 'SELECT COUNT(*) FROM til;' 2>/dev/null || echo "0")
+        echo "📈 Total entries: $TOTAL"
+        REPORT="$REPORT | Total entries: $TOTAL"
+        
+        # Check for potential duplicates
+        DUPLICATES=$(uv run sqlite3 til.db "SELECT slug, topic, COUNT(*) as count FROM til GROUP BY slug, topic HAVING count > 1;" 2>/dev/null | wc -l || echo "0")
+        echo "🔍 Duplicate check: $DUPLICATES potential duplicates found"
+        
+        if [ "$DUPLICATES" -gt 0 ]; then
+          echo "⚠️ Warning: Found $DUPLICATES potential duplicates"
+          REPORT="$REPORT | ⚠️ $DUPLICATES duplicates found"
+        else
+          echo "✅ No duplicates detected"
+          REPORT="$REPORT | No duplicates"
+        fi
+        
+        # Check creation date distribution
+        RECENT_DATES=$(uv run sqlite3 til.db "SELECT COUNT(*) FROM til WHERE DATE(created) >= DATE('now', '-7 days');" 2>/dev/null || echo "0")
+        echo "📅 Recent entries (last 7 days): $RECENT_DATES"
+        REPORT="$REPORT | Recent: $RECENT_DATES"
+        
+        # Check database integrity
+        INTEGRITY=$(uv run sqlite3 til.db "PRAGMA integrity_check;" 2>/dev/null || echo "error")
+        if [ "$INTEGRITY" = "ok" ]; then
+          echo "✅ Database integrity check passed"
+          REPORT="$REPORT | Integrity: OK"
+        else
+          echo "❌ Database integrity check failed: $INTEGRITY"
+          VALIDATION_PASSED=false
+          REPORT="$REPORT | ❌ Integrity: FAILED"
+        fi
+        
+        # Check FTS functionality
+        FTS_COUNT=$(uv run sqlite3 til.db "SELECT COUNT(*) FROM til_fts;" 2>/dev/null || echo "0")
+        if [ "$FTS_COUNT" = "$TOTAL" ]; then
+          echo "✅ Full-text search index is synchronized"
+          REPORT="$REPORT | FTS: Synced"
+        else
+          echo "⚠️ Full-text search index may be out of sync (FTS: $FTS_COUNT, TIL: $TOTAL)"
+          REPORT="$REPORT | ⚠️ FTS: Out of sync"
+        fi
+        
+        # Set final status
+        if [ "$VALIDATION_PASSED" = true ]; then
+          echo "status=healthy" >> $GITHUB_OUTPUT
+          echo "🎉 Database validation completed successfully!"
+        else
+          echo "status=unhealthy" >> $GITHUB_OUTPUT
+          echo "💥 Database validation failed!"
+          exit 1
+        fi
+        
+        # Save report (escape for GitHub Actions)
+        echo "report<<EOF" >> $GITHUB_OUTPUT
+        echo "$REPORT" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+    
+    - name: Upload database validation report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: database-validation-report
+        path: |
+          til.db
+        retention-days: 1

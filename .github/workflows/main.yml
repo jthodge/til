@@ -11,11 +11,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Run tests using the reusable workflow
+  # Quality gates
   test:
     uses: ./.github/workflows/test.yml
   
-  # Start build preparations early, in parallel with tests
+  # Database health validation (quality gate before deployment)
+  validate-database:
+    needs: test
+    uses: ./.github/workflows/database-validation.yml
+  
+  # Build preparation (can start while validation runs)
   prepare-build:
     runs-on: ubuntu-latest
     outputs:
@@ -70,17 +75,25 @@ jobs:
             main/.venv
           key: build-artifacts-${{ github.sha }}
   
-  # Main build job - waits for critical tests
+  # Main build job - waits for validation and tests
   build:
-    needs: [test, prepare-build]
-    # Continue building even if linting fails
+    needs: [test, validate-database, prepare-build]
+    # Only build if tests pass and database is healthy
     if: |
       always() && 
-      needs.test.result == 'success'
+      needs.test.result == 'success' &&
+      needs.validate-database.outputs.validation-status == 'healthy'
     
     runs-on: ubuntu-latest
     
     steps:
+      - name: Database validation summary
+        run: |
+          echo "🔍 Database Validation Results:"
+          echo "Status: ${{ needs.validate-database.outputs.validation-status }}"
+          echo "Report: ${{ needs.validate-database.outputs.validation-report }}"
+          echo "✅ Proceeding with deployment of validated database"
+      
       - name: Restore build artifacts
         uses: actions/cache@v4
         with:

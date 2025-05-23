@@ -3,7 +3,14 @@ name: Test
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
   workflow_call:
+
+# Cancel in-progress runs when a new run is triggered (for PRs)
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   # Unit tests job - runs for all Python versions
@@ -124,23 +131,83 @@ jobs:
       run: |
         uv run ruff check src/til/ tests/
 
+  # Integration test (run on main push to verify full system)
+  test-integration:
+    if: github.event_name == 'push'
+    needs: [test-unit]
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Install uv
+      uses: astral-sh/setup-uv@v4
+      with:
+        enable-cache: true
+        github-token: ${{ github.token }}
+        cache-prefix: "integration"
+    
+    - name: Install dependencies
+      run: |
+        uv venv
+        uv sync --extra dev
+    
+    - name: Run integration test
+      run: |
+        echo "Running integration test..."
+        
+        # Build database
+        uv run til build
+        
+        # Update README
+        uv run til update-readme --rewrite
+        
+        # Verify no duplicates
+        DUPLICATES=$(uv run sqlite3 til.db "SELECT slug, topic, COUNT(*) as count FROM til GROUP BY slug, topic HAVING count > 1;" | wc -l)
+        if [ "$DUPLICATES" -ne 0 ]; then
+          echo "ERROR: Duplicates found in fresh build"
+          exit 1
+        fi
+        
+        echo "Integration test: PASSED"
+
   # Summary job to ensure all tests pass
   test-summary:
     if: always()
-    needs: [test-unit, test-types, test-lint]
+    needs: [test-unit, test-types, test-lint, test-integration]
     runs-on: ubuntu-latest
     outputs:
       unit-result: ${{ needs.test-unit.result }}
       types-result: ${{ needs.test-types.result }}
       lint-result: ${{ needs.test-lint.result }}
+      integration-result: ${{ needs.test-integration.result }}
     
     steps:
     - name: Check test results
       run: |
+        echo "📋 Test Results Summary:"
+        echo "Unit tests: ${{ needs.test-unit.result }}"
+        echo "Type checks: ${{ needs.test-types.result }}"
+        echo "Linting: ${{ needs.test-lint.result }}"
+        echo "Integration tests: ${{ needs.test-integration.result }}"
+        
+        # Check required tests (unit, types, lint)
         if [ "${{ needs.test-unit.result }}" != "success" ] || \
            [ "${{ needs.test-types.result }}" != "success" ] || \
            [ "${{ needs.test-lint.result }}" != "success" ]; then
-          echo "One or more test jobs failed"
+          echo "❌ Core tests failed"
           exit 1
         fi
-        echo "All tests passed successfully!"
+        
+        # Check integration test (only fail if it ran and failed)
+        if [ "${{ needs.test-integration.result }}" == "failure" ]; then
+          echo "❌ Integration test failed"
+          exit 1
+        fi
+        
+        echo "✅ All tests passed successfully!"
