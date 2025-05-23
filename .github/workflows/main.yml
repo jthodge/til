@@ -198,6 +198,7 @@ jobs:
           heroku buildpacks:add -a til-taylorhodge heroku/python
           
           # Generate deployment files first
+          rm -rf /tmp/heroku-deploy
           mkdir -p /tmp/heroku-deploy
           uv run datasette publish heroku til.db \
             --generate-dir /tmp/heroku-deploy \
