@@ -197,11 +197,9 @@ jobs:
           heroku buildpacks:clear -a til-taylorhodge || true
           heroku buildpacks:add -a til-taylorhodge heroku/python
           
-          # Generate deployment files first
-          rm -rf /tmp/heroku-deploy
-          mkdir -p /tmp/heroku-deploy
+          # Deploy using standard datasette publish but with serve options
           uv run datasette publish heroku til.db \
-            --generate-dir /tmp/heroku-deploy \
+            --branch main \
             --name til-taylorhodge \
             --metadata metadata.yaml \
             --static static:src/static \
@@ -214,18 +212,8 @@ jobs:
             --install "datasette-graphql>=2.2" \
             --install datasette-block-robots \
             --plugins-dir src/plugins \
-            --template-dir src/templates
-          
-          # Copy our Procfile to override the generated one
-          cp Procfile /tmp/heroku-deploy/
-          
-          # Deploy from the generated directory
-          cd /tmp/heroku-deploy
-          git init
-          heroku git:remote -a til-taylorhodge
-          git add .
-          git commit -m "Deploy with custom Procfile"
-          git push heroku main --force
+            --template-dir src/templates \
+            --extra-options "--template-dir=src/templates --plugins-dir=src/plugins"
       
       # - name: Post Slack Notification
       #   if: success()
