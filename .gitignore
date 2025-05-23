@@ -4,3 +4,50 @@
 .venv/
 .uv-cache/
 uv.lock
+
+# Backup files
+*.bak
+*.backup
+*~
+.#*
+\#*#
+
+# Build artifacts and distribution
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Test and coverage artifacts  
+.coverage
+.pytest_cache/
+htmlcov/
+coverage.xml
+.tox/
+
+# Database files (keep only main til.db)
+*.db
+!til.db
+test*.db
+custom*.db
+
+# Log files
+*.log
+datasette.log
+
+# Editor temporary files
+*~
+.#*
+\#*#
+*.swp
+*.swo
+.DS_Store
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# OS generated files
+Thumbs.db
+ehthumbs.db

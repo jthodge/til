@@ -81,8 +81,9 @@ if [[ "$ENVIRONMENT" == "production" ]]; then
     # ssh production-server "cp /path/to/til.db /path/to/til.db.backup-$TIMESTAMP"
     # scp production-server:/path/to/til.db "$BACKUP_DIR/til-prod-$TIMESTAMP.db"
     
-    log_info "Running migration on production..."
-    # Add your production migration command here
+    log_info "Rebuilding database on production..."
+    # Run database rebuild
+    # uv run til build
     
 else
     # Staging deployment
@@ -90,7 +91,7 @@ else
     
     # Example staging deployment
     # ssh staging-server "cd /path/to/til && git pull"
-    # ssh staging-server "cd /path/to/til && python src/til/production_safe_migration.py til.db"
+    # ssh staging-server "cd /path/to/til && uv run til build"
 fi
 
 # Step 3: Post-deployment verification

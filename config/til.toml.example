@@ -16,3 +16,13 @@ retry-delay = 60
 
 # Paths (optional - defaults to current directory)
 # root-path = "/path/to/your/project"
+
+# Logging configuration (optional)
+[til.logging]
+level = "INFO"                    # DEBUG, INFO, WARNING, ERROR, CRITICAL
+format = "text"                   # text or json
+file = "til.log"                  # Optional log file path
+max_bytes = 10485760             # Max log file size (10MB)
+backup_count = 5                 # Number of backup files to keep
+console_enabled = true           # Enable/disable console output
+add_context = true               # Add request IDs and context
