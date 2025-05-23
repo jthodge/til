@@ -7,11 +7,6 @@ on:
     branches: [ main ]
   workflow_call:
 
-# Cancel in-progress runs when a new run is triggered (for PRs)
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
-
 jobs:
   # Unit tests job - runs for all Python versions
   test-unit:
