@@ -1026,7 +1026,7 @@ dev = [
 requires-dist = [
     { name = "beautifulsoup4" },
     { name = "click", specifier = ">=8.0" },
-    { name = "datasette", specifier = ">=0.57" },
+    { name = "datasette", specifier = ">=0.59" },
     { name = "datasette-atom", specifier = ">=0.7" },
     { name = "datasette-block-robots" },
     { name = "datasette-graphql" },

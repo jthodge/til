@@ -30,7 +30,7 @@ dependencies = [
     "GitPython",
     "sqlite-utils>=3.2",
     "beautifulsoup4",
-    "datasette>=0.57",
+    "datasette>=0.59",
     "datasette-atom>=0.7",
     "datasette-template-sql>=1.0.2",
     "datasette-graphql",
