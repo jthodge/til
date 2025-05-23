@@ -3,7 +3,6 @@ name: Test with Migration
 on:
   pull_request:
     paths:
-      - 'src/til/migrate_timestamps.py'
       - 'src/til/cleanup_old_entries.py'
       - 'src/til/production_safe_migration.py'
       - 'src/til/readme_generator.py'
@@ -149,17 +148,6 @@ jobs:
         
         uv run python create_test_db.py
     
-    - name: Test timestamp migration
-      run: |
-        cp test_migration.db test_timestamp.db
-        uv run python src/til/migrate_timestamps.py test_timestamp.db
-        
-        # Verify timestamps were migrated
-        RESULT=$(uv run sqlite3 test_timestamp.db "SELECT created FROM til WHERE path = 'content_bash_test-entry.md';")
-        if [ "$RESULT" != "2020-01-01T00:00:00" ]; then
-          echo "ERROR: Timestamp migration failed"
-          exit 1
-        fi
     
     - name: Test deduplication
       run: |
