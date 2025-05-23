@@ -171,6 +171,10 @@
 * [Reset Bundle Gems](https://github.com/jthodge/til/blob/main/content/ruby/reset-bundle-gems.md) - 2020-07-30
 * [Numeric Literal Prefixes](https://github.com/jthodge/til/blob/main/content/ruby/numeric-literal-prefixes.md) - 2020-08-02
 
+## sed
+
+* [Explicit Addressing](https://github.com/jthodge/til/blob/main/content/sed/explicit-addressing.md) - 2025-05-23
+
 ## unix
 
 * [Look Up DNS with `host`](https://github.com/jthodge/til/blob/main/content/unix/look-up-dns-with-host.md) - 2020-07-29
