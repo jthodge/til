@@ -1,47 +1,16 @@
-/* Mobile-specific enhancements for TIL */
-
-/* Touch and gesture improvements */
 @media (max-width: 760px) {
-    /* Improved touch scrolling */
     body {
         -webkit-overflow-scrolling: touch;
         overflow-scrolling: touch;
     }
 
-    /* Better tap highlighting */
-    a, button, input[type="submit"], .random-til-button {
-        -webkit-tap-highlight-color: rgba(26, 13, 171, 0.2);
-        tap-highlight-color: rgba(26, 13, 171, 0.2);
-    }
-
-    /* Prevent horizontal scroll */
+    /* TODO: replace */
     html, body {
         overflow-x: hidden;
     }
-
-    /* Better focus visibility for keyboard navigation */
-    a:focus,
-    button:focus,
-    input:focus {
-        outline: 2px solid #1a0dab;
-        outline-offset: 2px;
-    }
-
-    /* Improved text selection */
-    ::selection {
-        background-color: rgba(26, 13, 171, 0.2);
-        color: inherit;
-    }
-
-    ::-moz-selection {
-        background-color: rgba(26, 13, 171, 0.2);
-        color: inherit;
-    }
 }
 
-/* Enhanced mobile navigation patterns */
 @media (max-width: 760px) {
-    /* Sticky search on mobile for better UX */
     .homepage-search {
         position: sticky;
         top: 0;
@@ -49,12 +18,10 @@
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-    /* Better spacing for main content */
     article > section {
         padding: 0 1rem;
     }
 
-    /* Improved header spacing */
     nav h1 {
         padding: 1rem 0;
         margin-bottom: 0;
@@ -66,9 +33,7 @@
     }
 }
 
-/* Mobile-specific content improvements */
 @media (max-width: 760px) {
-    /* Better code block handling */
     pre {
         margin-left: -1rem;
         margin-right: -1rem;
@@ -79,7 +44,6 @@
         -webkit-overflow-scrolling: touch;
     }
 
-    /* Enhanced table responsiveness */
     table {
         width: 100%;
         display: block;
@@ -88,14 +52,12 @@
         -webkit-overflow-scrolling: touch;
     }
 
-    /* Better image handling */
     img {
         max-width: calc(100vw - 2rem);
         height: auto;
         border-radius: 3px;
     }
 
-    /* Enhanced blockquote mobile styling */
     blockquote {
         margin-left: -1rem;
         margin-right: -1rem;
@@ -106,9 +68,7 @@
     }
 }
 
-/* Performance optimizations for mobile */
 @media (max-width: 760px) {
-    /* Reduce motion for users who prefer it */
     @media (prefers-reduced-motion: reduce) {
         * {
             animation-duration: 0.01ms !important;
@@ -118,7 +78,6 @@
         }
     }
 
-    /* Optimize rendering */
     .random-til-button,
     .related-tils,
     .topic-suggestions {
