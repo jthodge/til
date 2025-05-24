@@ -1,0 +1,30 @@
+{# Navigation footer partial with flexible link options #}
+{% import "macros.html" as macros %}
+
+<div class="til-navigation">
+    <p>
+        {%- if show_topic_link and topic -%}
+            <a href="/{{ topic }}">More {{ topic }} TILs</a>
+            {%- if show_all_link or show_home_link or show_source_link %} | {% endif -%}
+        {%- endif -%}
+        
+        {%- if show_all_link -%}
+            <a href="/all">{% if all_link_text %}{{ all_link_text }}{% else %}All TILs{% endif %}</a>
+            {%- if show_home_link or show_source_link or show_random %} | {% endif -%}
+        {%- endif -%}
+        
+        {%- if show_home_link -%}
+            <a href="/">Back to homepage</a>
+            {%- if show_source_link or show_random %} | {% endif -%}
+        {%- endif -%}
+        
+        {%- if show_source_link and source_path -%}
+            <a href="https://github.com/jthodge/til/blob/main/{{ source_path }}">View source</a>
+            {%- if show_random %} | {% endif -%}
+        {%- endif -%}
+        
+        {%- if show_random -%}
+            {{ macros.random_til_button() }}
+        {%- endif -%}
+    </p>
+</div>

@@ -1,0 +1,11 @@
+{# Content discovery section with random TIL button #}
+{% import "macros.html" as macros %}
+
+<div class="content-discovery">
+    {{ macros.random_til_button() }}
+    {% if discovery_text %}
+    <p style="margin-top: 1rem; color: #666; font-style: italic;">
+        {{ discovery_text }}
+    </p>
+    {% endif %}
+</div>

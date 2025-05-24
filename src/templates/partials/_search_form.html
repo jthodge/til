@@ -1,0 +1,6 @@
+{# Search form partial - wrapper around the search_form macro for consistency #}
+{% import "macros.html" as macros %}
+
+<div class="search-wrapper">
+    {{ macros.search_form(placeholder=placeholder|default("Search"), action=action|default("/til/search")) }}
+</div>
