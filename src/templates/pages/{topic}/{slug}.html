@@ -41,10 +41,15 @@
 
 {{ macros.topic_suggestions(til.topic, 4) }}
 
-{% include "partials/_discovery.html" %}
+<div class="content-discovery">
+    {{ macros.random_til_button() }}
+</div>
 
-{% set source_path = "content/" ~ til.topic ~ "/" ~ til.slug ~ ".md" %}
-{% with show_topic_link=true, topic=til.topic, show_all_link=true, show_source_link=true, source_path=source_path %}
-    {% include "partials/_navigation.html" %}
-{% endwith %}
+<section class="til-navigation">
+    <p>
+        <a href="/{{ til.topic }}">More {{ til.topic }} TILs</a> | 
+        <a href="/all">All TILs</a> | 
+        <a href="https://github.com/jthodge/til/blob/main/content/{{ til.topic }}/{{ til.slug }}.md">View source</a>
+    </p>
+</section>
 {% endblock %}

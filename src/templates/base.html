@@ -43,7 +43,7 @@
 
         {% block footer %}
         <section>
-            {% include "partials/_footer.html" %}
+            {{ config.footer_content() }}
         </section>
         {% endblock %}
     </article>

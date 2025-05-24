@@ -13,9 +13,7 @@
 <h1>Search results{% if q %} for "{{ q }}"{% endif %}</h1>
 
 <div class="search-page">
-    {% with placeholder=(q or "Search TILs"), action="/til/search" %}
-        {% include "partials/_search_form.html" %}
-    {% endwith %}
+{{ macros.search_form(placeholder=q or "Search TILs", action="/til/search") }}
 </div>
 
 {% if q and rows %}
@@ -44,8 +42,9 @@
 {% endfor %}
 
 {% if rows and rows|length > 0 %}
-{% with show_all_link=true, all_link_text="Browse all TILs", show_home_link=true %}
-    {% include "partials/_navigation.html" %}
-{% endwith %}
+<p class="search-footer">
+    <a href="/all">Browse all TILs</a> | 
+    <a href="/">Back to homepage</a>
+</p>
 {% endif %}
 {% endblock %}

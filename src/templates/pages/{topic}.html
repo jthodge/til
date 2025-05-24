@@ -30,9 +30,14 @@
 
 {{ macros.topic_suggestions(topic, 5) }}
 
-{% include "partials/_discovery.html" %}
+<div class="content-discovery">
+    {{ macros.random_til_button() }}
+</div>
 
-{% with show_all_link=true, show_home_link=true %}
-    {% include "partials/_navigation.html" %}
-{% endwith %}
+<section class="topic-navigation">
+    <p>
+        <a href="/all">All TILs</a> | 
+        <a href="/">Back to homepage</a>
+    </p>
+</section>
 {% endblock %}

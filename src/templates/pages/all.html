@@ -8,9 +8,12 @@
 
 <h1>All TILs{{ macros.simple_marginnote(total_count ~ " total") }}</h1>
 
-{% with discovery_text="Feeling adventurous? Try a random TIL!" %}
-    {% include "partials/_discovery.html" %}
-{% endwith %}
+<div class="content-discovery">
+    {{ macros.random_til_button() }}
+    <p style="margin-top: 1rem; color: #666; font-style: italic;">
+        Feeling adventurous? Try a random TIL!
+    </p>
+</div>
 
 {% for row in sql("select topic, count(*) as count from til group by topic order by max(created_utc) desc", database="til") %}
 <h2>{{ row.topic }}{{ macros.simple_marginnote(row.count ~ " TIL" ~ ("s" if row.count > 1 else "")) }}</h2>
@@ -23,7 +26,10 @@
 </ul>
 {% endfor %}
 
-{% with show_home_link=true, show_random=true %}
-    {% include "partials/_navigation.html" %}
-{% endwith %}
+<div class="all-tils-footer">
+    <p>
+        <a href="/">Back to homepage</a> | 
+        {{ macros.random_til_button() }}
+    </p>
+</div>
 {% endblock %}
