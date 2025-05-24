@@ -1,0 +1,170 @@
+/* Form Components */
+
+/* Base form styles */
+form {
+  margin: var(--space-md) 0;
+}
+
+/* Input placeholders */
+input::placeholder {
+  font-family: inherit;
+  color: var(--color-text-light);
+}
+
+/* Search inputs */
+input[type="search"] {
+  padding: var(--space-sm) calc(var(--space-sm) + 0.2em);
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  width: 70%;
+  border: 1px solid var(--color-border-dark);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-background);
+  margin-right: var(--space-sm);
+  transition: var(--transition-all);
+}
+
+input[type="search"]:focus {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-focus);
+  outline: none;
+}
+
+/* Submit buttons are styled in buttons.css but we override here for forms */
+input[type="submit"] {
+  box-sizing: border-box;
+  color: var(--color-background);
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  font-family: inherit;
+  font-weight: var(--font-weight-normal);
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-all);
+}
+
+input[type="submit"]:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+input[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/* Homepage search section */
+.homepage-search {
+  margin: var(--space-lg) 0 var(--space-xl) 0;
+  padding: var(--space-md);
+  background-color: var(--color-background-alt);
+  border-radius: var(--radius-sm);
+}
+
+.homepage-search .search-form {
+  margin: 0;
+}
+
+.homepage-search input[type="search"] {
+  width: 75%;
+}
+
+/* Search page specific styles */
+.search-page {
+  margin-bottom: var(--space-xl);
+}
+
+.search-page input[type="submit"] {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.search-page input[type="submit"]:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+/* Textarea styles */
+textarea {
+  width: 100%;
+  padding: var(--space-md);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-background);
+  resize: vertical;
+  transition: var(--transition-border);
+}
+
+textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-focus);
+  outline: none;
+}
+
+/* Mobile form optimizations */
+@media (max-width: var(--breakpoint-mobile)) {
+  .homepage-search {
+    margin: var(--space-md) calc(-1 * var(--space-md)) var(--space-xl) calc(-1 * var(--space-md));
+    padding: var(--space-lg);
+    border-radius: 0;
+    position: sticky;
+    top: 0;
+    z-index: var(--z-index-sticky);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .homepage-search input[type="search"] {
+    width: 100%;
+    margin-bottom: var(--space-md);
+    margin-right: 0;
+    font-size: 16px; /* Prevent zoom on iOS */
+    min-height: var(--touch-target-min);
+    padding: calc(var(--space-sm) + 0.25em) var(--space-md);
+  }
+  
+  .homepage-search input[type="submit"] {
+    width: 100%;
+    min-height: var(--touch-target-min);
+    padding: calc(var(--space-sm) + 0.3em) var(--space-md);
+    font-size: var(--font-size-base);
+  }
+  
+  .search-page {
+    margin-left: calc(-1 * var(--space-md));
+    margin-right: calc(-1 * var(--space-md));
+    padding: var(--space-lg);
+    background-color: var(--color-background-alt);
+    border-radius: 0;
+  }
+  
+  .search-page input[type="search"] {
+    width: 100%;
+    margin-bottom: var(--space-md);
+    font-size: 16px; /* Prevent zoom on iOS */
+    min-height: var(--touch-target-min);
+  }
+  
+  .search-page input[type="submit"] {
+    width: 100%;
+    min-height: var(--touch-target-min);
+  }
+  
+  input[type="search"],
+  input[type="submit"],
+  textarea {
+    font-size: 16px; /* Prevent zoom on iOS */
+    min-height: var(--touch-target-min);
+  }
+  
+  input[type="submit"] {
+    min-width: var(--touch-target-min);
+    touch-action: manipulation; /* Improve touch response */
+  }
+}

@@ -1,0 +1,77 @@
+/* Page Structure and Layout */
+
+/* Main content wrapper */
+article {
+  padding: var(--space-md);
+  max-width: 100%;
+}
+
+section {
+  margin-bottom: var(--space-xl);
+}
+
+section:last-child {
+  margin-bottom: 0;
+}
+
+/* TIL content area */
+.til-content {
+  margin: var(--space-xl) 0;
+}
+
+/* Tool container for utility pages */
+.tool-container {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md);
+}
+
+.tool-container h1 {
+  margin-bottom: var(--space-lg);
+}
+
+.tool-container form {
+  margin-bottom: var(--space-xl);
+}
+
+.tool-container textarea {
+  width: 100%;
+  min-height: 300px;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  padding: var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-background);
+  resize: vertical;
+}
+
+.tool-container .output {
+  margin-top: var(--space-xl);
+  padding: var(--space-md);
+  background-color: var(--color-background-alt);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-light);
+}
+
+/* Subtitle styling */
+.subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-lg);
+}
+
+/* Mobile adjustments */
+@media (max-width: var(--breakpoint-mobile)) {
+  article {
+    padding: var(--space-sm);
+  }
+  
+  article > section {
+    padding: 0 var(--space-md);
+  }
+  
+  .tool-container {
+    padding: var(--space-md);
+  }
+}

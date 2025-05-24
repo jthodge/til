@@ -1,0 +1,71 @@
+/* Navigation Styles */
+
+/* Main site navigation */
+nav h1 {
+  margin-bottom: var(--space-md);
+}
+
+nav h1 a {
+  color: inherit;
+  transition: var(--transition-color);
+  text-decoration: none;
+}
+
+nav h1 a:hover {
+  color: var(--color-text);
+}
+
+/* TIL navigation footer */
+.til-navigation,
+.topic-navigation {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border-light);
+}
+
+.til-navigation p,
+.topic-navigation p {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.til-navigation a,
+.topic-navigation a {
+  color: var(--color-text-muted);
+  transition: var(--transition-color);
+}
+
+.til-navigation a:hover,
+.topic-navigation a:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* Navigation link separators */
+.til-navigation a + a::before,
+.topic-navigation a + a::before {
+  content: " | ";
+  color: var(--color-text-light);
+  margin: 0 var(--space-xs);
+}
+
+/* Mobile navigation adjustments */
+@media (max-width: var(--breakpoint-mobile)) {
+  nav h1 {
+    padding: var(--space-md) 0;
+    margin-bottom: 0;
+  }
+  
+  nav h1 a {
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-tight);
+  }
+  
+  .til-navigation,
+  .topic-navigation {
+    margin-left: calc(-1 * var(--space-md));
+    margin-right: calc(-1 * var(--space-md));
+    padding: var(--space-lg) var(--space-md);
+  }
+}

@@ -1,0 +1,86 @@
+/* List Components */
+
+/* TIL list styles */
+.til-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.til-item {
+  margin-bottom: var(--space-sm);
+  padding-left: 0;
+}
+
+.til-item a {
+  display: inline-block;
+  transition: var(--transition-all);
+  border-bottom: 1px solid transparent;
+}
+
+.til-item a:hover {
+  border-bottom-color: var(--color-primary);
+  transform: translateX(4px);
+  text-decoration: none;
+}
+
+/* Related TILs section */
+.related-tils {
+  margin-top: var(--space-xl);
+  padding: var(--space-lg);
+  background-color: var(--color-background-alt);
+  border-radius: var(--radius-sm);
+}
+
+.related-tils h3 {
+  margin-top: 0;
+  margin-bottom: var(--space-md);
+  font-size: var(--font-size-lg);
+}
+
+.related-tils ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-md) 0;
+}
+
+.related-tils li {
+  margin-bottom: var(--space-sm);
+}
+
+.related-tils a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: var(--transition-color);
+}
+
+.related-tils a:hover {
+  text-decoration: underline;
+}
+
+.related-tils p {
+  margin: 0;
+  font-size: var(--font-size-sm);
+}
+
+/* General list styling */
+ul:not([class]) {
+  padding-left: var(--space-lg);
+}
+
+ul:not([class]) li {
+  margin-bottom: var(--space-xs);
+}
+
+/* Mobile list adjustments */
+@media (max-width: var(--breakpoint-mobile)) {
+  .related-tils {
+    margin-left: calc(-1 * var(--space-md));
+    margin-right: calc(-1 * var(--space-md));
+    border-radius: 0;
+  }
+  
+  .til-item a {
+    padding: var(--space-xs) 0;
+  }
+}

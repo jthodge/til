@@ -2,7 +2,6 @@
    Main CSS Entry Point for TIL
    
    This file imports all CSS modules in the correct order.
-   Currently not in use - will be activated in Phase 4 of refactoring.
    ========================================================================== */
 
 /* Base styles and CSS variables */
@@ -21,6 +20,8 @@
 @import 'components/lists.css';
 @import 'components/search.css';
 @import 'components/discovery.css';
+@import 'components/topics.css';
+@import 'components/notes.css';
 
 /* Utility classes */
 @import 'utilities/spacing.css';
@@ -28,7 +29,7 @@
 @import 'utilities/animations.css';
 
 /* Vendor styles (external libraries) */
-@import 'vendor/tufte.css';
+/* Note: Tufte CSS is loaded from CDN in base.html */
 @import 'vendor/github-light.css';
 
 /* ==========================================================================

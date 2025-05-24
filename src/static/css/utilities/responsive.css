@@ -1,0 +1,144 @@
+/* Responsive Utilities and Mobile Optimizations */
+
+/* Mobile touch improvements */
+@media (max-width: var(--breakpoint-mobile)) {
+  /* Improved touch scrolling */
+  body {
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+  }
+  
+  /* Better tap highlighting */
+  a, button, input[type="submit"], .random-til-button {
+    -webkit-tap-highlight-color: var(--color-hover);
+    tap-highlight-color: var(--color-hover);
+  }
+  
+  /* Prevent horizontal scroll */
+  html, body {
+    overflow-x: hidden;
+  }
+  
+  /* Better focus visibility for keyboard navigation */
+  a:focus,
+  button:focus,
+  input:focus,
+  textarea:focus {
+    outline: var(--focus-outline-width) solid var(--focus-outline-color);
+    outline-offset: var(--focus-outline-offset);
+  }
+  
+  /* Better code block handling */
+  pre {
+    margin-left: calc(-1 * var(--space-md));
+    margin-right: calc(-1 * var(--space-md));
+    border-radius: 0;
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-base);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Enhanced table responsiveness */
+  table {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Better image handling */
+  img {
+    max-width: calc(100vw - 2 * var(--space-md));
+    height: auto;
+    border-radius: var(--radius-sm);
+  }
+  
+  /* Enhanced blockquote mobile styling */
+  blockquote {
+    margin-left: calc(-1 * var(--space-md));
+    margin-right: calc(-1 * var(--space-md));
+    padding: var(--space-md) var(--space-lg);
+    border-radius: 0;
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+  }
+}
+
+/* Hide on mobile */
+@media (max-width: var(--breakpoint-mobile)) {
+  .u-hide-mobile {
+    display: none !important;
+  }
+}
+
+/* Show only on mobile */
+.u-show-mobile {
+  display: none !important;
+}
+
+@media (max-width: var(--breakpoint-mobile)) {
+  .u-show-mobile {
+    display: block !important;
+  }
+  
+  .u-show-mobile-inline {
+    display: inline !important;
+  }
+  
+  .u-show-mobile-inline-block {
+    display: inline-block !important;
+  }
+}
+
+/* Performance optimizations for mobile */
+@media (max-width: var(--breakpoint-mobile)) {
+  /* Optimize rendering for frequently updated elements */
+  .random-til-button,
+  .related-tils,
+  .topic-suggestions,
+  .content-discovery {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+}
+
+/* Print styles */
+@media print {
+  /* Hide interactive elements */
+  .random-til-button,
+  .search-form,
+  .site-footer,
+  .til-navigation,
+  .topic-navigation,
+  .margin-toggle {
+    display: none !important;
+  }
+  
+  /* Show all marginnotes */
+  .marginnote,
+  .sidenote {
+    display: block !important;
+    float: none !important;
+    width: 100% !important;
+    margin: var(--space-sm) 0 !important;
+    font-style: italic;
+  }
+  
+  /* Better link printing */
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+  
+  /* Avoid page breaks */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  
+  pre, blockquote, img {
+    page-break-inside: avoid;
+  }
+}
