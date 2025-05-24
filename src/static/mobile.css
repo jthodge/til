@@ -7,18 +7,18 @@
         -webkit-overflow-scrolling: touch;
         overflow-scrolling: touch;
     }
-    
+
     /* Better tap highlighting */
     a, button, input[type="submit"], .random-til-button {
         -webkit-tap-highlight-color: rgba(26, 13, 171, 0.2);
         tap-highlight-color: rgba(26, 13, 171, 0.2);
     }
-    
+
     /* Prevent horizontal scroll */
     html, body {
         overflow-x: hidden;
     }
-    
+
     /* Better focus visibility for keyboard navigation */
     a:focus,
     button:focus,
@@ -26,13 +26,13 @@
         outline: 2px solid #1a0dab;
         outline-offset: 2px;
     }
-    
+
     /* Improved text selection */
     ::selection {
         background-color: rgba(26, 13, 171, 0.2);
         color: inherit;
     }
-    
+
     ::-moz-selection {
         background-color: rgba(26, 13, 171, 0.2);
         color: inherit;
@@ -48,18 +48,18 @@
         z-index: 10;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    
+
     /* Better spacing for main content */
     article > section {
         padding: 0 1rem;
     }
-    
+
     /* Improved header spacing */
     nav h1 {
         padding: 1rem 0;
         margin-bottom: 0;
     }
-    
+
     nav h1 a {
         font-size: 1.5rem;
         line-height: 1.3;
@@ -78,7 +78,7 @@
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
-    
+
     /* Enhanced table responsiveness */
     table {
         width: 100%;
@@ -87,14 +87,14 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
     }
-    
+
     /* Better image handling */
     img {
         max-width: calc(100vw - 2rem);
         height: auto;
         border-radius: 3px;
     }
-    
+
     /* Enhanced blockquote mobile styling */
     blockquote {
         margin-left: -1rem;
@@ -117,7 +117,7 @@
             scroll-behavior: auto !important;
         }
     }
-    
+
     /* Optimize rendering */
     .random-til-button,
     .related-tils,

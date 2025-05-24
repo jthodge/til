@@ -1,43 +1,8 @@
-.til-list {
-    list-style: none;
-}
-
-.til-item a {
-    transition: all 0.2s ease;
-    border-bottom: 1px solid transparent;
-}
-
-.til-item a:hover {
-    border-bottom: 1px solid #1a0dab;
-    transform: translateX(4px);
-}
-
-/* Footer - enhanced with better spacing and subtle styling */
 .site-footer {
     margin-top: 3rem;
     padding-top: 1rem;
-    border-top: 1px solid #e8e8e8;
     font-size: 0.9rem;
     color: #666;
-}
-
-.site-footer a {
-    color: inherit;
-    transition: color 0.2s ease;
-}
-
-.site-footer a:hover {
-    color: #1a0dab;
-}
-
-/* Enhanced navigation link styling */
-nav h1 a {
-    transition: color 0.2s ease;
-    text-decoration: none;
-}
-
-nav h1 a:hover {
-    color: #333;
 }
 
 /* Topic labels with subtle styling */
@@ -51,17 +16,6 @@ h3 .marginnote {
 
 h3:hover .marginnote {
     opacity: 1;
-}
-
-/* Search form enhancements when they appear */
-input[type="search"] {
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-input[type="search"]:focus {
-    outline: none;
-    border-color: #1a0dab;
-    box-shadow: 0 0 0 2px rgba(26, 13, 171, 0.1);
 }
 
 input[type="submit"] {
@@ -152,9 +106,6 @@ h3 .marginnote {
     align-items: center;
     margin: 1.5rem 0 2rem 0;
     padding: 1rem;
-    background-color: #fafafa;
-    border-radius: 3px;
-    border-left: 3px solid #28a745;
 }
 
 .discovery-actions p {
@@ -196,9 +147,6 @@ h3 .marginnote {
     transition: left 0.5s;
 }
 
-.random-til-button:hover::before {
-    left: 100%;
-}
 
 .random-til-button:hover {
     transform: translateY(-2px);
@@ -244,11 +192,6 @@ h3 .marginnote {
     text-decoration: none;
 }
 
-.related-tils li a:hover {
-    text-decoration: underline;
-    color: #0056b3;
-}
-
 .related-tils p {
     margin-bottom: 0;
     font-style: italic;
@@ -260,11 +203,6 @@ h3 .marginnote {
     font-weight: 500;
 }
 
-.related-tils p a:hover {
-    text-decoration: underline;
-}
-
-/* Topic Suggestions Section */
 .topic-suggestions {
     margin: 2rem 0;
     padding: 1.2rem;
@@ -485,11 +423,6 @@ h3 .marginnote {
     color: #1a0dab;
     text-decoration: none;
     transition: color 0.2s ease;
-}
-
-.topic-link:hover {
-    color: #0f0a8a;
-    text-decoration: underline;
 }
 
 .topic-separator {
