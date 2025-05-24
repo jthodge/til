@@ -1,6 +1,3 @@
-/* Search Styles - Enhanced for better UX */
-
-/* Topic labels - more refined styling */
 .topic {
   background-color: #f0f0f0;
   color: #666;
@@ -13,7 +10,6 @@
   border: 1px solid #ddd;
 }
 
-/* Search results layout */
 .search-result {
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
@@ -31,7 +27,6 @@
 
 .search-result h3 a {
   font-weight: 600;
-  color: #1a0dab;
   text-decoration: none;
 }
 
@@ -39,20 +34,16 @@
   text-decoration: underline;
 }
 
-/* Search snippet styling */
 .search-snippet {
   margin-top: 0.5rem;
   padding: 0.75rem;
-  background-color: #fafafa;
   border-radius: 3px;
-  border-left: 3px solid #eee;
   font-family: inherit;
   white-space: pre-wrap;
   line-height: 1.4;
   overflow-x: auto;
 }
 
-/* Highlighted search terms */
 .search-snippet strong {
   background-color: #ffeb3b;
   padding: 0.1em 0.2em;
@@ -60,14 +51,12 @@
   font-weight: 600;
 }
 
-/* Results count */
 .search-results-count {
   color: #666;
   font-style: italic;
   margin-bottom: 1.5rem;
 }
 
-/* No results styling */
 .no-results {
   text-align: center;
   padding: 2rem;
@@ -81,7 +70,6 @@
   color: #666;
 }
 
-/* Search footer */
 .search-footer {
   margin-top: 2rem;
   padding-top: 1rem;
@@ -90,18 +78,7 @@
   color: #666;
 }
 
-.search-footer a {
-  color: #1a0dab;
-  text-decoration: none;
-}
-
-.search-footer a:hover {
-  text-decoration: underline;
-}
-
-/* Enhanced mobile search experience */
 @media (max-width: 760px) {
-  /* Search results mobile layout */
   .search-result {
     margin-left: -1rem;
     margin-right: -1rem;
@@ -110,20 +87,19 @@
     background-color: #fff;
     border-bottom: 1px solid #ddd;
   }
-  
+
   .search-result h3 {
     line-height: 1.5;
     margin-bottom: 1rem;
   }
-  
+
   .search-result h3 a {
     min-height: 44px;
     display: inline-block;
     line-height: 1.4;
     padding: 0.25rem 0;
   }
-  
-  /* Topic badges mobile */
+
   .topic {
     display: block;
     margin-bottom: 0.75rem;
@@ -132,8 +108,7 @@
     font-size: 0.8rem;
     max-width: fit-content;
   }
-  
-  /* Search snippets mobile */
+
   .search-snippet {
     font-size: 0.9rem;
     padding: 1rem;
@@ -143,8 +118,7 @@
     border-radius: 0;
     line-height: 1.5;
   }
-  
-  /* Results count mobile */
+
   .search-results-count {
     margin-left: -1rem;
     margin-right: -1rem;
@@ -152,16 +126,14 @@
     margin-bottom: 2rem;
     font-size: 1rem;
   }
-  
-  /* No results mobile */
+
   .no-results {
     margin-left: -1rem;
     margin-right: -1rem;
     padding: 2.5rem 1.5rem;
     border-radius: 0;
   }
-  
-  /* Search footer mobile */
+
   .search-footer {
     margin-left: -1rem;
     margin-right: -1rem;
@@ -170,7 +142,7 @@
     border-radius: 0;
     border-top: 1px solid #ddd;
   }
-  
+
   .search-footer a {
     min-height: 44px;
     display: inline-block;
