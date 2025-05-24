@@ -15,7 +15,7 @@
     </p>
 </div>
 
-{% for row in sql("select topic, count(*) as count from til group by topic order by max(created_utc) desc", database="til") %}
+{% for row in sql("select topic, count(*) as count from til group by topic order by topic", database="til") %}
 <h2>{{ row.topic }}{{ macros.simple_marginnote(row.count ~ " TIL" ~ ("s" if row.count > 1 else "")) }}</h2>
 <ul>
     {% for til in sql("select * from til where topic = :topic order by created_utc desc", {"topic": row.topic}, database="til") %}
