@@ -157,6 +157,7 @@
 * [Typing Overloads](https://github.com/jthodge/til/blob/main/content/python/typing-overloads.md) - 2025-05-19
 * [Metaclasses](https://github.com/jthodge/til/blob/main/content/python/metaclasses.md) - 2025-05-20
 * [Quiet Mode](https://github.com/jthodge/til/blob/main/content/python/quiet-mode.md) - 2025-05-21
+* [Format Mini-Language in f-strings](https://github.com/jthodge/til/blob/main/content/python/format-mini-language-in-f-strings.md) - 2025-05-23
 
 ## regex
 
