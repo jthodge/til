@@ -17,9 +17,9 @@
     {% if current_page > 1 %}
         <a href="{{ base_url }}?page={{ current_page - 1 }}">Previous</a>
     {% endif %}
-    
+
     <span>Page {{ current_page }} of {{ total_pages }}</span>
-    
+
     {% if current_page < total_pages %}
         <a href="{{ base_url }}?page={{ current_page + 1 }}">Next</a>
     {% endif %}
@@ -70,10 +70,10 @@
 {% macro related_tils(current_topic, current_slug, limit=3) %}
 {% if sql is defined %}
 {% set related = sql("""
-    select * from til 
-    where topic = :topic 
-    and slug != :slug 
-    order by created_utc desc 
+    select * from til
+    where topic = :topic
+    and slug != :slug
+    order by created_utc desc
     limit :limit
 """, {"topic": current_topic, "slug": current_slug, "limit": limit}, database="til") %}
 
@@ -98,11 +98,11 @@
 {% macro topic_suggestions(current_topic, limit=4) %}
 {% if sql is defined %}
 {% set other_topics = sql("""
-    select topic, count(*) as count 
-    from til 
-    where topic != :current_topic 
-    group by topic 
-    order by count desc 
+    select topic, count(*) as count
+    from til
+    where topic != :current_topic
+    group by topic
+    order by count desc
     limit :limit
 """, {"current_topic": current_topic, "limit": limit}, database="til") %}
 

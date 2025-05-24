@@ -1,4 +1,4 @@
-{% extends "til_base.html" %}
+{% extends "base.html" %}
 
 {% block title %}Taylor Hodge - TIL{% endblock %}
 
@@ -11,7 +11,7 @@
 {% set til_count = sql("select count(*) from TIL", database="til")[0][0] %}
 
 <h1>
-    Today I learned
+    Today I Learned
     {% with href="/til/feed.atom", title="Atom feed" %}
         {% include "components/feed_icon.html" %}
     {% endwith %}
@@ -24,12 +24,11 @@
 {% import "macros.html" as macros %}
 
 <div class="homepage-search">
-{{ macros.search_form(placeholder="Search " ~ til_count ~ " TILs", action="/til/search") }}
+  {{ macros.search_form(placeholder="Search " ~ til_count ~ " TILs", action="/til/search") }}
 </div>
 
 <div class="discovery-actions">
     <p><a href="/all">Browse all {{ til_count }} TILs</a></p>
-    {{ macros.random_til_button() }}
 </div>
 
 <h2>Browse by topic</h2>

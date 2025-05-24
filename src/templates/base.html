@@ -10,14 +10,14 @@
     <meta name="theme-color" content="#1a0dab" />
     <title>{% block title %}{{ config.SITE_TITLE }}{% endblock %}</title>
     {% block meta %}{% endblock %}
-    
+
     {% block stylesheets %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.8.0/tufte.min.css" />
     <link rel="stylesheet" href="/static/components.css" />
     <link rel="stylesheet" href="/static/tufte-code.css" />
     <link rel="stylesheet" href="/static/mobile.css" />
     {% endblock %}
-    
+
     {% block extra_head %}{% endblock %}
 </head>
 <body>
@@ -32,13 +32,15 @@
             </nav>
         </section>
         {% endblock %}
-        
+
         {% block content_wrapper %}
         <section>
-            {% block content %}{% endblock %}
+            {% block content %}
+            {% block body %}{% endblock %}
+            {% endblock %}
         </section>
         {% endblock %}
-        
+
         {% block footer %}
         <section>
             {{ config.footer_content() }}
@@ -46,16 +48,16 @@
         {% endblock %}
     </article>
     {% endblock %}
-    
+
     {% block scripts %}{% endblock %}
-    
+
     <script>
     async function getRandomTIL() {
         try {
             // Use Datasette's JSON API to get a random TIL
             const response = await fetch('/til.json?sql=SELECT+topic,+slug+FROM+til+ORDER+BY+RANDOM()+LIMIT+1&_shape=array');
             const data = await response.json();
-            
+
             if (data && data.length > 0) {
                 const til = data[0];
                 window.location.href = `/${til.topic}/${til.slug}`;

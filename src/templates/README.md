@@ -6,15 +6,14 @@ This directory contains the Jinja2 templates used by the TIL application.
 
 ```
 base.html                    # Root template with HTML structure
-├── til_base.html           # Extends base, provides TIL-specific structure
-    ├── index.html          # Homepage
-    ├── query-til-search.html # Search results page
-    └── pages/
-        ├── all.html        # All TILs listing
-        ├── {topic}.html    # Topic-specific listing
-        ├── {topic}/{slug}.html # Individual TIL page
-        └── tools/
-            └── render-markdown.html # Markdown rendering tool
+├── index.html              # Homepage
+├── query-til-search.html   # Search results page
+└── pages/
+    ├── all.html            # All TILs listing
+    ├── {topic}.html        # Topic-specific listing
+    ├── {topic}/{slug}.html # Individual TIL page
+    └── tools/
+        └── render-markdown.html # Markdown rendering tool
 ```
 
 ## Components
@@ -61,8 +60,9 @@ The template system provides several blocks for customization:
 
 #### Extending templates:
 ```jinja2
-{% extends "til_base.html" %}
+{% extends "base.html" %}
 {% block title %}My Page Title{% endblock %}
+{% block body %}My Page Content{% endblock %}
 ```
 
 ## CSS Organization

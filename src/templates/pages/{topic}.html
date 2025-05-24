@@ -1,4 +1,4 @@
-{% extends "til_base.html" %}
+{% extends "base.html" %}
 
 {% set tils = sql("""
     select * from til where topic = :topic order by created_utc desc 
