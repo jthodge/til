@@ -6,7 +6,6 @@
 {% block extra_head %}
 <link rel="stylesheet" href="/static/forms.css" />
 <link rel="stylesheet" href="/static/search.css" />
-<link rel="stylesheet" href="/static/search-page.css" />
 {% endblock %}
 
 {% block body %}
@@ -34,7 +33,7 @@
         <a href="/{{ row.topic }}/{{ row.slug }}">{{ row.title }}</a>
         <span class="marginnote">{{ row.created[:10] }}</span>
     </h3>
-    
+
     <div class="search-snippet">
         {{ highlight(row.snippet)|safe }}
     </div>
@@ -43,7 +42,7 @@
 
 {% if rows and rows|length > 0 %}
 <p class="search-footer">
-    <a href="/all">Browse all TILs</a> | 
+    <a href="/all">Browse all TILs</a> |
     <a href="/">Back to homepage</a>
 </p>
 {% endif %}
