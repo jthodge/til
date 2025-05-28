@@ -160,6 +160,7 @@
 * [Format Mini-Language in f-strings](https://github.com/jthodge/til/blob/main/content/python/format-mini-language-in-f-strings.md) - 2025-05-23
 * [Create Dual-Purpose Attributes with Proxy Properties](https://github.com/jthodge/til/blob/main/content/python/create-dual-purpose-attributes-with-proxy-properties.md) - 2025-05-28
 * [Python's `Future`s](https://github.com/jthodge/til/blob/main/content/python/python-futures.md) - 2025-05-28
+* [Python's Triple-Quoted Strings Preserve Indentation](https://github.com/jthodge/til/blob/main/content/python/multiline-strings-preserve-indentation.md) - 2025-05-28
 
 ## regex
 
