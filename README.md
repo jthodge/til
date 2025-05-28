@@ -158,6 +158,7 @@
 * [Metaclasses](https://github.com/jthodge/til/blob/main/content/python/metaclasses.md) - 2025-05-20
 * [Quiet Mode](https://github.com/jthodge/til/blob/main/content/python/quiet-mode.md) - 2025-05-21
 * [Format Mini-Language in f-strings](https://github.com/jthodge/til/blob/main/content/python/format-mini-language-in-f-strings.md) - 2025-05-23
+* [Create Dual-Purpose Attributes with Proxy Properties](https://github.com/jthodge/til/blob/main/content/python/create-dual-purpose-attributes-with-proxy-properties.md) - 2025-05-28
 
 ## regex
 
