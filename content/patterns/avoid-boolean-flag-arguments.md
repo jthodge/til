@@ -159,11 +159,11 @@ class Database:
     def set_auto_commit(self, enabled: bool):
         """Enable or disable auto-commit mode."""
         self.auto_commit = enabled
-    
+
     def enable_auto_commit(self):
         """Enable auto-commit mode."""
         self.set_auto_commit(True)
-    
+
     def disable_auto_commit(self):
         """Disable auto-commit mode."""
         self.set_auto_commit(False)
@@ -175,6 +175,7 @@ Transform flag arguments systematically:
 
 ```python
 # Before: Multiple boolean flags
+
 def process_data(data, validate=True, transform=False, cache=True):
     if validate:
         data = validate_data(data)
@@ -185,6 +186,7 @@ def process_data(data, validate=True, transform=False, cache=True):
     return data
 
 # After: Configuration object approach
+
 @dataclass
 class ProcessingOptions:
     validate: bool = True
@@ -193,7 +195,7 @@ class ProcessingOptions:
 
 def process_data(data, options: ProcessingOptions = None):
     options = options or ProcessingOptions()
-    
+
     if options.validate:
         data = validate_data(data)
     if options.transform:
@@ -203,26 +205,28 @@ def process_data(data, options: ProcessingOptions = None):
     return data
 
 # Or: Pipeline approach with explicit methods
+
 class DataProcessor:
     def __init__(self, data):
         self.data = data
-    
+
     def with_validation(self):
         self.data = validate_data(self.data)
         return self
-    
+
     def with_transformation(self):
         self.data = transform_data(self.data)
         return self
-    
+
     def with_caching(self):
         cache_data(self.data)
         return self
-    
+
     def process(self):
         return self.data
 
 # Clear, composable usage
+
 result = (DataProcessor(raw_data)
           .with_validation()
           .with_transformation()
@@ -237,4 +241,5 @@ result = (DataProcessor(raw_data)
 3. **Reduce cognitive load** - Explicit names eliminate guesswork
 4. **Consider the caller** - API design should prioritize the user experience
 
-Boolean flags often seem convenient initially but create maintenance debt as systems evolve. Investing in explicit, extensible interfaces pays dividends in code clarity and maintainability.
+Boolean flags often seem convenient at first, but they accrute maintenance debt as systems evolve.
+Investing in explicit, extensible interfaces pays dividends in code clarity and maintainability.
