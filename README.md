@@ -153,6 +153,7 @@
 * [Use Real Database Fixtures Instead of Mocks](https://github.com/jthodge/til/blob/main/content/postgres/use-real-database-fixtures-instead-of-mocks.md) - 2025-06-11
 * [When `ALTER TABLE` Requires a Rewrite](https://github.com/jthodge/til/blob/main/content/postgres/when-alter-table-requires-a-rewrite.md) - 2025-06-12
 * [Fixing Duplicate Primary Key Rows](https://github.com/jthodge/til/blob/main/content/postgres/fixing-duplicate-primary-key-rows.md) - 2025-06-12
+* [pg_input_is_valid for Data Type Validation](https://github.com/jthodge/til/blob/main/content/postgres/pg-input-is-valid-for-data-type-validation.md) - 2025-06-12
 
 ## python
 
