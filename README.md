@@ -170,6 +170,7 @@
 * [Create Dual-Purpose Attributes with Proxy Properties](https://github.com/jthodge/til/blob/main/content/python/create-dual-purpose-attributes-with-proxy-properties.md) - 2025-05-28
 * [Python's `Future`s](https://github.com/jthodge/til/blob/main/content/python/python-futures.md) - 2025-05-28
 * [Python's Triple-Quoted Strings Preserve Indentation](https://github.com/jthodge/til/blob/main/content/python/multiline-strings-preserve-indentation.md) - 2025-05-28
+* [Python's `help()` Function Features](https://github.com/jthodge/til/blob/main/content/python/help-function-features.md) - 2025-06-12
 
 ## regex
 
