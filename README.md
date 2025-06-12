@@ -94,6 +94,10 @@
 
 * [String Concatenation Operators](https://github.com/jthodge/til/blob/main/content/haskell/string-concatenation-operators.md) - 2024-08-12
 
+## html
+
+* [`<h1>` Element Explicit Styling](https://github.com/jthodge/til/blob/main/content/html/h1-element-explicit-styling.md) - 2025-06-12
+
 ## http
 
 * [CORS Preflight Requests Communicate Which Methods and Headers a Server Should Allow](https://github.com/jthodge/til/blob/main/content/http/cors-preflight-requests-communicate-which-methods-and-headers-a-server-should-allow.md) - 2020-06-30
