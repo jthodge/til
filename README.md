@@ -111,6 +111,7 @@
 * [JavaScript `RegExp` Objects are Stateful](https://github.com/jthodge/til/blob/main/content/javascript/javascript-regexp-objects-are-stateful.md) - 2022-01-12
 * [`Object.is` is Different From `===` and `!==`](https://github.com/jthodge/til/blob/main/content/javascript/object-dot-is-is-different-from-strict-value-comparison.md) - 2022-01-13
 * [`in` Operator Patterns are Rare](https://github.com/jthodge/til/blob/main/content/javascript/in-operator-patterns-are-rare.md) - 2023-03-02
+* [HTML Comment Syntax in JavaScript](https://github.com/jthodge/til/blob/main/content/javascript/html-comment-syntax-in-javascript.md) - 2025-06-12
 
 ## language-features
 
