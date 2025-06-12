@@ -134,6 +134,7 @@
 * [Lazy-Iteration Over Multiple Sorted Enumerables, Preserving Order](https://github.com/jthodge/til/blob/main/content/patterns/lazy-iteration-over-multiple-sorted-enumerables-preserving-order.md) - 2024-08-21
 * [`uv run` in the Shebang Line](https://github.com/jthodge/til/blob/main/content/patterns/uv-run-in-the-shebang-line.md) - 2024-08-21
 * [Thunks for Delayed Computation and Dependency Injection](https://github.com/jthodge/til/blob/main/content/patterns/thunks-for-delayed-computation-and-dependency-injection.md) - 2025-06-11
+* [Avoid Boolean Flag Arguments](https://github.com/jthodge/til/blob/main/content/patterns/avoid-boolean-flag-arguments.md) - 2025-06-12
 
 ## posix
 
