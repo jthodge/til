@@ -16,6 +16,7 @@
 * [Always Enclose Variable Names in Double Quotes](https://github.com/jthodge/til/blob/main/content/bash/always-enclose-variable-names-in-double-quotes.md) - 2021-07-19
 * [Shell Script Template](https://github.com/jthodge/til/blob/main/content/bash/shell-script-template.md) - 2024-08-21
 * [Default Error Behavior](https://github.com/jthodge/til/blob/main/content/bash/default-error-behavior.md) - 2024-08-25
+* [Use the timeout command to limit execution time](https://github.com/jthodge/til/blob/main/content/bash/use-timeout-command-to-limit-execution-time.md) - 2025-06-13
 
 ## character-encoding
 
