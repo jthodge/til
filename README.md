@@ -183,6 +183,7 @@
 
 * [Use Quine Quotes to Delimit Regular Expressions](https://github.com/jthodge/til/blob/main/content/regex/use-quine-quotes-to-delimit-regular-expressions.md) - 2022-01-10
 * [Character Classes Are a Sub-language of Regex](https://github.com/jthodge/til/blob/main/content/regex/character-classes-are-a-sublanguage-of-regex.md) - 2024-09-05
+* [Use Verbose Mode and Named Groups for Readable Patterns](https://github.com/jthodge/til/blob/main/content/regex/use-verbose-mode-and-named-groups-for-readable-patterns.md) - 2025-07-09
 
 ## ruby
 
