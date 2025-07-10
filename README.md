@@ -99,6 +99,7 @@
 * [grep: Invert Match with -v Flag](https://github.com/jthodge/til/blob/main/content/grep/invert-match-with-v-flag.md) - 2025-07-10
 * [grep: List Matching Files with -l Flag](https://github.com/jthodge/til/blob/main/content/grep/list-matching-files-with-l-flag.md) - 2025-07-10
 * [grep: Match Whole Words with -w Flag](https://github.com/jthodge/til/blob/main/content/grep/match-whole-words-with-w-flag.md) - 2025-07-10
+* [grep: Output Only Matches with -o Flag](https://github.com/jthodge/til/blob/main/content/grep/output-only-matches-with-o-flag.md) - 2025-07-10
 
 ## haskell
 
