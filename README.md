@@ -97,6 +97,7 @@
 * [grep: Extended Regex with -E Flag](https://github.com/jthodge/til/blob/main/content/grep/extended-regex-with-e-flag.md) - 2025-07-10
 * [grep: Ignore Case with -i Flag](https://github.com/jthodge/til/blob/main/content/grep/ignore-case-with-i-flag.md) - 2025-07-10
 * [grep: Invert Match with -v Flag](https://github.com/jthodge/til/blob/main/content/grep/invert-match-with-v-flag.md) - 2025-07-10
+* [grep: List Matching Files with -l Flag](https://github.com/jthodge/til/blob/main/content/grep/list-matching-files-with-l-flag.md) - 2025-07-10
 
 ## haskell
 
