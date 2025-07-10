@@ -95,6 +95,7 @@
 ## grep
 
 * [grep: Extended Regex with -E Flag](https://github.com/jthodge/til/blob/main/content/grep/extended-regex-with-e-flag.md) - 2025-07-10
+* [grep: Ignore Case with -i Flag](https://github.com/jthodge/til/blob/main/content/grep/ignore-case-with-i-flag.md) - 2025-07-10
 
 ## haskell
 
