@@ -43,6 +43,7 @@
 * [Blurry Image Placeholders](https://github.com/jthodge/til/blob/main/content/css/blurry-image-placeholders.md) - 2025-05-15
 * [Regex-Flavored Attribute Selectors in CSS](https://github.com/jthodge/til/blob/main/content/css/regex-flavored-attribute-selectors.md) - 2025-06-11
 * [`text-wrap: balance` for Better Layouts](https://github.com/jthodge/til/blob/main/content/css/text-wrap-balance-for-better-layouts.md) - 2025-06-12
+* [Transform Origin Changes Animation Behavior](https://github.com/jthodge/til/blob/main/content/css/transform-origin-changes-animation-behavior.md) - 2025-07-09
 
 ## curl
 
