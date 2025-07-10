@@ -92,6 +92,10 @@
 
 * [Throbber](https://github.com/jthodge/til/blob/main/content/graphical-control-elements/throbber.md) - 2021-06-28
 
+## grep
+
+* [grep: Extended Regex with -E Flag](https://github.com/jthodge/til/blob/main/content/grep/extended-regex-with-e-flag.md) - 2025-07-10
+
 ## haskell
 
 * [String Concatenation Operators](https://github.com/jthodge/til/blob/main/content/haskell/string-concatenation-operators.md) - 2024-08-12
