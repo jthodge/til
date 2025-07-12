@@ -77,6 +77,7 @@
 * [Move a Range of Commits Between Branches](https://github.com/jthodge/til/blob/main/content/git/move-a-range-of-commits-between-branches.md) - 2021-03-31
 * [Move Individual Commits Between Branches with `cherry-pick`](https://github.com/jthodge/til/blob/main/content/git/move-individual-commits-between-branches-with-cherry-pick.md) - 2021-03-31
 * [Get Earliest Commit Over Time Range](https://github.com/jthodge/til/blob/main/content/git/get-earliest-commit-over-time-range.md) - 2024-08-26
+* [Use `stage` Instead of `add` for Clarity](https://github.com/jthodge/til/blob/main/content/git/use-stage-instead-of-add-for-clarity.md) - 2025-07-11
 
 ## github
 
