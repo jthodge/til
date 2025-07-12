@@ -220,6 +220,7 @@
 * [Use the `-i` flag to Confirm Before Overwriting an Existing File](https://github.com/jthodge/til/blob/main/content/unix/use-the-i-flag-to-confirm-before-overwriting-an-existing-file.md) - 2020-10-20
 * [Use `column` to View Pretty CSVs](https://github.com/jthodge/til/blob/main/content/unix/use-column-to-view-pretty-csvs.md) - 2020-10-31
 * [`kill` Works on Any Process](https://github.com/jthodge/til/blob/main/content/unix/kill-works-on-any-process.md) - 2021-06-27
+* [Join CSV files with `xsv`](https://github.com/jthodge/til/blob/main/content/unix/join-csv-files-with-xsv.md) - 2025-07-11
 
 ## vscode
 
