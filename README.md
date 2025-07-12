@@ -192,6 +192,7 @@
 * [Python's Triple-Quoted Strings Preserve Indentation](https://github.com/jthodge/til/blob/main/content/python/multiline-strings-preserve-indentation.md) - 2025-05-28
 * [Python's `help()` Function Features](https://github.com/jthodge/til/blob/main/content/python/help-function-features.md) - 2025-06-12
 * [Reinstall Python Versions with uv](https://github.com/jthodge/til/blob/main/content/python/reinstall-python-versions-with-uv.md) - 2025-07-10
+* [Dump pickle files to readable text](https://github.com/jthodge/til/blob/main/content/python/dump-pickle-files-to-readable-text.md) - 2025-07-12
 
 ## regex
 
