@@ -21,6 +21,7 @@
 ## character-encoding
 
 * [`=` Serves as Padding in Base64 Encoded Strings](https://github.com/jthodge/til/blob/main/content/character-encoding/equal-serves-as-padding-in-base64-encoded-strings.md) - 2020-07-01
+* [Unicode playing cards layout](https://github.com/jthodge/til/blob/main/content/character-encoding/unicode-playing-cards-layout.md) - 2025-07-11
 
 ## chrome
 
