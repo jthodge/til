@@ -174,6 +174,7 @@
 * [Fixing Duplicate Primary Key Rows](https://github.com/jthodge/til/blob/main/content/postgres/fixing-duplicate-primary-key-rows.md) - 2025-06-12
 * [pg_input_is_valid for Data Type Validation](https://github.com/jthodge/til/blob/main/content/postgres/pg-input-is-valid-for-data-type-validation.md) - 2025-06-12
 * [Handle Zero Byte and Invalid UTF-8 Before Insert](https://github.com/jthodge/til/blob/main/content/postgres/handle-zero-byte-and-invalid-utf8-before-insert.md) - 2025-07-10
+* [Postgres clocks for time consistency](https://github.com/jthodge/til/blob/main/content/postgres/postgres-clocks-for-time-consistency.md) - 2025-07-13
 
 ## python
 
