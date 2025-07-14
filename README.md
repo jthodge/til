@@ -104,6 +104,7 @@
 * [grep: Output Only Matches with -o Flag](https://github.com/jthodge/til/blob/main/content/grep/output-only-matches-with-o-flag.md) - 2025-07-10
 * [Basic vs extended regular expressions in `grep`](https://github.com/jthodge/til/blob/main/content/grep/basic-vs-extended-regular-expressions.md) - 2025-07-13
 * [grep: Recursive Search with -r Flag](https://github.com/jthodge/til/blob/main/content/grep/recursive-search-with-r-flag.md) - 2025-07-14
+* [grep: Show Context Lines with -C Flag](https://github.com/jthodge/til/blob/main/content/grep/show-context-lines-with-c-flag.md) - 2025-07-14
 
 ## haskell
 
