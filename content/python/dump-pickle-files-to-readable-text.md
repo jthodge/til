@@ -13,7 +13,7 @@ import pickle
 obj = pickle.load(open("data.pickle", "rb"))
 ```
 
-## Pretty printing with pprint
+## Pretty printing with `pprint`
 
 ```python
 import pickle
