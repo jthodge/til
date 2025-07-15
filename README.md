@@ -107,6 +107,7 @@
 * [grep: Show Context Lines with -C Flag](https://github.com/jthodge/til/blob/main/content/grep/show-context-lines-with-c-flag.md) - 2025-07-14
 * [grep: Show Lines After Match with -A Flag](https://github.com/jthodge/til/blob/main/content/grep/show-lines-after-match-with-a-flag.md) - 2025-07-14
 * [grep: Show Lines Before Match with -B Flag](https://github.com/jthodge/til/blob/main/content/grep/show-lines-before-match-with-b-flag.md) - 2025-07-14
+* [grep: Skip Binary Files with -I Flag](https://github.com/jthodge/til/blob/main/content/grep/skip-binary-files-with-i-flag.md) - 2025-07-14
 
 ## haskell
 
